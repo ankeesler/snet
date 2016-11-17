@@ -49,6 +49,6 @@ public class BaseClient implements IClient {
   }
 
   private static void log(final String message) {
-    Log.instance().note(BaseClient.class.toString(), message);
+    Log.instance().note(BaseClient.class, message);
   }
 }

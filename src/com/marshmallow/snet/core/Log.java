@@ -31,8 +31,8 @@ public class Log {
     return instance;
   }
 
-  public void note(final String section, final String message) {
-    out.printf("%.3f: NOTE: %s: %s\n", System.currentTimeMillis() / 1000.0, section, message);
+  public void note(final Class<?> clazz, final String message) {
+    out.printf("%.3f: NOTE: %s: %s\n", System.currentTimeMillis() / 1000.0, clazz.getName(), message);
     out.flush();
   }
 }

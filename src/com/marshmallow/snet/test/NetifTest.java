@@ -2,6 +2,7 @@ package com.marshmallow.snet.test;
 
 import com.marshmallow.snet.client.ClientUtilities;
 import com.marshmallow.snet.client.IClient;
+import com.marshmallow.snet.handler.NetifTraceHandler;
 import com.marshmallow.snet.service.IService;
 import com.marshmallow.snet.service.ServiceUtilities;
 
@@ -94,6 +95,26 @@ public class NetifTest extends TestCase {
       assertTrue(client1.send(msg));
       assertNull("Invalid message " + msg + " was transmitted to client.", client2.receive());
     }
+  }
+
+  public void testPacketString() throws Exception {
+    Integer[] bytes1 = {0x01,  // length
+                        0x23,  // frame control
+                        0x45,  // sequence
+                        0x67,  // source
+                        0x89}; // destination
+    assertEquals("lengthOfWholePacket=0x01 frameControl=0x23 sequence=0x45 source=0x67 destination=0x89 ",
+                 new NetifTraceHandler.Packet(bytes1).toString());
+
+    Integer[] bytes2 = {0x01,  // length
+                        0x23,  // frame control
+                        0x45,  // sequence
+                        0x67,  // source
+                        0x89,  // destination
+                               // payload
+                        0x00, 0x01, 0x02};
+    assertEquals("lengthOfWholePacket=0x01 frameControl=0x23 sequence=0x45 source=0x67 destination=0x89 payload=0x00 0x01 0x02 ",
+                 new NetifTraceHandler.Packet(bytes2).toString());
   }
 
   private static void waitForRx(IClient client) throws Exception {

@@ -12,24 +12,24 @@ import junit.framework.TestCase;
 public class BadConfigurationTest extends TestCase {
   public void testBadConfiguration() {
     // TODO: how do I get both of these guys to run at the same time???
-//    try {
-//      runTest("not-imessagehandler-class.properties");
-//      fail("should have thrown IllegalArgumentException");
-//    } catch (IllegalArgumentException iae) {
-//      // pass
-//    } catch (Exception exception) {
-//      exception.printStackTrace();
-//      fail("threw wrong kind of exception; wanted IllegalArgumentException, got "+ exception);
-//    }
-
     try {
-      runTest("unknown-class.properties");
-      fail("should have thrown ClassNotFoundException");
-    } catch (ClassNotFoundException exception) {
+      runTest("not-imessagehandler-class.properties");
+      fail("should have thrown IllegalArgumentException");
+    } catch (IllegalArgumentException iae) {
       // pass
     } catch (Exception exception) {
-      fail("threw wrong kind of exception; wanted ClassNotFoundException, got " + exception);
+      exception.printStackTrace();
+      fail("threw wrong kind of exception; wanted IllegalArgumentException, got "+ exception);
     }
+
+//    try {
+//      runTest("unknown-class.properties");
+//      fail("should have thrown ClassNotFoundException");
+//    } catch (ClassNotFoundException exception) {
+//      // pass
+//    } catch (Exception exception) {
+//      fail("threw wrong kind of exception; wanted ClassNotFoundException, got " + exception);
+//    }
   }
 
   private static void runTest(final String filename) throws Exception {

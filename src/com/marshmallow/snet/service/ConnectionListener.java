@@ -9,6 +9,8 @@ public class ConnectionListener implements Runnable {
     public void connectionException(final Exception exception);
   }
 
+  private static int THREAD_ID = 1;
+
   private final ServerSocket socket;
   private final IHandler handler;
   private final Thread thread;
@@ -17,7 +19,7 @@ public class ConnectionListener implements Runnable {
   public ConnectionListener(final ServerSocket socket, final IHandler handler) {
     this.socket = socket;
     this.handler = handler;
-    this.thread = new Thread(this, this.getClass().toString() + ":Thread");
+    this.thread = new Thread(this, this.getClass().getCanonicalName() + ":Thread-" + THREAD_ID++);
 
     this.spin = true;
     this.thread.start();    

@@ -44,6 +44,7 @@ public class BaseService implements IService, ConnectionListener.IHandler, Runna
   }
 
   private static final int BACKLOG_SIZE = 10;
+  private static int THREAD_ID = 1;
 
   private final ServerSocket socket;
   private final List<IMessageHandler> handlers;
@@ -60,7 +61,7 @@ public class BaseService implements IService, ConnectionListener.IHandler, Runna
     this.connections = new HashMap<Integer, Client>();
     new ConnectionListener(socket, this);
 
-    this.thread = new Thread(this, this.getClass().toString() + ":Thread");
+    this.thread = new Thread(this, this.getClass().toString() + ":Thread-" + THREAD_ID);
     this.spinning = false;
     this.thread.start();
     while (!this.spinning) { /* wait for boot */ }
@@ -206,11 +207,11 @@ public class BaseService implements IService, ConnectionListener.IHandler, Runna
     }    
   }
 
-  protected void log(final String message) {
-    log(this.getClass(), message);
+  private void log(final String message) {
+    log(BaseService.class, message);
   }
 
   protected static void log(final Class<?> clazz, final String message) {
-    Log.instance().note(clazz.toString(), message);
+    Log.instance().note(clazz, message);
   }
 }

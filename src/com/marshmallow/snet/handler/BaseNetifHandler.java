@@ -17,7 +17,7 @@ public abstract class BaseNetifHandler implements IMessageHandler {
       return null;
     }
 
-    List<Integer> bytes = parseBytes(message.getData());
+    Integer[] bytes = parseBytes(message.getData());
     if (bytes == null) {
       return null;
     }
@@ -25,9 +25,9 @@ public abstract class BaseNetifHandler implements IMessageHandler {
     return handleBytes(message, bytes);
   }
 
-  protected abstract Message handleBytes(final Message message, final List<Integer> bytes);
+  protected abstract Message handleBytes(final Message message, final Integer[] bytes);
 
-  private static List<Integer> parseBytes(final String message) {
+  private static Integer[] parseBytes(final String message) {
     List<Integer> bytes = new ArrayList<Integer>(0);
     try {
       for (String b : message.substring(SFD.length()).split(",")) {
@@ -39,13 +39,13 @@ public abstract class BaseNetifHandler implements IMessageHandler {
         }
       }
     } catch (Exception e) {
-      log("Could not parse bytes in message (" + message + "): " + e);
+      log(BaseNetifHandler.class, "Could not parse bytes in message (" + message + "): " + e);
       return null;
     }
-    return bytes;
+    return bytes.toArray(new Integer[bytes.size()]);
   }
 
-  private static void log(final String message) {
-    Log.instance().note(BaseNetifHandler.class.toString(), message);
+  protected static void log(final Class<?> clazz, final String message) {
+    Log.instance().note(BaseNetifHandler.class, message);
   }
 }
