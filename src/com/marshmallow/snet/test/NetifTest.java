@@ -1,6 +1,6 @@
 package com.marshmallow.snet.test;
 
-import com.marshmallow.snet.client.ClientUtilities;
+import com.marshmallow.snet.client.BaseClient;
 import com.marshmallow.snet.client.IClient;
 import com.marshmallow.snet.handler.NetifTraceHandler;
 import com.marshmallow.snet.service.IService;
@@ -16,7 +16,8 @@ public class NetifTest extends TestCase {
   private static IClient getClient(final int i) throws Exception {
     if (clients[i] == null) {
       int previousClientCount = getService().getClientCount();
-      clients[i] = ClientUtilities.createClientForService(getService());
+      String name = "client" + i;
+      clients[i] = new BaseClient(name, getService());
 
       // Wait for the client to connect to the service
       while (getService().getClientCount() == previousClientCount) { }
