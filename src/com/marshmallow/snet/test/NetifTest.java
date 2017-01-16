@@ -87,9 +87,13 @@ public class NetifTest extends TestCase {
       "NETIF Out 11,22",
       "NETIF OUT",
       "NETIF OUT ",
+      "NETIF OUT ,",
+      "NETIF OUT ,,",
       "NETIF OUT 1g,22",
       "NETIF OUT abc,1",
       "NETIF OUT 121,1",
+      "NETIF OUT ab,,cd,12",
+      "NETIF OUT ab,cd,12,,",
     };
     for (String msg : invalidNetifMessages) {
       assertTrue(client1.send(msg));
@@ -97,23 +101,36 @@ public class NetifTest extends TestCase {
     }
   }
 
+  public void testValidMessage() throws Exception {
+    IClient client1 = getClient(0);
+    IClient client2 = getClient(1);
+
+    String[] validNetifBytes = {
+      "NETIF OUT 1,0,0,0,1",
+    };
+    for (String msg : validNetifBytes) {
+      assertTrue(client1.send(msg));
+      waitForRx(client2);
+    }
+  }
+
   public void testPacketString() throws Exception {
     Integer[] bytes1 = {0x01,  // length
-                        0x23,  // frame control
-                        0x45,  // sequence
-                        0x67,  // source
-                        0x89}; // destination
-    assertEquals("lengthOfWholePacket=0x01 frameControl=0x23 sequence=0x45 source=0x67 destination=0x89 ",
+                        0x23,  // FRAME_CONTROL
+                        0x45,  // SEQUENCE
+                        0x67,  // SOURCE
+                        0x89}; // DESTINATION
+    assertEquals("LENGTH=0x01 FRAME_CONTROL=0x23 SEQUENCE=0x45 SOURCE=0x67 DESTINATION=0x89 ",
                  new NetifTraceHandler.Packet(bytes1).toString());
 
     Integer[] bytes2 = {0x01,  // length
-                        0x23,  // frame control
-                        0x45,  // sequence
-                        0x67,  // source
-                        0x89,  // destination
-                               // payload
+                        0x23,  // FRAME_CONTROL
+                        0x45,  // SEQUENCE
+                        0x67,  // SOURCE
+                        0x89,  // DESTINATION
+                               // PAYLOAD
                         0x00, 0x01, 0x02};
-    assertEquals("lengthOfWholePacket=0x01 frameControl=0x23 sequence=0x45 source=0x67 destination=0x89 payload=0x00 0x01 0x02 ",
+    assertEquals("LENGTH=0x01 FRAME_CONTROL=0x23 SEQUENCE=0x45 SOURCE=0x67 DESTINATION=0x89 PAYLOAD=0x00 0x01 0x02 ",
                  new NetifTraceHandler.Packet(bytes2).toString());
   }
 

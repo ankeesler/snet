@@ -30,12 +30,25 @@ public abstract class BaseNetifHandler implements IMessageHandler {
   private static Integer[] parseBytes(final String message) {
     List<Integer> bytes = new ArrayList<Integer>(0);
     try {
-      for (String b : message.substring(SFD.length()).split(",")) {
-        Integer i = Integer.parseInt(b, 16);
-        if (i > 255) {
-          throw new IllegalArgumentException("Byte is greater than 255: " + i);
+      String[] bs = message.substring(SFD.length()).split(",");
+      if (bs.length == 0 || (bs.length == 1 && bs[0].length() == 0)) {
+        return null;
+      }
+
+      for (int i = 0 ; i < bs.length; i ++) {
+        if (bs[i].length() == 0) {
+          if (i != bs.length - 1) {
+            throw new IllegalArgumentException("Invalid 'null' byte at index: " + i);
+          } else {
+            continue;
+          }
+        }
+
+        Integer b = Integer.parseInt(bs[i], 16);
+        if (b > 0xFF) {
+          throw new IllegalArgumentException("Byte is greater than 255: " + b);
         } else {
-          bytes.add(i);
+          bytes.add(b);
         }
       }
     } catch (Exception e) {

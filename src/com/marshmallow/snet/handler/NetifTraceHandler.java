@@ -1,45 +1,51 @@
 package com.marshmallow.snet.handler;
 
+import java.util.stream.Stream;
+
 import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import com.marshmallow.snet.service.Message;
 
 public class NetifTraceHandler extends BaseNetifHandler {
 
   public static class Packet {
-    public final int lengthOfWholePacket; // 1 byte
-    public final int frameControl;        // 1 byte
-    public final int sequence;            // 1 byte
-    public final int source;              // 1 byte
-    public final int destination;         // 1 byte
+    public static enum Field {
+      LENGTH(1),
+      FRAME_CONTROL(1),
+      SEQUENCE(1),
+      SOURCE(1),
+      DESTINATION(1),
+      PAYLOAD(-1),
+      ;
+
+      public final int size;
+
+      private Field(int size) {
+        this.size = size;
+      }
+    }
+
+    public final Map<Field, Integer> fields;
     public final Integer[] payload;
 
     public final String description;
 
     public Packet(final Integer[] bytes) {
+      fields = new LinkedHashMap<Field, Integer>(Field.values().length);
+      for (int i = 0; i < bytes.length && i < 5; i ++) {
+        fields.put(Field.values()[i], bytes[i]);
+      }
+
       StringBuilder descriptionBuilder = new StringBuilder();
-
-      lengthOfWholePacket = bytes[0];
-      appendHexByte(descriptionBuilder, "lengthOfWholePacket", lengthOfWholePacket);
-
-      frameControl = bytes[1];
-      appendHexByte(descriptionBuilder, "frameControl", frameControl);
-
-      sequence = bytes[2];
-      appendHexByte(descriptionBuilder, "sequence", sequence);
-
-      source = bytes[3];
-      appendHexByte(descriptionBuilder, "source", source);
-
-      destination = bytes[4];
-      appendHexByte(descriptionBuilder, "destination", destination);
+      Field[] fieldValues = fields.keySet().toArray(new Field[0]);
+      Stream.of(fieldValues).forEach(k -> descriptionBuilder.append(String.format("%s=0x%02X ", k.name(), fields.get(k))));
 
       if (bytes.length > 5) {
         payload = Arrays.copyOfRange(bytes, 5, bytes.length);
-        descriptionBuilder.append("payload=");
-        for (Integer i : payload) {
-          descriptionBuilder.append(String.format("0x%02X ", i));
-        }
+        descriptionBuilder.append(Field.PAYLOAD.name() + "=");
+        Stream.of(payload).forEach(i -> descriptionBuilder.append(String.format("0x%02X ", i)));
       } else {
         payload = null;
       }
@@ -50,12 +56,6 @@ public class NetifTraceHandler extends BaseNetifHandler {
     @Override
     public String toString() {
       return description;
-    }
-
-    private static void appendHexByte(final StringBuilder builder,
-                                      final String label,
-                                      final Integer integer) {
-      builder.append(String.format("%s=0x%02X ", label, integer));
     }
   }
 

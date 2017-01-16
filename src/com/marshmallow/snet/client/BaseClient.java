@@ -48,6 +48,11 @@ public class BaseClient implements IClient {
     return data;
   }
 
+  @Override
+  public String toString() {
+    return this.name + ": " + this.socket;
+  }
+
   private static void log(final String message) {
     Log.instance().note(BaseClient.class, message);
   }
