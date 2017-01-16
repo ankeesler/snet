@@ -115,7 +115,7 @@ public class NetifTest extends TestCase {
   }
 
   public void testPacketString() throws Exception {
-    Integer[] bytes1 = {0x01,  // length
+    Integer[] bytes1 = {0x01,  // LENGTH
                         0x23,  // FRAME_CONTROL
                         0x45,  // SEQUENCE
                         0x67,  // SOURCE
@@ -123,7 +123,7 @@ public class NetifTest extends TestCase {
     assertEquals("LENGTH=0x01 FRAME_CONTROL=0x23 SEQUENCE=0x45 SOURCE=0x67 DESTINATION=0x89 ",
                  new NetifTraceHandler.Packet(bytes1).toString());
 
-    Integer[] bytes2 = {0x01,  // length
+    Integer[] bytes2 = {0x01,  // LENGTH
                         0x23,  // FRAME_CONTROL
                         0x45,  // SEQUENCE
                         0x67,  // SOURCE
