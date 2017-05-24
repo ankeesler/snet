@@ -49,7 +49,7 @@ public class AdminHandler implements IMessageHandler {
           return Message.makeUnicast(command.handler.apply(text), message.getAddress());
         }
       }
-      return Message.makeUnicast("Unknown " + SFD + " command: " + text, message.getAddress());
+      return Message.makeUnicast("Unknown " + SFD + "command: " + text, message.getAddress());
     }
     return null;
   }
