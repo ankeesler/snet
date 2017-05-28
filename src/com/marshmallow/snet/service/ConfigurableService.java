@@ -14,7 +14,12 @@ public class ConfigurableService extends BaseService {
              InstantiationException,
              IllegalArgumentException {
     super(getAddress(properties), getPort(properties));
-    initHandlers(properties);
+    try {
+      initHandlers(properties);
+    } catch (Exception e) {
+      destroy();
+      throw e;
+    }
   }
 
   private void initHandlers(final Properties properties)

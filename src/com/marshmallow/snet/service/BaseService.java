@@ -88,6 +88,10 @@ public class BaseService implements IService, ConnectionListener.IHandler, Runna
     this.handlers.add(handler);
   }
 
+  protected void destroy() {
+    try { this.socket.close(); } catch (Exception e) { }
+  }
+
   private void send(final Message message) {
     if (message.getUnicast()) {
       sendUnicast(message.getAddress(), message.getData());
