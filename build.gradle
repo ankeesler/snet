@@ -19,6 +19,7 @@ apply plugin: 'application'
 //apply plugin: 'checkstyle'
 
 dependencies {
+  compile group: 'com.google.guava', name: 'guava', version: '22.0'
   testCompile 'junit:junit:4.12'
 }
 
@@ -32,30 +33,39 @@ repositories {
 // Define the main class for the application
 mainClassName = 'com.marshmallow.snet.app.SnetApp'
 
+def protobufJavaDir = '/Users/agkeesle/Developer/me/protobuf/java'
+def grpcJavaDir = '/Users/agkeesle/Developer/me/grpc-java'
 def genDir = 'src/com/marshmallow/snet/service/protobuf'
 
 task cleanGen(type: Delete) {
-  delete fileTree(dir: genDir, include: '*.java')
+  delete genDir
 }
 
-task gen(type: Exec) {
+task gen(type: Exec, dependsOn: cleanGen) {
   description 'Generates protobuf and grpc files using protobuf compiler.'
   commandLine "/Users/agkeesle/Developer/me/protobuf/src/protoc",
               "--plugin=protoc-gen-grpc-java=/Users/agkeesle/Developer/me/grpc-java/compiler/build/exe/java_plugin/protoc-gen-grpc-java",
               "--java_out=src",
               "--grpc-java_out=src",
-              "--proto_path=${genDir}",
-              "${genDir}/snet.proto"
+              "protobuf/snet.proto"
 }
 
 sourceSets {
   main {
+    compileClasspath += files(grpcJavaDir + '/stub/build/libs/grpc-stub-1.5.0-SNAPSHOT.jar')
+    compileClasspath += files(grpcJavaDir + '/core/build/libs/grpc-core-1.5.0-SNAPSHOT.jar')
+    compileClasspath += files(grpcJavaDir + '/protobuf/build/libs/grpc-protobuf-1.5.0-SNAPSHOT.jar')
+    compileClasspath += files(protobufJavaDir + '/core/target/protobuf-java-3.3.0.jar')
     java {
       srcDirs = ['src']
       exclude 'com/marshmallow/snet/test/**'
     }
   }
   test {
+    compileClasspath += files(grpcJavaDir + '/stub/build/libs/grpc-stub-1.5.0-SNAPSHOT.jar')
+    compileClasspath += files(grpcJavaDir + '/core/build/libs/grpc-core-1.5.0-SNAPSHOT.jar')
+    compileClasspath += files(grpcJavaDir + '/protobuf/build/libs/grpc-protobuf-1.5.0-SNAPSHOT.jar')
+    compileClasspath += files(protobufJavaDir + '/core/target/protobuf-java-3.3.0.jar')
     java {
       srcDirs = ['src']
     }
