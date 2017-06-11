@@ -18,6 +18,10 @@ apply plugin: 'application'
 // TODO: how do I use this?
 //apply plugin: 'checkstyle'
 
+dependencies {
+  testCompile 'junit:junit:4.12'
+}
+
 // In this section you declare where to find the dependencies of your project
 repositories {
     // Use jcenter for resolving your dependencies.
@@ -49,6 +53,11 @@ sourceSets {
     java {
       srcDirs = ['src']
       exclude 'com/marshmallow/snet/test/**'
+    }
+  }
+  test {
+    java {
+      srcDirs = ['src']
     }
   }
 }

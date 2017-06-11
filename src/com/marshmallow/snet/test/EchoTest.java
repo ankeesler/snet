@@ -38,7 +38,7 @@ public class EchoTest extends TestCase {
   }
 
   private static Socket makeClient() throws Exception {
-    Socket client = new Socket(InetAddress.getLoopbackAddress(), 12345);
+    Socket client = new Socket(InetAddress.getLoopbackAddress(), 12346);
     assertTrue(client.isConnected());
     assertTrue(client.isBound());
     return client;
