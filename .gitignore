@@ -5,3 +5,7 @@ bin/
 .classpath
 .metadata/
 snet.pcap
+
+# Gradle stuff
+build
+.gradle
