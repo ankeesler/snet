@@ -24,6 +24,26 @@ public final class Snet {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_EchoResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Packet_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_Packet_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Status_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_Status_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_RxConfig_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_RxConfig_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_TxConfig_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_TxConfig_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -35,9 +55,16 @@ public final class Snet {
     java.lang.String[] descriptorData = {
       "\n\023protobuf/snet.proto\"\036\n\013EchoRequest\022\017\n\007" +
       "message\030\001 \001(\t\"\037\n\014EchoResponse\022\017\n\007message" +
-      "\030\001 \001(\t23\n\014AdminService\022#\n\004Echo\022\014.EchoReq" +
-      "uest\032\r.EchoResponseB)\n%com.marshmallow.s" +
-      "net.service.protobufP\001b\006proto3"
+      "\030\001 \001(\t\"\211\001\n\006Packet\022\016\n\006length\030\001 \001(\005\022\032\n\004typ" +
+      "e\030\002 \001(\0162\014.Packet.Type\022\016\n\006source\030\003 \001(\005\022\023\n" +
+      "\013destination\030\004 \001(\005\022\017\n\007payload\030\005 \001(\014\"\035\n\004T" +
+      "ype\022\010\n\004DATA\020\000\022\013\n\007COMMAND\020\001\"(\n\006Status\"\036\n\002" +
+      "Id\022\013\n\007SUCCESS\020\000\022\013\n\007FAILURE\020\001\"\n\n\010RxConfig" +
+      "\"#\n\010TxConfig\022\027\n\006packet\030\001 \001(\0132\007.Packet2f\n" +
+      "\013SnetService\022#\n\004Echo\022\014.EchoRequest\032\r.Ech" +
+      "oResponse\022\030\n\002Tx\022\t.TxConfig\032\007.Status\022\030\n\002R",
+      "x\022\t.RxConfig\032\007.PacketB)\n%com.marshmallow" +
+      ".snet.service.protobufP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -63,6 +90,30 @@ public final class Snet {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_EchoResponse_descriptor,
         new java.lang.String[] { "Message", });
+    internal_static_Packet_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_Packet_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_Packet_descriptor,
+        new java.lang.String[] { "Length", "Type", "Source", "Destination", "Payload", });
+    internal_static_Status_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_Status_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_Status_descriptor,
+        new java.lang.String[] { });
+    internal_static_RxConfig_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_RxConfig_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_RxConfig_descriptor,
+        new java.lang.String[] { });
+    internal_static_TxConfig_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_TxConfig_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_TxConfig_descriptor,
+        new java.lang.String[] { "Packet", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

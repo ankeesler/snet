@@ -6,7 +6,7 @@ import java.util.Properties;
 
 import com.marshmallow.snet.service.ConfigurableService;
 import com.marshmallow.snet.service.ConfigurationKey;
-import com.marshmallow.snet.service.protobuf.AdminServiceGrpc;
+import com.marshmallow.snet.service.protobuf.SnetServiceGrpc;
 import com.marshmallow.snet.service.protobuf.EchoRequest;
 import com.marshmallow.snet.service.protobuf.EchoResponse;
 
@@ -30,24 +30,24 @@ public class EchoTest extends TestCase {
     int port = Integer.parseInt(ConfigurationKey.SERVICE_PORT.get(properties));
     assertEquals(port, 12346);
 
-    AdminServiceGrpc.AdminServiceBlockingStub client1 = makeClient(port);
+    SnetServiceGrpc.SnetServiceBlockingStub client1 = makeClient(port);
     clientTest(client1, "this is a sentence");
 
-    AdminServiceGrpc.AdminServiceBlockingStub client2 = makeClient(port);
+    SnetServiceGrpc.SnetServiceBlockingStub client2 = makeClient(port);
     clientTest(client2, "this is also a sentence");
 
     clientTest(client2, "oh and this is also a sentence");
   }
 
-  private static AdminServiceGrpc.AdminServiceBlockingStub makeClient(int port) throws Exception {
+  private static SnetServiceGrpc.SnetServiceBlockingStub makeClient(int port) throws Exception {
     ManagedChannel channel = NettyChannelBuilder.forAddress("localhost", port)
         .usePlaintext(true)
         .build();
-    AdminServiceGrpc.AdminServiceBlockingStub stub = AdminServiceGrpc.newBlockingStub(channel);
+    SnetServiceGrpc.SnetServiceBlockingStub stub = SnetServiceGrpc.newBlockingStub(channel);
     return stub;
   }
 
-  private static void clientTest(final AdminServiceGrpc.AdminServiceBlockingStub client,
+  private static void clientTest(final SnetServiceGrpc.SnetServiceBlockingStub client,
                                  final String message) throws Exception {
     EchoRequest request = EchoRequest.newBuilder().setMessage(message).build();
     EchoResponse response = client.echo(request);
