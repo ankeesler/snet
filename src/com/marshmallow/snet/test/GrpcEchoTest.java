@@ -1,6 +1,5 @@
 package com.marshmallow.snet.test;
 
-
 import com.marshmallow.snet.service.GrpcBaseService;
 import com.marshmallow.snet.service.IService;
 import com.marshmallow.snet.service.protobuf.AdminServiceGrpc;
@@ -14,11 +13,13 @@ import junit.framework.TestCase;
 
 public class GrpcEchoTest extends TestCase {
 
+  private static final int PORT = 12349;
   private static final String MESSAGE = "Tuna, fish, marlin.";
 
   public void testIt() throws Exception {
-    IService service = new GrpcBaseService(12349);
-    ManagedChannel channel = NettyChannelBuilder.forAddress("localhost", 12349)
+    IService service = new GrpcBaseService(PORT);
+    assertEquals(service.getPort(), PORT);
+    ManagedChannel channel = NettyChannelBuilder.forAddress("localhost", PORT)
                                                 .usePlaintext(true)
                                                 .build();
     AdminServiceGrpc.AdminServiceBlockingStub stub = AdminServiceGrpc.newBlockingStub(channel);
@@ -28,5 +29,4 @@ public class GrpcEchoTest extends TestCase {
     EchoResponse response = stub.echo(request);
     assertTrue(response.getMessage().equals(MESSAGE));
   }
-
 }
