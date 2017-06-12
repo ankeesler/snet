@@ -4,8 +4,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import com.marshmallow.snet.handler.GrpcAdminServiceImpl;
-
+import io.grpc.BindableService;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 
@@ -13,11 +12,14 @@ public class GrpcBaseService implements IService {
 
   private final Server server;
 
-  public GrpcBaseService(int port) throws IOException {
-    this.server = ServerBuilder.forPort(port)
-                               .addService(new GrpcAdminServiceImpl())
-                               .build()
-                               .start();
+  public GrpcBaseService(int port, BindableService...services) throws IOException {
+    ServerBuilder<?> serverBuilder = ServerBuilder.forPort(port);
+    for (BindableService service : services) {
+      serverBuilder.addService(service);
+    }
+
+    this.server = serverBuilder.build();
+    this.server.start();
     Runtime.getRuntime().addShutdownHook(new Thread() {
       @Override
       public void run() {

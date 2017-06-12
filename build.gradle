@@ -66,6 +66,10 @@ sourceSets {
   test {
     java {
       srcDirs = ['src']
+      exclude 'com/marshmallow/snet/test/NetifTest.java'
+    }
+    resources {
+      srcDirs = ['cfg']
     }
   }
 }

@@ -3,9 +3,8 @@ package com.marshmallow.snet.service;
 import java.util.Properties;
 
 public enum ConfigurationKey {
-  SERVICE_ADDRESS("127.0.0.1"), // The address at which the service will run.
-  SERVICE_PORT("12345"),        // The port at which the service will run.
-  HANDLERS(""),
+  SERVICE_PORT("12345"), // The port at which the service will run.
+  SERVICES(""),          // Comma-separated names of services.
   ;
 
   private final String dephault;
