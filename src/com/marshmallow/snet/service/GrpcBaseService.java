@@ -29,11 +29,6 @@ public class GrpcBaseService implements IService {
   }
 
   @Override
-  public void addMessageHandler(IMessageHandler handler) {
-    throw new UnsupportedOperationException();
-  }
-
-  @Override
   public InetAddress getAddress() {
     try {
       return InetAddress.getLocalHost();
