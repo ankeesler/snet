@@ -11,6 +11,13 @@ message EchoResponse {
   string message = 1;
 }
 
+message InfoRequest {
+}
+
+message InfoResponse {
+  int32 rxCount = 1;
+}
+
 message Packet {
   int32 length = 1;
   enum Type {
@@ -41,6 +48,7 @@ message TxConfig {
 
 service SnetService {
   rpc Echo(EchoRequest) returns (EchoResponse);
+  rpc Info(InfoRequest) returns (InfoResponse);
   rpc Tx(TxConfig) returns (Status);
   rpc Rx(RxConfig) returns (stream Packet);
 }

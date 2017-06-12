@@ -6,9 +6,9 @@ import junit.framework.TestCase;
 
 public class BadConfigurationTest extends TestCase {
 
-  public void testNotIMessageHandlerClass() {
+  public void testNotBindableServiceInstance() throws Exception {
     try {
-      ServiceUtilities.createServiceFromFile("cfg/not-imessagehandler-class.properties");
+      ServiceUtilities.createServiceFromFile("cfg/not-bindableservice-class.properties");
       fail("should have thrown IllegalArgumentException");
     } catch (IllegalArgumentException iae) {
       // pass

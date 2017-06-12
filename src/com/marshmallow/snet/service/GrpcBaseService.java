@@ -29,6 +29,11 @@ public class GrpcBaseService implements IService {
   }
 
   @Override
+  public void teardown() {
+    this.server.shutdown();
+  }
+
+  @Override
   public InetAddress getAddress() {
     try {
       return InetAddress.getLocalHost();

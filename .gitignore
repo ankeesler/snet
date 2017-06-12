@@ -9,3 +9,5 @@ snet.pcap
 # Gradle stuff
 build
 .gradle
+
+untracked/

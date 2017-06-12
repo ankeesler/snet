@@ -8,8 +8,11 @@ import com.marshmallow.snet.service.protobuf.TxConfig;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.marshmallow.snet.core.Log;
 import com.marshmallow.snet.service.protobuf.EchoRequest;
 import com.marshmallow.snet.service.protobuf.EchoResponse;
+import com.marshmallow.snet.service.protobuf.InfoRequest;
+import com.marshmallow.snet.service.protobuf.InfoResponse;
 import com.marshmallow.snet.service.protobuf.Packet;
 
 import io.grpc.stub.StreamObserver;
@@ -26,12 +29,26 @@ public class GrpcSnetServiceImpl extends SnetServiceGrpc.SnetServiceImplBase {
   }
 
   @Override
+  public void info(InfoRequest request, StreamObserver<InfoResponse> responseObserver) {
+    InfoResponse response = InfoResponse.newBuilder().setRxCount(rxStreams.size()).build();
+    Log.instance().note(this.getClass(), "info(...) -> " + response);
+    responseObserver.onNext(response);
+    responseObserver.onCompleted();
+  }
+
+  @Override
   public void tx(TxConfig txConfig, StreamObserver<Status> statusObserver) {
+    Log.instance().note(this.getClass(), "tx(" + txConfig.toString().trim() + ")");
+
+    // TODO: propagation stuff here.
+
     // For each of the nodes listening (that aren't the node who sent the
     // message), send them a copy of the packet.
-    for (Integer address : rxStreams.keySet()) {
+    for (Integer address : this.rxStreams.keySet()) {
       if (address != txConfig.getPacket().getSource()) {
-        rxStreams.get(address).onNext(txConfig.getPacket());
+        StreamObserver<Packet> rxStream = this.rxStreams.get(address);
+        Log.instance().note(this.getClass(), "Sending message to rxStream " + rxStream + " for client " + address);
+        rxStream.onNext(txConfig.getPacket());
       }
     }
 
@@ -42,8 +59,10 @@ public class GrpcSnetServiceImpl extends SnetServiceGrpc.SnetServiceImplBase {
 
   @Override
   public void rx(RxConfig rxConfig, StreamObserver<Packet> packetObserver) {
+    Log.instance().note(this.getClass(), "rx(" + rxConfig.toString().trim() + ")");
+
     // There is a node that wants to listen on an address. Remember their
     // address and the stream to use to send stuff to the node.
-    rxStreams.put(rxConfig.getAddress(), packetObserver);
+    this.rxStreams.put(rxConfig.getAddress(), packetObserver);
   }
 }

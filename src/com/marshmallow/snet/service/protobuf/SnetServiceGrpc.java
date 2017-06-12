@@ -40,6 +40,18 @@ public final class SnetServiceGrpc {
               com.marshmallow.snet.service.protobuf.EchoResponse.getDefaultInstance()))
           .build();
   @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
+  public static final io.grpc.MethodDescriptor<com.marshmallow.snet.service.protobuf.InfoRequest,
+      com.marshmallow.snet.service.protobuf.InfoResponse> METHOD_INFO =
+      io.grpc.MethodDescriptor.<com.marshmallow.snet.service.protobuf.InfoRequest, com.marshmallow.snet.service.protobuf.InfoResponse>newBuilder()
+          .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+          .setFullMethodName(generateFullMethodName(
+              "SnetService", "Info"))
+          .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+              com.marshmallow.snet.service.protobuf.InfoRequest.getDefaultInstance()))
+          .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+              com.marshmallow.snet.service.protobuf.InfoResponse.getDefaultInstance()))
+          .build();
+  @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
   public static final io.grpc.MethodDescriptor<com.marshmallow.snet.service.protobuf.TxConfig,
       com.marshmallow.snet.service.protobuf.Status> METHOD_TX =
       io.grpc.MethodDescriptor.<com.marshmallow.snet.service.protobuf.TxConfig, com.marshmallow.snet.service.protobuf.Status>newBuilder()
@@ -100,6 +112,13 @@ public final class SnetServiceGrpc {
 
     /**
      */
+    public void info(com.marshmallow.snet.service.protobuf.InfoRequest request,
+        io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.InfoResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(METHOD_INFO, responseObserver);
+    }
+
+    /**
+     */
     public void tx(com.marshmallow.snet.service.protobuf.TxConfig request,
         io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.Status> responseObserver) {
       asyncUnimplementedUnaryCall(METHOD_TX, responseObserver);
@@ -121,6 +140,13 @@ public final class SnetServiceGrpc {
                 com.marshmallow.snet.service.protobuf.EchoRequest,
                 com.marshmallow.snet.service.protobuf.EchoResponse>(
                   this, METHODID_ECHO)))
+          .addMethod(
+            METHOD_INFO,
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.marshmallow.snet.service.protobuf.InfoRequest,
+                com.marshmallow.snet.service.protobuf.InfoResponse>(
+                  this, METHODID_INFO)))
           .addMethod(
             METHOD_TX,
             asyncUnaryCall(
@@ -167,6 +193,14 @@ public final class SnetServiceGrpc {
 
     /**
      */
+    public void info(com.marshmallow.snet.service.protobuf.InfoRequest request,
+        io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.InfoResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_INFO, getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
     public void tx(com.marshmallow.snet.service.protobuf.TxConfig request,
         io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.Status> responseObserver) {
       asyncUnaryCall(
@@ -205,6 +239,13 @@ public final class SnetServiceGrpc {
     public com.marshmallow.snet.service.protobuf.EchoResponse echo(com.marshmallow.snet.service.protobuf.EchoRequest request) {
       return blockingUnaryCall(
           getChannel(), METHOD_ECHO, getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.marshmallow.snet.service.protobuf.InfoResponse info(com.marshmallow.snet.service.protobuf.InfoRequest request) {
+      return blockingUnaryCall(
+          getChannel(), METHOD_INFO, getCallOptions(), request);
     }
 
     /**
@@ -251,6 +292,14 @@ public final class SnetServiceGrpc {
 
     /**
      */
+    public com.google.common.util.concurrent.ListenableFuture<com.marshmallow.snet.service.protobuf.InfoResponse> info(
+        com.marshmallow.snet.service.protobuf.InfoRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_INFO, getCallOptions()), request);
+    }
+
+    /**
+     */
     public com.google.common.util.concurrent.ListenableFuture<com.marshmallow.snet.service.protobuf.Status> tx(
         com.marshmallow.snet.service.protobuf.TxConfig request) {
       return futureUnaryCall(
@@ -259,8 +308,9 @@ public final class SnetServiceGrpc {
   }
 
   private static final int METHODID_ECHO = 0;
-  private static final int METHODID_TX = 1;
-  private static final int METHODID_RX = 2;
+  private static final int METHODID_INFO = 1;
+  private static final int METHODID_TX = 2;
+  private static final int METHODID_RX = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -282,6 +332,10 @@ public final class SnetServiceGrpc {
         case METHODID_ECHO:
           serviceImpl.echo((com.marshmallow.snet.service.protobuf.EchoRequest) request,
               (io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.EchoResponse>) responseObserver);
+          break;
+        case METHODID_INFO:
+          serviceImpl.info((com.marshmallow.snet.service.protobuf.InfoRequest) request,
+              (io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.InfoResponse>) responseObserver);
           break;
         case METHODID_TX:
           serviceImpl.tx((com.marshmallow.snet.service.protobuf.TxConfig) request,
@@ -325,6 +379,7 @@ public final class SnetServiceGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new SnetServiceDescriptorSupplier())
               .addMethod(METHOD_ECHO)
+              .addMethod(METHOD_INFO)
               .addMethod(METHOD_TX)
               .addMethod(METHOD_RX)
               .build();
