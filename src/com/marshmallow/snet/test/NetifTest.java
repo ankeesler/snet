@@ -141,7 +141,7 @@ public class NetifTest extends TestCase {
 
   private static void expectRx(IClient client, boolean expect, Packet...sentPackets) throws Exception {
     Packet p = null;
-    long timeoutMS = 5000; // TODO: can we make this shorter, and deterministic?
+    long timeoutMS = 2000; // TODO: can we make this shorter, and deterministic?
     long timeoutStart = System.currentTimeMillis();
     do {
       p = client.rx();
