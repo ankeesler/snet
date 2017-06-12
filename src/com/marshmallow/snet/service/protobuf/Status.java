@@ -15,6 +15,7 @@ public  final class Status extends
     super(builder);
   }
   private Status() {
+    id_ = 0;
   }
 
   @java.lang.Override
@@ -27,6 +28,7 @@ public  final class Status extends
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     this();
+    int mutable_bitField0_ = 0;
     try {
       boolean done = false;
       while (!done) {
@@ -39,6 +41,12 @@ public  final class Status extends
             if (!input.skipField(tag)) {
               done = true;
             }
+            break;
+          }
+          case 8: {
+            int rawValue = input.readEnum();
+
+            id_ = rawValue;
             break;
           }
         }
@@ -162,6 +170,22 @@ public  final class Status extends
     // @@protoc_insertion_point(enum_scope:Status.Id)
   }
 
+  public static final int ID_FIELD_NUMBER = 1;
+  private int id_;
+  /**
+   * <code>.Status.Id id = 1;</code>
+   */
+  public int getIdValue() {
+    return id_;
+  }
+  /**
+   * <code>.Status.Id id = 1;</code>
+   */
+  public com.marshmallow.snet.service.protobuf.Status.Id getId() {
+    com.marshmallow.snet.service.protobuf.Status.Id result = com.marshmallow.snet.service.protobuf.Status.Id.valueOf(id_);
+    return result == null ? com.marshmallow.snet.service.protobuf.Status.Id.UNRECOGNIZED : result;
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -174,6 +198,9 @@ public  final class Status extends
 
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
+    if (id_ != com.marshmallow.snet.service.protobuf.Status.Id.SUCCESS.getNumber()) {
+      output.writeEnum(1, id_);
+    }
   }
 
   public int getSerializedSize() {
@@ -181,6 +208,10 @@ public  final class Status extends
     if (size != -1) return size;
 
     size = 0;
+    if (id_ != com.marshmallow.snet.service.protobuf.Status.Id.SUCCESS.getNumber()) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeEnumSize(1, id_);
+    }
     memoizedSize = size;
     return size;
   }
@@ -197,6 +228,7 @@ public  final class Status extends
     com.marshmallow.snet.service.protobuf.Status other = (com.marshmallow.snet.service.protobuf.Status) obj;
 
     boolean result = true;
+    result = result && id_ == other.id_;
     return result;
   }
 
@@ -207,6 +239,8 @@ public  final class Status extends
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
+    hash = (37 * hash) + ID_FIELD_NUMBER;
+    hash = (53 * hash) + id_;
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -336,6 +370,8 @@ public  final class Status extends
     }
     public Builder clear() {
       super.clear();
+      id_ = 0;
+
       return this;
     }
 
@@ -358,6 +394,7 @@ public  final class Status extends
 
     public com.marshmallow.snet.service.protobuf.Status buildPartial() {
       com.marshmallow.snet.service.protobuf.Status result = new com.marshmallow.snet.service.protobuf.Status(this);
+      result.id_ = id_;
       onBuilt();
       return result;
     }
@@ -399,6 +436,9 @@ public  final class Status extends
 
     public Builder mergeFrom(com.marshmallow.snet.service.protobuf.Status other) {
       if (other == com.marshmallow.snet.service.protobuf.Status.getDefaultInstance()) return this;
+      if (other.id_ != 0) {
+        setIdValue(other.getIdValue());
+      }
       onChanged();
       return this;
     }
@@ -422,6 +462,50 @@ public  final class Status extends
           mergeFrom(parsedMessage);
         }
       }
+      return this;
+    }
+
+    private int id_ = 0;
+    /**
+     * <code>.Status.Id id = 1;</code>
+     */
+    public int getIdValue() {
+      return id_;
+    }
+    /**
+     * <code>.Status.Id id = 1;</code>
+     */
+    public Builder setIdValue(int value) {
+      id_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>.Status.Id id = 1;</code>
+     */
+    public com.marshmallow.snet.service.protobuf.Status.Id getId() {
+      com.marshmallow.snet.service.protobuf.Status.Id result = com.marshmallow.snet.service.protobuf.Status.Id.valueOf(id_);
+      return result == null ? com.marshmallow.snet.service.protobuf.Status.Id.UNRECOGNIZED : result;
+    }
+    /**
+     * <code>.Status.Id id = 1;</code>
+     */
+    public Builder setId(com.marshmallow.snet.service.protobuf.Status.Id value) {
+      if (value == null) {
+        throw new NullPointerException();
+      }
+      
+      id_ = value.getNumber();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>.Status.Id id = 1;</code>
+     */
+    public Builder clearId() {
+      
+      id_ = 0;
+      onChanged();
       return this;
     }
     public final Builder setUnknownFields(

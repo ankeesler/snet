@@ -6,4 +6,13 @@ package com.marshmallow.snet.service.protobuf;
 public interface StatusOrBuilder extends
     // @@protoc_insertion_point(interface_extends:Status)
     com.google.protobuf.MessageOrBuilder {
+
+  /**
+   * <code>.Status.Id id = 1;</code>
+   */
+  int getIdValue();
+  /**
+   * <code>.Status.Id id = 1;</code>
+   */
+  com.marshmallow.snet.service.protobuf.Status.Id getId();
 }

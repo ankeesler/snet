@@ -55,7 +55,7 @@ public final class SnetServiceGrpc {
   public static final io.grpc.MethodDescriptor<com.marshmallow.snet.service.protobuf.RxConfig,
       com.marshmallow.snet.service.protobuf.Packet> METHOD_RX =
       io.grpc.MethodDescriptor.<com.marshmallow.snet.service.protobuf.RxConfig, com.marshmallow.snet.service.protobuf.Packet>newBuilder()
-          .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+          .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
           .setFullMethodName(generateFullMethodName(
               "SnetService", "Rx"))
           .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -130,7 +130,7 @@ public final class SnetServiceGrpc {
                   this, METHODID_TX)))
           .addMethod(
             METHOD_RX,
-            asyncUnaryCall(
+            asyncServerStreamingCall(
               new MethodHandlers<
                 com.marshmallow.snet.service.protobuf.RxConfig,
                 com.marshmallow.snet.service.protobuf.Packet>(
@@ -177,7 +177,7 @@ public final class SnetServiceGrpc {
      */
     public void rx(com.marshmallow.snet.service.protobuf.RxConfig request,
         io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.Packet> responseObserver) {
-      asyncUnaryCall(
+      asyncServerStreamingCall(
           getChannel().newCall(METHOD_RX, getCallOptions()), request, responseObserver);
     }
   }
@@ -216,8 +216,9 @@ public final class SnetServiceGrpc {
 
     /**
      */
-    public com.marshmallow.snet.service.protobuf.Packet rx(com.marshmallow.snet.service.protobuf.RxConfig request) {
-      return blockingUnaryCall(
+    public java.util.Iterator<com.marshmallow.snet.service.protobuf.Packet> rx(
+        com.marshmallow.snet.service.protobuf.RxConfig request) {
+      return blockingServerStreamingCall(
           getChannel(), METHOD_RX, getCallOptions(), request);
     }
   }
@@ -254,14 +255,6 @@ public final class SnetServiceGrpc {
         com.marshmallow.snet.service.protobuf.TxConfig request) {
       return futureUnaryCall(
           getChannel().newCall(METHOD_TX, getCallOptions()), request);
-    }
-
-    /**
-     */
-    public com.google.common.util.concurrent.ListenableFuture<com.marshmallow.snet.service.protobuf.Packet> rx(
-        com.marshmallow.snet.service.protobuf.RxConfig request) {
-      return futureUnaryCall(
-          getChannel().newCall(METHOD_RX, getCallOptions()), request);
     }
   }
 

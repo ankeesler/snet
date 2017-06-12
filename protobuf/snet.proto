@@ -28,6 +28,7 @@ message Status {
     SUCCESS = 0;
     FAILURE = 1;
   }
+  Id id = 1;
 }
 
 message RxConfig {
@@ -40,5 +41,5 @@ message TxConfig {
 service SnetService {
   rpc Echo(EchoRequest) returns (EchoResponse);
   rpc Tx(TxConfig) returns (Status);
-  rpc Rx(RxConfig) returns (Packet);
+  rpc Rx(RxConfig) returns (stream Packet);
 }

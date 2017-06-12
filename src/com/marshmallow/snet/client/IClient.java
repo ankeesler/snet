@@ -1,9 +1,9 @@
 package com.marshmallow.snet.client;
 
-import java.io.IOException;
+import com.marshmallow.snet.service.protobuf.Packet;
 
 public interface IClient {
   public String getName();
-  public boolean send(final String data);
-  public String receive() throws IOException;
+  public boolean tx(final Packet packet);
+  public Packet rx();
 }
