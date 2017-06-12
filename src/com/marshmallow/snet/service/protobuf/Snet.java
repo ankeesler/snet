@@ -60,12 +60,12 @@ public final class Snet {
       "\013destination\030\004 \001(\005\022\017\n\007payload\030\005 \001(\014\"\035\n\004T" +
       "ype\022\010\n\004DATA\020\000\022\013\n\007COMMAND\020\001\"@\n\006Status\022\026\n\002" +
       "id\030\001 \001(\0162\n.Status.Id\"\036\n\002Id\022\013\n\007SUCCESS\020\000\022" +
-      "\013\n\007FAILURE\020\001\"\n\n\010RxConfig\"#\n\010TxConfig\022\027\n\006" +
-      "packet\030\001 \001(\0132\007.Packet2h\n\013SnetService\022#\n\004" +
-      "Echo\022\014.EchoRequest\032\r.EchoResponse\022\030\n\002Tx\022",
-      "\t.TxConfig\032\007.Status\022\032\n\002Rx\022\t.RxConfig\032\007.P" +
-      "acket0\001B)\n%com.marshmallow.snet.service." +
-      "protobufP\001b\006proto3"
+      "\013\n\007FAILURE\020\001\"\033\n\010RxConfig\022\017\n\007address\030\001 \001(" +
+      "\005\"#\n\010TxConfig\022\027\n\006packet\030\001 \001(\0132\007.Packet2h" +
+      "\n\013SnetService\022#\n\004Echo\022\014.EchoRequest\032\r.Ec",
+      "hoResponse\022\030\n\002Tx\022\t.TxConfig\032\007.Status\022\032\n\002" +
+      "Rx\022\t.RxConfig\032\007.Packet0\001B)\n%com.marshmal" +
+      "low.snet.service.protobufP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -108,7 +108,7 @@ public final class Snet {
     internal_static_RxConfig_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_RxConfig_descriptor,
-        new java.lang.String[] { });
+        new java.lang.String[] { "Address", });
     internal_static_TxConfig_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_TxConfig_fieldAccessorTable = new

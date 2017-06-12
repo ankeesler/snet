@@ -15,6 +15,7 @@ public  final class RxConfig extends
     super(builder);
   }
   private RxConfig() {
+    address_ = 0;
   }
 
   @java.lang.Override
@@ -27,6 +28,7 @@ public  final class RxConfig extends
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     this();
+    int mutable_bitField0_ = 0;
     try {
       boolean done = false;
       while (!done) {
@@ -39,6 +41,11 @@ public  final class RxConfig extends
             if (!input.skipField(tag)) {
               done = true;
             }
+            break;
+          }
+          case 8: {
+
+            address_ = input.readInt32();
             break;
           }
         }
@@ -64,6 +71,15 @@ public  final class RxConfig extends
             com.marshmallow.snet.service.protobuf.RxConfig.class, com.marshmallow.snet.service.protobuf.RxConfig.Builder.class);
   }
 
+  public static final int ADDRESS_FIELD_NUMBER = 1;
+  private int address_;
+  /**
+   * <code>int32 address = 1;</code>
+   */
+  public int getAddress() {
+    return address_;
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -76,6 +92,9 @@ public  final class RxConfig extends
 
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
+    if (address_ != 0) {
+      output.writeInt32(1, address_);
+    }
   }
 
   public int getSerializedSize() {
@@ -83,6 +102,10 @@ public  final class RxConfig extends
     if (size != -1) return size;
 
     size = 0;
+    if (address_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(1, address_);
+    }
     memoizedSize = size;
     return size;
   }
@@ -99,6 +122,8 @@ public  final class RxConfig extends
     com.marshmallow.snet.service.protobuf.RxConfig other = (com.marshmallow.snet.service.protobuf.RxConfig) obj;
 
     boolean result = true;
+    result = result && (getAddress()
+        == other.getAddress());
     return result;
   }
 
@@ -109,6 +134,8 @@ public  final class RxConfig extends
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
+    hash = (37 * hash) + ADDRESS_FIELD_NUMBER;
+    hash = (53 * hash) + getAddress();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -238,6 +265,8 @@ public  final class RxConfig extends
     }
     public Builder clear() {
       super.clear();
+      address_ = 0;
+
       return this;
     }
 
@@ -260,6 +289,7 @@ public  final class RxConfig extends
 
     public com.marshmallow.snet.service.protobuf.RxConfig buildPartial() {
       com.marshmallow.snet.service.protobuf.RxConfig result = new com.marshmallow.snet.service.protobuf.RxConfig(this);
+      result.address_ = address_;
       onBuilt();
       return result;
     }
@@ -301,6 +331,9 @@ public  final class RxConfig extends
 
     public Builder mergeFrom(com.marshmallow.snet.service.protobuf.RxConfig other) {
       if (other == com.marshmallow.snet.service.protobuf.RxConfig.getDefaultInstance()) return this;
+      if (other.getAddress() != 0) {
+        setAddress(other.getAddress());
+      }
       onChanged();
       return this;
     }
@@ -324,6 +357,32 @@ public  final class RxConfig extends
           mergeFrom(parsedMessage);
         }
       }
+      return this;
+    }
+
+    private int address_ ;
+    /**
+     * <code>int32 address = 1;</code>
+     */
+    public int getAddress() {
+      return address_;
+    }
+    /**
+     * <code>int32 address = 1;</code>
+     */
+    public Builder setAddress(int value) {
+      
+      address_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int32 address = 1;</code>
+     */
+    public Builder clearAddress() {
+      
+      address_ = 0;
+      onChanged();
       return this;
     }
     public final Builder setUnknownFields(

@@ -6,4 +6,9 @@ package com.marshmallow.snet.service.protobuf;
 public interface RxConfigOrBuilder extends
     // @@protoc_insertion_point(interface_extends:RxConfig)
     com.google.protobuf.MessageOrBuilder {
+
+  /**
+   * <code>int32 address = 1;</code>
+   */
+  int getAddress();
 }
