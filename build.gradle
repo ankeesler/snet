@@ -9,6 +9,8 @@
 // Global project properties.
 version = '0.0.0.0'
 
+defaultTasks 'build'
+
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
 
@@ -18,24 +20,39 @@ apply plugin: 'application'
 // TODO: how do I use this?
 //apply plugin: 'checkstyle'
 
-dependencies {
-  compile group: 'com.google.guava', name: 'guava', version: '22.0'
-  testCompile 'junit:junit:4.12'
-}
-
-// In this section you declare where to find the dependencies of your project
-repositories {
-    // Use jcenter for resolving your dependencies.
-    // You can declare any Maven/Ivy/file repository here.
-    jcenter()
-}
-
-// Define the main class for the application
-mainClassName = 'com.marshmallow.snet.app.SnetApp'
+def USE_DOWNLOADED_JARS = false
 
 def protobufJavaDir = '/Users/agkeesle/Developer/me/protobuf/java'
 def grpcJavaDir = '/Users/agkeesle/Developer/me/grpc-java'
 def genDir = 'src/com/marshmallow/snet/service/protobuf'
+
+// In this section you declare where to find the dependencies of your project
+repositories {
+  // Use jcenter for resolving your dependencies.
+  // You can declare any Maven/Ivy/file repository here.
+  jcenter()
+}
+
+dependencies {
+  compile group: 'com.google.guava', name: 'guava', version: '22.0'
+  testCompile 'junit:junit:4.12'
+  if (USE_DOWNLOADED_JARS) {
+    compile 'io.grpc:grpc-netty:1.4.0'
+    compile 'io.grpc:grpc-protobuf:1.4.0'
+    compile 'io.grpc:grpc-stub:1.4.0'
+    runtime group: 'io.netty', name: 'netty-all', version: '4.1.11.Final'
+  } else {
+    runtime files(grpcJavaDir + '/stub/build/libs/grpc-stub-1.5.0-SNAPSHOT.jar')
+    runtime files(grpcJavaDir + '/core/build/libs/grpc-core-1.5.0-SNAPSHOT.jar')
+    runtime files(grpcJavaDir + '/protobuf/build/libs/grpc-protobuf-1.5.0-SNAPSHOT.jar')
+    runtime files(grpcJavaDir + '/netty/build/libs/grpc-netty-1.5.0-SNAPSHOT.jar')
+    runtime files(grpcJavaDir + '/context/build/libs/grpc-context-1.5.0-SNAPSHOT.jar')
+    runtime group: 'io.netty', name: 'netty-all', version: '4.1.11.Final'
+  }
+}
+
+// Define the main class for the application
+mainClassName = 'com.marshmallow.snet.app.SnetApp'
 
 task cleanGen(type: Delete) {
   delete genDir
@@ -52,22 +69,25 @@ task gen(type: Exec, dependsOn: cleanGen) {
 
 sourceSets {
   main {
-    compileClasspath += files(grpcJavaDir + '/stub/build/libs/grpc-stub-1.5.0-SNAPSHOT.jar')
-    compileClasspath += files(grpcJavaDir + '/core/build/libs/grpc-core-1.5.0-SNAPSHOT.jar')
-    compileClasspath += files(grpcJavaDir + '/protobuf/build/libs/grpc-protobuf-1.5.0-SNAPSHOT.jar')
-    compileClasspath += files(protobufJavaDir + '/core/target/protobuf-java-3.3.0.jar')
     java {
       srcDirs = ['src']
       exclude 'com/marshmallow/snet/test/**'
     }
   }
   test {
-    compileClasspath += files(grpcJavaDir + '/stub/build/libs/grpc-stub-1.5.0-SNAPSHOT.jar')
-    compileClasspath += files(grpcJavaDir + '/core/build/libs/grpc-core-1.5.0-SNAPSHOT.jar')
-    compileClasspath += files(grpcJavaDir + '/protobuf/build/libs/grpc-protobuf-1.5.0-SNAPSHOT.jar')
-    compileClasspath += files(protobufJavaDir + '/core/target/protobuf-java-3.3.0.jar')
     java {
       srcDirs = ['src']
     }
+  }
+}
+
+if (!USE_DOWNLOADED_JARS) {
+  sourceSets.each { sourceSet ->
+    sourceSet.compileClasspath += files(grpcJavaDir + '/stub/build/libs/grpc-stub-1.5.0-SNAPSHOT.jar')
+    sourceSet.compileClasspath += files(grpcJavaDir + '/core/build/libs/grpc-core-1.5.0-SNAPSHOT.jar')
+    sourceSet.compileClasspath += files(grpcJavaDir + '/protobuf/build/libs/grpc-protobuf-1.5.0-SNAPSHOT.jar')
+    sourceSet.compileClasspath += files(grpcJavaDir + '/netty/build/libs/grpc-netty-1.5.0-SNAPSHOT.jar')
+    sourceSet.compileClasspath += files(grpcJavaDir + '/context/build/libs/grpc-context-1.5.0-SNAPSHOT.jar')
+    sourceSet.compileClasspath += files(protobufJavaDir + '/core/target/protobuf-java-3.3.0.jar')
   }
 }

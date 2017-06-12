@@ -28,16 +28,16 @@ public final class AdminServiceGrpc {
 
   // Static method descriptors that strictly reflect the proto.
   @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
-  public static final io.grpc.MethodDescriptor<com.marshmallow.snet.service.protobuf.Snet.EchoRequest,
-      com.marshmallow.snet.service.protobuf.Snet.EchoResponse> METHOD_ECHO =
-      io.grpc.MethodDescriptor.<com.marshmallow.snet.service.protobuf.Snet.EchoRequest, com.marshmallow.snet.service.protobuf.Snet.EchoResponse>newBuilder()
+  public static final io.grpc.MethodDescriptor<com.marshmallow.snet.service.protobuf.EchoRequest,
+      com.marshmallow.snet.service.protobuf.EchoResponse> METHOD_ECHO =
+      io.grpc.MethodDescriptor.<com.marshmallow.snet.service.protobuf.EchoRequest, com.marshmallow.snet.service.protobuf.EchoResponse>newBuilder()
           .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
           .setFullMethodName(generateFullMethodName(
               "AdminService", "Echo"))
           .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-              com.marshmallow.snet.service.protobuf.Snet.EchoRequest.getDefaultInstance()))
+              com.marshmallow.snet.service.protobuf.EchoRequest.getDefaultInstance()))
           .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-              com.marshmallow.snet.service.protobuf.Snet.EchoResponse.getDefaultInstance()))
+              com.marshmallow.snet.service.protobuf.EchoResponse.getDefaultInstance()))
           .build();
 
   /**
@@ -69,8 +69,8 @@ public final class AdminServiceGrpc {
 
     /**
      */
-    public void echo(com.marshmallow.snet.service.protobuf.Snet.EchoRequest request,
-        io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.Snet.EchoResponse> responseObserver) {
+    public void echo(com.marshmallow.snet.service.protobuf.EchoRequest request,
+        io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.EchoResponse> responseObserver) {
       asyncUnimplementedUnaryCall(METHOD_ECHO, responseObserver);
     }
 
@@ -80,8 +80,8 @@ public final class AdminServiceGrpc {
             METHOD_ECHO,
             asyncUnaryCall(
               new MethodHandlers<
-                com.marshmallow.snet.service.protobuf.Snet.EchoRequest,
-                com.marshmallow.snet.service.protobuf.Snet.EchoResponse>(
+                com.marshmallow.snet.service.protobuf.EchoRequest,
+                com.marshmallow.snet.service.protobuf.EchoResponse>(
                   this, METHODID_ECHO)))
           .build();
     }
@@ -107,8 +107,8 @@ public final class AdminServiceGrpc {
 
     /**
      */
-    public void echo(com.marshmallow.snet.service.protobuf.Snet.EchoRequest request,
-        io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.Snet.EchoResponse> responseObserver) {
+    public void echo(com.marshmallow.snet.service.protobuf.EchoRequest request,
+        io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.EchoResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(METHOD_ECHO, getCallOptions()), request, responseObserver);
     }
@@ -134,7 +134,7 @@ public final class AdminServiceGrpc {
 
     /**
      */
-    public com.marshmallow.snet.service.protobuf.Snet.EchoResponse echo(com.marshmallow.snet.service.protobuf.Snet.EchoRequest request) {
+    public com.marshmallow.snet.service.protobuf.EchoResponse echo(com.marshmallow.snet.service.protobuf.EchoRequest request) {
       return blockingUnaryCall(
           getChannel(), METHOD_ECHO, getCallOptions(), request);
     }
@@ -160,8 +160,8 @@ public final class AdminServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<com.marshmallow.snet.service.protobuf.Snet.EchoResponse> echo(
-        com.marshmallow.snet.service.protobuf.Snet.EchoRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<com.marshmallow.snet.service.protobuf.EchoResponse> echo(
+        com.marshmallow.snet.service.protobuf.EchoRequest request) {
       return futureUnaryCall(
           getChannel().newCall(METHOD_ECHO, getCallOptions()), request);
     }
@@ -187,8 +187,8 @@ public final class AdminServiceGrpc {
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
         case METHODID_ECHO:
-          serviceImpl.echo((com.marshmallow.snet.service.protobuf.Snet.EchoRequest) request,
-              (io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.Snet.EchoResponse>) responseObserver);
+          serviceImpl.echo((com.marshmallow.snet.service.protobuf.EchoRequest) request,
+              (io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.EchoResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
