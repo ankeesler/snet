@@ -20,35 +20,24 @@ apply plugin: 'application'
 // TODO: how do I use this?
 //apply plugin: 'checkstyle'
 
-def USE_DOWNLOADED_JARS = false
-
 def protobufJavaDir = '/Users/agkeesle/Developer/me/protobuf/java'
 def grpcJavaDir = '/Users/agkeesle/Developer/me/grpc-java'
 def genDir = 'src/com/marshmallow/snet/service/protobuf'
 
-// In this section you declare where to find the dependencies of your project
 repositories {
-  // Use jcenter for resolving your dependencies.
-  // You can declare any Maven/Ivy/file repository here.
+  mavenLocal()
   jcenter()
 }
 
 dependencies {
-  compile group: 'com.google.guava', name: 'guava', version: '22.0'
-  testCompile 'junit:junit:4.12'
-  if (USE_DOWNLOADED_JARS) {
-    compile 'io.grpc:grpc-netty:1.4.0'
-    compile 'io.grpc:grpc-protobuf:1.4.0'
-    compile 'io.grpc:grpc-stub:1.4.0'
-    runtime group: 'io.netty', name: 'netty-all', version: '4.1.11.Final'
-  } else {
-    runtime files(grpcJavaDir + '/stub/build/libs/grpc-stub-1.5.0-SNAPSHOT.jar')
-    runtime files(grpcJavaDir + '/core/build/libs/grpc-core-1.5.0-SNAPSHOT.jar')
-    runtime files(grpcJavaDir + '/protobuf/build/libs/grpc-protobuf-1.5.0-SNAPSHOT.jar')
-    runtime files(grpcJavaDir + '/netty/build/libs/grpc-netty-1.5.0-SNAPSHOT.jar')
-    runtime files(grpcJavaDir + '/context/build/libs/grpc-context-1.5.0-SNAPSHOT.jar')
-    runtime group: 'io.netty', name: 'netty-all', version: '4.1.11.Final'
-  }
+  compile group: 'com.google.guava', name: 'guava',         version: '22.0'
+  compile group: 'io.grpc',          name: 'grpc-netty',    version: '1.5.0-SNAPSHOT'
+  compile group: 'io.grpc',          name: 'grpc-protobuf', version: '1.5.0-SNAPSHOT'
+  compile group: 'io.grpc',          name: 'grpc-stub',     version: '1.5.0-SNAPSHOT'
+
+  testCompile group: 'junit', name: 'junit', version: '4.12'
+
+  runtime group: 'io.netty', name: 'netty-all', version: '4.1.11.Final'
 }
 
 // Define the main class for the application
@@ -78,16 +67,5 @@ sourceSets {
     java {
       srcDirs = ['src']
     }
-  }
-}
-
-if (!USE_DOWNLOADED_JARS) {
-  sourceSets.each { sourceSet ->
-    sourceSet.compileClasspath += files(grpcJavaDir + '/stub/build/libs/grpc-stub-1.5.0-SNAPSHOT.jar')
-    sourceSet.compileClasspath += files(grpcJavaDir + '/core/build/libs/grpc-core-1.5.0-SNAPSHOT.jar')
-    sourceSet.compileClasspath += files(grpcJavaDir + '/protobuf/build/libs/grpc-protobuf-1.5.0-SNAPSHOT.jar')
-    sourceSet.compileClasspath += files(grpcJavaDir + '/netty/build/libs/grpc-netty-1.5.0-SNAPSHOT.jar')
-    sourceSet.compileClasspath += files(grpcJavaDir + '/context/build/libs/grpc-context-1.5.0-SNAPSHOT.jar')
-    sourceSet.compileClasspath += files(protobufJavaDir + '/core/target/protobuf-java-3.3.0.jar')
   }
 }
