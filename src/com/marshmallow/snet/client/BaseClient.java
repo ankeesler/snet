@@ -1,26 +1,22 @@
 package com.marshmallow.snet.client;
 
 import java.io.IOException;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
-import com.marshmallow.snet.core.Log;
 import com.marshmallow.snet.service.IService;
+import com.marshmallow.snet.service.protobuf.InitRequest;
 import com.marshmallow.snet.service.protobuf.Packet;
-import com.marshmallow.snet.service.protobuf.RxConfig;
+import com.marshmallow.snet.service.protobuf.RxRequest;
+import com.marshmallow.snet.service.protobuf.RxResponse;
 import com.marshmallow.snet.service.protobuf.SnetServiceGrpc;
 import com.marshmallow.snet.service.protobuf.Status;
-import com.marshmallow.snet.service.protobuf.TxConfig;
+import com.marshmallow.snet.service.protobuf.TxRequest;
 
 import io.grpc.ManagedChannel;
 import io.grpc.netty.NettyChannelBuilder;
-import io.grpc.stub.StreamObserver;
 
 public class BaseClient implements IClient {
   private final int address;
-  private final SnetServiceGrpc.SnetServiceBlockingStub txStub;
-
-  private volatile Queue<Packet> rxQueue = new ConcurrentLinkedQueue<Packet>();
+  private final SnetServiceGrpc.SnetServiceBlockingStub stub;
 
   public BaseClient(int address, final IService service)
       throws IOException {
@@ -30,27 +26,18 @@ public class BaseClient implements IClient {
                                        service.getPort())
                            .usePlaintext(true)
                            .build();
-    this.txStub = SnetServiceGrpc.newBlockingStub(channel);
+    this.stub = SnetServiceGrpc.newBlockingStub(channel);
+  }
 
-    SnetServiceGrpc.SnetServiceStub rxStub = SnetServiceGrpc.newStub(channel);
-    RxConfig rxConfig = RxConfig.newBuilder().setAddress(address).build();
-    rxStub.rx(rxConfig, new StreamObserver<Packet>() {
-      @Override
-      public void onNext(Packet value) {
-        rxQueue.add(value);
-      }
-
-      @Override
-      public void onError(Throwable t) {
-        Log.instance().note(BaseClient.class, "Client " + BaseClient.this.address + " rx error: " + t.getMessage());
-        rxQueue.clear();
-      }
-
-      @Override
-      public void onCompleted() {
-        rxQueue.clear();
-      }
-    });
+  @Override
+  public boolean init() {
+    return (this.stub.init(InitRequest
+                           .newBuilder()
+                           .setAddress(this.address)
+                           .build())
+                     .getStatus()
+                     .getId()
+            == Status.Id.SUCCESS);
   }
 
   @Override
@@ -60,14 +47,25 @@ public class BaseClient implements IClient {
 
   @Override
   public boolean tx(final Packet packet) {
-    TxConfig txConfig = TxConfig.newBuilder().setPacket(packet).build();
-    Status status = this.txStub.tx(txConfig);
-    return (status.getId() == Status.Id.SUCCESS);
+    return (this.stub.tx(TxRequest
+                         .newBuilder()
+                         .setPacket(packet)
+                         .build())
+                     .getStatus()
+                     .getId()
+            == Status.Id.SUCCESS);
   }
 
   @Override
   public Packet rx() {
-    return this.rxQueue.poll();
+    RxResponse rxResponse
+      = this.stub.rx(RxRequest
+                     .newBuilder()
+                     .setAddress(this.address)
+                     .build());
+    return (rxResponse.getStatus().getId() == Status.Id.SUCCESS
+            ? rxResponse.getPacket()
+            : null);
   }
 
   @Override

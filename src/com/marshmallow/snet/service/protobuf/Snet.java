@@ -15,6 +15,11 @@ public final class Snet {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Status_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_Status_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_EchoRequest_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -35,25 +40,40 @@ public final class Snet {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_InfoResponse_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_InitRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_InitRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_InitResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_InitResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_Packet_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_Packet_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_Status_descriptor;
+    internal_static_TxRequest_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_Status_fieldAccessorTable;
+      internal_static_TxRequest_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_RxConfig_descriptor;
+    internal_static_TxResponse_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_RxConfig_fieldAccessorTable;
+      internal_static_TxResponse_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_TxConfig_descriptor;
+    internal_static_RxRequest_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_TxConfig_fieldAccessorTable;
+      internal_static_RxRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_RxResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_RxResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -63,22 +83,28 @@ public final class Snet {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\023protobuf/snet.proto\"\036\n\013EchoRequest\022\017\n\007" +
-      "message\030\001 \001(\t\"\037\n\014EchoResponse\022\017\n\007message" +
-      "\030\001 \001(\t\"\r\n\013InfoRequest\"\037\n\014InfoResponse\022\017\n" +
-      "\007rxCount\030\001 \001(\005\"\211\001\n\006Packet\022\016\n\006length\030\001 \001(" +
-      "\005\022\032\n\004type\030\002 \001(\0162\014.Packet.Type\022\016\n\006source\030" +
-      "\003 \001(\005\022\023\n\013destination\030\004 \001(\005\022\017\n\007payload\030\005 " +
-      "\001(\014\"\035\n\004Type\022\010\n\004DATA\020\000\022\013\n\007COMMAND\020\001\"@\n\006St" +
-      "atus\022\026\n\002id\030\001 \001(\0162\n.Status.Id\"\036\n\002Id\022\013\n\007SU" +
-      "CCESS\020\000\022\013\n\007FAILURE\020\001\"\033\n\010RxConfig\022\017\n\007addr" +
-      "ess\030\001 \001(\005\"#\n\010TxConfig\022\027\n\006packet\030\001 \001(\0132\007.",
-      "Packet2\215\001\n\013SnetService\022#\n\004Echo\022\014.EchoReq" +
-      "uest\032\r.EchoResponse\022#\n\004Info\022\014.InfoReques" +
-      "t\032\r.InfoResponse\022\030\n\002Tx\022\t.TxConfig\032\007.Stat" +
-      "us\022\032\n\002Rx\022\t.RxConfig\032\007.Packet0\001B)\n%com.ma" +
-      "rshmallow.snet.service.protobufP\001b\006proto" +
-      "3"
+      "\n\023protobuf/snet.proto\"g\n\006Status\022\026\n\002id\030\001 " +
+      "\001(\0162\n.Status.Id\"E\n\002Id\022\013\n\007SUCCESS\020\000\022\013\n\007FA" +
+      "ILURE\020\001\022\013\n\007UNKNOWN\020\002\022\t\n\005EMPTY\020\003\022\r\n\tDUPLI" +
+      "CATE\020\004\"\036\n\013EchoRequest\022\017\n\007message\030\001 \001(\t\"\037" +
+      "\n\014EchoResponse\022\017\n\007message\030\001 \001(\t\"\r\n\013InfoR" +
+      "equest\"\016\n\014InfoResponse\"\036\n\013InitRequest\022\017\n" +
+      "\007address\030\001 \001(\005\"\'\n\014InitResponse\022\027\n\006status" +
+      "\030\001 \001(\0132\007.Status\"\233\001\n\006Packet\022\016\n\006length\030\001 \001" +
+      "(\005\022\020\n\010sequence\030\002 \001(\005\022\032\n\004type\030\003 \001(\0162\014.Pac" +
+      "ket.Type\022\016\n\006source\030\004 \001(\005\022\023\n\013destination\030",
+      "\005 \001(\005\022\017\n\007payload\030\006 \001(\014\"\035\n\004Type\022\010\n\004DATA\020\000" +
+      "\022\013\n\007COMMAND\020\001\"$\n\tTxRequest\022\027\n\006packet\030\001 \001" +
+      "(\0132\007.Packet\"%\n\nTxResponse\022\027\n\006status\030\001 \001(" +
+      "\0132\007.Status\"\034\n\tRxRequest\022\017\n\007address\030\001 \001(\005" +
+      "\">\n\nRxResponse\022\027\n\006status\030\001 \001(\0132\007.Status\022" +
+      "\027\n\006packet\030\002 \001(\0132\007.Packet2\272\001\n\013SnetService" +
+      "\022#\n\004Echo\022\014.EchoRequest\032\r.EchoResponse\022#\n" +
+      "\004Info\022\014.InfoRequest\032\r.InfoResponse\022#\n\004In" +
+      "it\022\014.InitRequest\032\r.InitResponse\022\035\n\002Tx\022\n." +
+      "TxRequest\032\013.TxResponse\022\035\n\002Rx\022\n.RxRequest",
+      "\032\013.RxResponseB)\n%com.marshmallow.snet.se" +
+      "rvice.protobufP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -92,54 +118,78 @@ public final class Snet {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
-    internal_static_EchoRequest_descriptor =
+    internal_static_Status_descriptor =
       getDescriptor().getMessageTypes().get(0);
+    internal_static_Status_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_Status_descriptor,
+        new java.lang.String[] { "Id", });
+    internal_static_EchoRequest_descriptor =
+      getDescriptor().getMessageTypes().get(1);
     internal_static_EchoRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_EchoRequest_descriptor,
         new java.lang.String[] { "Message", });
     internal_static_EchoResponse_descriptor =
-      getDescriptor().getMessageTypes().get(1);
+      getDescriptor().getMessageTypes().get(2);
     internal_static_EchoResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_EchoResponse_descriptor,
         new java.lang.String[] { "Message", });
     internal_static_InfoRequest_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_InfoRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_InfoRequest_descriptor,
         new java.lang.String[] { });
     internal_static_InfoResponse_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_InfoResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_InfoResponse_descriptor,
-        new java.lang.String[] { "RxCount", });
+        new java.lang.String[] { });
+    internal_static_InitRequest_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_InitRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_InitRequest_descriptor,
+        new java.lang.String[] { "Address", });
+    internal_static_InitResponse_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_InitResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_InitResponse_descriptor,
+        new java.lang.String[] { "Status", });
     internal_static_Packet_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_Packet_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Packet_descriptor,
-        new java.lang.String[] { "Length", "Type", "Source", "Destination", "Payload", });
-    internal_static_Status_descriptor =
-      getDescriptor().getMessageTypes().get(5);
-    internal_static_Status_fieldAccessorTable = new
+        new java.lang.String[] { "Length", "Sequence", "Type", "Source", "Destination", "Payload", });
+    internal_static_TxRequest_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_TxRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_Status_descriptor,
-        new java.lang.String[] { "Id", });
-    internal_static_RxConfig_descriptor =
-      getDescriptor().getMessageTypes().get(6);
-    internal_static_RxConfig_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_RxConfig_descriptor,
-        new java.lang.String[] { "Address", });
-    internal_static_TxConfig_descriptor =
-      getDescriptor().getMessageTypes().get(7);
-    internal_static_TxConfig_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_TxConfig_descriptor,
+        internal_static_TxRequest_descriptor,
         new java.lang.String[] { "Packet", });
+    internal_static_TxResponse_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_TxResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_TxResponse_descriptor,
+        new java.lang.String[] { "Status", });
+    internal_static_RxRequest_descriptor =
+      getDescriptor().getMessageTypes().get(10);
+    internal_static_RxRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_RxRequest_descriptor,
+        new java.lang.String[] { "Address", });
+    internal_static_RxResponse_descriptor =
+      getDescriptor().getMessageTypes().get(11);
+    internal_static_RxResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_RxResponse_descriptor,
+        new java.lang.String[] { "Status", "Packet", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

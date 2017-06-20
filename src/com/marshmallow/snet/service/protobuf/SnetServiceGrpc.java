@@ -52,28 +52,40 @@ public final class SnetServiceGrpc {
               com.marshmallow.snet.service.protobuf.InfoResponse.getDefaultInstance()))
           .build();
   @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
-  public static final io.grpc.MethodDescriptor<com.marshmallow.snet.service.protobuf.TxConfig,
-      com.marshmallow.snet.service.protobuf.Status> METHOD_TX =
-      io.grpc.MethodDescriptor.<com.marshmallow.snet.service.protobuf.TxConfig, com.marshmallow.snet.service.protobuf.Status>newBuilder()
+  public static final io.grpc.MethodDescriptor<com.marshmallow.snet.service.protobuf.InitRequest,
+      com.marshmallow.snet.service.protobuf.InitResponse> METHOD_INIT =
+      io.grpc.MethodDescriptor.<com.marshmallow.snet.service.protobuf.InitRequest, com.marshmallow.snet.service.protobuf.InitResponse>newBuilder()
+          .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+          .setFullMethodName(generateFullMethodName(
+              "SnetService", "Init"))
+          .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+              com.marshmallow.snet.service.protobuf.InitRequest.getDefaultInstance()))
+          .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+              com.marshmallow.snet.service.protobuf.InitResponse.getDefaultInstance()))
+          .build();
+  @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
+  public static final io.grpc.MethodDescriptor<com.marshmallow.snet.service.protobuf.TxRequest,
+      com.marshmallow.snet.service.protobuf.TxResponse> METHOD_TX =
+      io.grpc.MethodDescriptor.<com.marshmallow.snet.service.protobuf.TxRequest, com.marshmallow.snet.service.protobuf.TxResponse>newBuilder()
           .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
           .setFullMethodName(generateFullMethodName(
               "SnetService", "Tx"))
           .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-              com.marshmallow.snet.service.protobuf.TxConfig.getDefaultInstance()))
+              com.marshmallow.snet.service.protobuf.TxRequest.getDefaultInstance()))
           .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-              com.marshmallow.snet.service.protobuf.Status.getDefaultInstance()))
+              com.marshmallow.snet.service.protobuf.TxResponse.getDefaultInstance()))
           .build();
   @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
-  public static final io.grpc.MethodDescriptor<com.marshmallow.snet.service.protobuf.RxConfig,
-      com.marshmallow.snet.service.protobuf.Packet> METHOD_RX =
-      io.grpc.MethodDescriptor.<com.marshmallow.snet.service.protobuf.RxConfig, com.marshmallow.snet.service.protobuf.Packet>newBuilder()
-          .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+  public static final io.grpc.MethodDescriptor<com.marshmallow.snet.service.protobuf.RxRequest,
+      com.marshmallow.snet.service.protobuf.RxResponse> METHOD_RX =
+      io.grpc.MethodDescriptor.<com.marshmallow.snet.service.protobuf.RxRequest, com.marshmallow.snet.service.protobuf.RxResponse>newBuilder()
+          .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
           .setFullMethodName(generateFullMethodName(
               "SnetService", "Rx"))
           .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-              com.marshmallow.snet.service.protobuf.RxConfig.getDefaultInstance()))
+              com.marshmallow.snet.service.protobuf.RxRequest.getDefaultInstance()))
           .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-              com.marshmallow.snet.service.protobuf.Packet.getDefaultInstance()))
+              com.marshmallow.snet.service.protobuf.RxResponse.getDefaultInstance()))
           .build();
 
   /**
@@ -119,15 +131,22 @@ public final class SnetServiceGrpc {
 
     /**
      */
-    public void tx(com.marshmallow.snet.service.protobuf.TxConfig request,
-        io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.Status> responseObserver) {
+    public void init(com.marshmallow.snet.service.protobuf.InitRequest request,
+        io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.InitResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(METHOD_INIT, responseObserver);
+    }
+
+    /**
+     */
+    public void tx(com.marshmallow.snet.service.protobuf.TxRequest request,
+        io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.TxResponse> responseObserver) {
       asyncUnimplementedUnaryCall(METHOD_TX, responseObserver);
     }
 
     /**
      */
-    public void rx(com.marshmallow.snet.service.protobuf.RxConfig request,
-        io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.Packet> responseObserver) {
+    public void rx(com.marshmallow.snet.service.protobuf.RxRequest request,
+        io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.RxResponse> responseObserver) {
       asyncUnimplementedUnaryCall(METHOD_RX, responseObserver);
     }
 
@@ -148,18 +167,25 @@ public final class SnetServiceGrpc {
                 com.marshmallow.snet.service.protobuf.InfoResponse>(
                   this, METHODID_INFO)))
           .addMethod(
+            METHOD_INIT,
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.marshmallow.snet.service.protobuf.InitRequest,
+                com.marshmallow.snet.service.protobuf.InitResponse>(
+                  this, METHODID_INIT)))
+          .addMethod(
             METHOD_TX,
             asyncUnaryCall(
               new MethodHandlers<
-                com.marshmallow.snet.service.protobuf.TxConfig,
-                com.marshmallow.snet.service.protobuf.Status>(
+                com.marshmallow.snet.service.protobuf.TxRequest,
+                com.marshmallow.snet.service.protobuf.TxResponse>(
                   this, METHODID_TX)))
           .addMethod(
             METHOD_RX,
-            asyncServerStreamingCall(
+            asyncUnaryCall(
               new MethodHandlers<
-                com.marshmallow.snet.service.protobuf.RxConfig,
-                com.marshmallow.snet.service.protobuf.Packet>(
+                com.marshmallow.snet.service.protobuf.RxRequest,
+                com.marshmallow.snet.service.protobuf.RxResponse>(
                   this, METHODID_RX)))
           .build();
     }
@@ -201,17 +227,25 @@ public final class SnetServiceGrpc {
 
     /**
      */
-    public void tx(com.marshmallow.snet.service.protobuf.TxConfig request,
-        io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.Status> responseObserver) {
+    public void init(com.marshmallow.snet.service.protobuf.InitRequest request,
+        io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.InitResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_INIT, getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void tx(com.marshmallow.snet.service.protobuf.TxRequest request,
+        io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.TxResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(METHOD_TX, getCallOptions()), request, responseObserver);
     }
 
     /**
      */
-    public void rx(com.marshmallow.snet.service.protobuf.RxConfig request,
-        io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.Packet> responseObserver) {
-      asyncServerStreamingCall(
+    public void rx(com.marshmallow.snet.service.protobuf.RxRequest request,
+        io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.RxResponse> responseObserver) {
+      asyncUnaryCall(
           getChannel().newCall(METHOD_RX, getCallOptions()), request, responseObserver);
     }
   }
@@ -250,16 +284,22 @@ public final class SnetServiceGrpc {
 
     /**
      */
-    public com.marshmallow.snet.service.protobuf.Status tx(com.marshmallow.snet.service.protobuf.TxConfig request) {
+    public com.marshmallow.snet.service.protobuf.InitResponse init(com.marshmallow.snet.service.protobuf.InitRequest request) {
+      return blockingUnaryCall(
+          getChannel(), METHOD_INIT, getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.marshmallow.snet.service.protobuf.TxResponse tx(com.marshmallow.snet.service.protobuf.TxRequest request) {
       return blockingUnaryCall(
           getChannel(), METHOD_TX, getCallOptions(), request);
     }
 
     /**
      */
-    public java.util.Iterator<com.marshmallow.snet.service.protobuf.Packet> rx(
-        com.marshmallow.snet.service.protobuf.RxConfig request) {
-      return blockingServerStreamingCall(
+    public com.marshmallow.snet.service.protobuf.RxResponse rx(com.marshmallow.snet.service.protobuf.RxRequest request) {
+      return blockingUnaryCall(
           getChannel(), METHOD_RX, getCallOptions(), request);
     }
   }
@@ -300,17 +340,34 @@ public final class SnetServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<com.marshmallow.snet.service.protobuf.Status> tx(
-        com.marshmallow.snet.service.protobuf.TxConfig request) {
+    public com.google.common.util.concurrent.ListenableFuture<com.marshmallow.snet.service.protobuf.InitResponse> init(
+        com.marshmallow.snet.service.protobuf.InitRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_INIT, getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.marshmallow.snet.service.protobuf.TxResponse> tx(
+        com.marshmallow.snet.service.protobuf.TxRequest request) {
       return futureUnaryCall(
           getChannel().newCall(METHOD_TX, getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.marshmallow.snet.service.protobuf.RxResponse> rx(
+        com.marshmallow.snet.service.protobuf.RxRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_RX, getCallOptions()), request);
     }
   }
 
   private static final int METHODID_ECHO = 0;
   private static final int METHODID_INFO = 1;
-  private static final int METHODID_TX = 2;
-  private static final int METHODID_RX = 3;
+  private static final int METHODID_INIT = 2;
+  private static final int METHODID_TX = 3;
+  private static final int METHODID_RX = 4;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -337,13 +394,17 @@ public final class SnetServiceGrpc {
           serviceImpl.info((com.marshmallow.snet.service.protobuf.InfoRequest) request,
               (io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.InfoResponse>) responseObserver);
           break;
+        case METHODID_INIT:
+          serviceImpl.init((com.marshmallow.snet.service.protobuf.InitRequest) request,
+              (io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.InitResponse>) responseObserver);
+          break;
         case METHODID_TX:
-          serviceImpl.tx((com.marshmallow.snet.service.protobuf.TxConfig) request,
-              (io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.Status>) responseObserver);
+          serviceImpl.tx((com.marshmallow.snet.service.protobuf.TxRequest) request,
+              (io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.TxResponse>) responseObserver);
           break;
         case METHODID_RX:
-          serviceImpl.rx((com.marshmallow.snet.service.protobuf.RxConfig) request,
-              (io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.Packet>) responseObserver);
+          serviceImpl.rx((com.marshmallow.snet.service.protobuf.RxRequest) request,
+              (io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.RxResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -380,6 +441,7 @@ public final class SnetServiceGrpc {
               .setSchemaDescriptor(new SnetServiceDescriptorSupplier())
               .addMethod(METHOD_ECHO)
               .addMethod(METHOD_INFO)
+              .addMethod(METHOD_INIT)
               .addMethod(METHOD_TX)
               .addMethod(METHOD_RX)
               .build();

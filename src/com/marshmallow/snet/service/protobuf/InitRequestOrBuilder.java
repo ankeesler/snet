@@ -3,7 +3,12 @@
 
 package com.marshmallow.snet.service.protobuf;
 
-public interface InfoResponseOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:InfoResponse)
+public interface InitRequestOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:InitRequest)
     com.google.protobuf.MessageOrBuilder {
+
+  /**
+   * <code>int32 address = 1;</code>
+   */
+  int getAddress();
 }

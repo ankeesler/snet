@@ -13,26 +13,31 @@ public interface PacketOrBuilder extends
   int getLength();
 
   /**
-   * <code>.Packet.Type type = 2;</code>
+   * <code>int32 sequence = 2;</code>
+   */
+  int getSequence();
+
+  /**
+   * <code>.Packet.Type type = 3;</code>
    */
   int getTypeValue();
   /**
-   * <code>.Packet.Type type = 2;</code>
+   * <code>.Packet.Type type = 3;</code>
    */
   com.marshmallow.snet.service.protobuf.Packet.Type getType();
 
   /**
-   * <code>int32 source = 3;</code>
+   * <code>int32 source = 4;</code>
    */
   int getSource();
 
   /**
-   * <code>int32 destination = 4;</code>
+   * <code>int32 destination = 5;</code>
    */
   int getDestination();
 
   /**
-   * <code>bytes payload = 5;</code>
+   * <code>bytes payload = 6;</code>
    */
   com.google.protobuf.ByteString getPayload();
 }

@@ -1,35 +1,22 @@
 package com.marshmallow.snet.test;
 
-import java.util.Arrays;
-
 import org.junit.Test;
 
 import com.marshmallow.snet.client.BaseClient;
 import com.marshmallow.snet.client.IClient;
 import com.marshmallow.snet.service.IService;
 import com.marshmallow.snet.service.ServiceUtilities;
-import com.marshmallow.snet.service.protobuf.InfoRequest;
 import com.marshmallow.snet.service.protobuf.Packet;
-import com.marshmallow.snet.service.protobuf.Packet.Type;
-
-import io.grpc.netty.NettyChannelBuilder;
-
-import com.marshmallow.snet.service.protobuf.SnetServiceGrpc;
 
 import junit.framework.TestCase;
 
 public class NetifTest extends TestCase {
 
   private IService service;
-  private SnetServiceGrpc.SnetServiceBlockingStub stub;
 
   @Override
   public void setUp() throws Exception {
     service = ServiceUtilities.createServiceFromFile("cfg/localsnet.properties");
-    stub = SnetServiceGrpc.newBlockingStub(NettyChannelBuilder.forAddress(service.getAddress().getHostAddress(),
-                                                                          service.getPort())
-                          .usePlaintext(true)
-                          .build());
   }
 
   @Override
@@ -37,128 +24,132 @@ public class NetifTest extends TestCase {
     service.teardown();
   }
 
-  private IClient makeClient(final int i) throws Exception {
-    int rxCount = getRxCount();
-    IClient client = new BaseClient(i, service);
-    while (getRxCount() == rxCount) ;
-    return client;
-  }
-
-  private int getRxCount() throws Exception {
-    return stub.info(InfoRequest.newBuilder().build()).getRxCount();
-  }
-
   @Test
   public void testOneNode() throws Exception {
-    IClient client0 = makeClient(0);
+    IClient client0 = new BaseClient(0, service);
+
+    // Tx should fail, since we have not initialized.
+    Packet p01 = Packet.newBuilder().setSequence(0).setSource(0).setDestination(1).build();
+    assertFalse(client0.tx(p01));
 
     // No data at the beginning.
-    expectRx(client0, false);
+    assertNull(client0.rx());
+
+    // Init should pass.
+    assertTrue(client0.init());
+
+    // Still no data.
+    assertNull(client0.rx());
 
     // Transmission should succeed, but no one else should get it.
-    Packet p0 = Packet.newBuilder().setLength(0).setSource(0).build();
-    assertTrue(client0.tx(p0));
-    expectRx(client0, false);
+    assertTrue(client0.tx(p01));
+    assertNull(client0.rx());
   }
 
   @Test
   public void testOneTxTwoRx() throws Exception {
-    IClient client0 = makeClient(0);
-    IClient client1 = makeClient(1);
-    IClient client2 = makeClient(2);
+    IClient client0 = new BaseClient(0, service);
+    IClient client1 = new BaseClient(1, service);
+    IClient client2 = new BaseClient(2, service);
 
-    // No data to start off with.
-    expectRx(client0, false);
-    expectRx(client1, false);
-    expectRx(client2, false);
+    // Client0, uninitialized, sends a packet to client1, also uninitialized.
+    // The transmission should fail, and the packet shouldn't pop up later.
+    Packet p01 = Packet.newBuilder().setSequence(0).setSource(0).setDestination(1).build();
+    assertFalse(client0.tx(p01));
 
-    // client0 transmits, client1 and client2 hear it.
-    Packet p0 = Packet.newBuilder().setLength(0).setSource(0).build();
-    assertTrue(client0.tx(p0));
-    expectRx(client1, true, p0);
-    expectRx(client2, true, p0);
+    // Client1 shouldn't receive the failed transmission.
+    assertNull(client1.rx());
 
-    // No data after we read first transmission.
-    expectRx(client0, false);
-    expectRx(client1, false);
-    expectRx(client2, false);
+    // Only client0 and client1 init.
+    assertTrue(client0.init());
+    assertTrue(client1.init());
 
-    // client1 transmits, client0 and client2 hear it.
-    Packet p1 = Packet.newBuilder().setLength(2).setType(Type.COMMAND).setSource(1).build();
-    assertTrue(client1.tx(p1));
-    expectRx(client0, true, p1);
-    expectRx(client2, true, p1);
+    // Client1 still doesn't get client0's original packet.
+    assertNull(client1.rx());
+
+    // Client0 sends to client2, but it has not initialized, so it does not
+    // receive anything.
+    Packet p02 = Packet.newBuilder().setSequence(1).setSource(0).setDestination(2).build();
+    assertTrue(client0.tx(p02));
+    assertNull(client1.rx());
+    assertNull(client2.rx());
+
+    // Client2 successfully initializes.
+    assertTrue(client2.init());
+
+    // client0 transmits to client2 again - it works this time.
+    assertTrue(client0.tx(p02));
+    assertNull(client1.rx());
+    assertEquals(client2.rx(), p02);
+
+    // No data after we receive the only transmission.
+    assertNull(client0.rx());
+    assertNull(client1.rx());
+    assertNull(client2.rx());
+
+    // client1 transmits, client0 receives it, client2 does not receive it.
+    Packet p10 = Packet.newBuilder().setSequence(2).setSource(1).setDestination(0).build();
+    assertTrue(client1.tx(p10));
+    assertEquals(client0.rx(), p10);
+    assertNull(client2.rx());
   }
 
   @Test
   public void testDoubleTransmission() throws Exception {
-    IClient client0 = makeClient(0);
-    IClient client1 = makeClient(1);
-    IClient client2 = makeClient(2);
-
-    // No data to start off with.
-    expectRx(client0, false);
-    expectRx(client1, false);
-    expectRx(client2, false);
-
-    // client0 transmits twice.
-    Packet p0 = Packet.newBuilder().setLength(3).setType(Type.DATA).setSource(0).build();
-    Packet p1 = Packet.newBuilder().setLength(3).setType(Type.DATA).setSource(0).build();
-    assertTrue(client0.tx(p0));
-    assertTrue(client0.tx(p1));
-    expectRx(client0, false);
-    expectRx(client1, true, p0, p1);
-    expectRx(client1, true, p0, p1);
-    expectRx(client2, true, p0, p1);
-    expectRx(client2, true, p0, p1);
-    expectRx(client0, false);
+    // What happens if we send two packets at once? Depending on propagation
+    // settings, they should both be received by the recipient.
+    IClient client0 = new BaseClient(0, service);
+    IClient client1 = new BaseClient(1, service);
+    Packet p01 = Packet.newBuilder().setSequence(0).setSource(0).setDestination(1).build();
+    assertTrue(client0.init());
+    assertTrue(client1.init());
+    assertTrue(client0.tx(p01));
+    assertTrue(client0.tx(p01));
+    assertEquals(client1.rx(), p01);
+    assertEquals(client1.rx(), p01);
+    assertNull(client1.rx());
   }
 
   @Test
   public void testCrossTransmission() throws Exception {
-    IClient client0 = makeClient(0);
-    IClient client1 = makeClient(1);
-    IClient client2 = makeClient(2);
+    // What happens if we send packets across a network in a crossbar? Depending
+    // on propagation settings, the packets should be received by the intended
+    // parties.
+    IClient client0 = new BaseClient(0, service);
+    IClient client1 = new BaseClient(1, service);
+    IClient client2 = new BaseClient(2, service);
+    IClient client3 = new BaseClient(3, service);
+    assertTrue(client0.init());
+    assertTrue(client1.init());
+    assertTrue(client2.init());
+    assertTrue(client3.init());
 
-    // No data to start off with.
-    expectRx(client0, false);
-    expectRx(client1, false);
-    expectRx(client2, false);
+    Packet p02 = Packet.newBuilder().setSequence(0).setSource(0).setDestination(2).build();
+    Packet p13 = Packet.newBuilder().setSequence(1).setSource(1).setDestination(3).build();
+    assertTrue(client0.tx(p02));
+    assertTrue(client1.tx(p13));
+    assertNull(client0.rx());
+    assertNull(client1.rx());
+    assertEquals(client2.rx(), p02);
+    assertEquals(client3.rx(), p13);
 
-    Packet p0 = Packet.newBuilder().setSource(0).build();
-    Packet p1 = Packet.newBuilder().setSource(1).build();
-    Packet p2 = Packet.newBuilder().setSource(2).build();
-    assertTrue(client0.tx(p0));
-    assertTrue(client1.tx(p1));
-    assertTrue(client2.tx(p2));
-    expectRx(client0, true, p1, p2);
-    expectRx(client0, true, p1, p2);
-    expectRx(client1, true, p0, p2);
-    expectRx(client1, true, p0, p2);
-    expectRx(client2, true, p0, p1);
-    expectRx(client2, true, p0, p1);
+    Packet p01 = Packet.newBuilder().setSequence(2).setSource(0).setDestination(1).build();
+    Packet p23 = Packet.newBuilder().setSequence(3).setSource(2).setDestination(3).build();
+    assertTrue(client0.tx(p01));
+    assertTrue(client1.tx(p23));
+    assertNull(client0.rx());
+    assertEquals(client1.rx(), p01);
+    assertNull(client2.rx());
+    assertEquals(client3.rx(), p23);
   }
 
-  private static void expectRx(IClient client, boolean expect, Packet...sentPackets) throws Exception {
-    Packet p = null;
-    long timeoutMS = 2000; // TODO: can we make this shorter, and deterministic?
-    long timeoutStart = System.currentTimeMillis();
-    do {
-      p = client.rx();
-      if (System.currentTimeMillis() - timeoutStart > timeoutMS) {
-        if (expect) {
-          throw new Exception("Never got an RX from client " + client);
-        } else {
-          // Success!
-          return;
-        }
-      }
-    } while (p == null);
-
-    boolean matched = false;
-    for (Packet sentPacket : sentPackets) {
-      matched |= sentPacket.equals(p);
-    }
-    assertTrue("Could not match " + p + " with any of " + Arrays.toString(sentPackets), matched);
+  @Test
+  public void testDuplicateAddress() throws Exception {
+    // What happens if we call Init() twice with the same source address? We get
+    // a DUPLICATE status in return.
+    IClient client0 = new BaseClient(0, service);
+    IClient client0Again = new BaseClient(0, service);
+    assertTrue(client0.init());
+    assertFalse(client0Again.init());
   }
 }

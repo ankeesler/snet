@@ -3,6 +3,17 @@ syntax = "proto3";
 option java_package = "com.marshmallow.snet.service.protobuf";
 option java_multiple_files = true;
 
+message Status {
+  enum Id {
+    SUCCESS = 0;
+    FAILURE = 1;
+    UNKNOWN = 2;
+    EMPTY = 3;
+    DUPLICATE = 4;
+  }
+  Id id = 1;
+}
+
 message EchoRequest {
   string message = 1;
 }
@@ -15,40 +26,50 @@ message InfoRequest {
 }
 
 message InfoResponse {
-  int32 rxCount = 1;
+}
+
+message InitRequest {
+  int32 address = 1;
+}
+
+message InitResponse {
+  Status status = 1;
 }
 
 message Packet {
   int32 length = 1;
+  int32 sequence = 2;
   enum Type {
     DATA = 0;
     COMMAND = 1;
   }
-  Type type = 2;
-  int32 source = 3;
-  int32 destination = 4;
-  bytes payload = 5;
+  Type type = 3;
+  int32 source = 4;
+  int32 destination = 5;
+  bytes payload = 6;
 }
 
-message Status {
-  enum Id {
-    SUCCESS = 0;
-    FAILURE = 1;
-  }
-  Id id = 1;
+message TxRequest {
+  Packet packet = 1;
 }
 
-message RxConfig {
+message TxResponse {
+  Status status = 1;
+}
+
+message RxRequest {
   int32 address = 1;
 }
 
-message TxConfig {
-  Packet packet = 1;
+message RxResponse {
+  Status status = 1;
+  Packet packet = 2;
 }
 
 service SnetService {
   rpc Echo(EchoRequest) returns (EchoResponse);
   rpc Info(InfoRequest) returns (InfoResponse);
-  rpc Tx(TxConfig) returns (Status);
-  rpc Rx(RxConfig) returns (stream Packet);
+  rpc Init(InitRequest) returns (InitResponse);
+  rpc Tx(TxRequest) returns (TxResponse);
+  rpc Rx(RxRequest) returns (RxResponse);
 }

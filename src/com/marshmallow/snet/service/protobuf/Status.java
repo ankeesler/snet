@@ -85,6 +85,18 @@ public  final class Status extends
      * <code>FAILURE = 1;</code>
      */
     FAILURE(1),
+    /**
+     * <code>UNKNOWN = 2;</code>
+     */
+    UNKNOWN(2),
+    /**
+     * <code>EMPTY = 3;</code>
+     */
+    EMPTY(3),
+    /**
+     * <code>DUPLICATE = 4;</code>
+     */
+    DUPLICATE(4),
     UNRECOGNIZED(-1),
     ;
 
@@ -96,6 +108,18 @@ public  final class Status extends
      * <code>FAILURE = 1;</code>
      */
     public static final int FAILURE_VALUE = 1;
+    /**
+     * <code>UNKNOWN = 2;</code>
+     */
+    public static final int UNKNOWN_VALUE = 2;
+    /**
+     * <code>EMPTY = 3;</code>
+     */
+    public static final int EMPTY_VALUE = 3;
+    /**
+     * <code>DUPLICATE = 4;</code>
+     */
+    public static final int DUPLICATE_VALUE = 4;
 
 
     public final int getNumber() {
@@ -118,6 +142,9 @@ public  final class Status extends
       switch (value) {
         case 0: return SUCCESS;
         case 1: return FAILURE;
+        case 2: return UNKNOWN;
+        case 3: return EMPTY;
+        case 4: return DUPLICATE;
         default: return null;
       }
     }

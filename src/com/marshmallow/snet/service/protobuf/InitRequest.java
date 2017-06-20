@@ -4,17 +4,17 @@
 package com.marshmallow.snet.service.protobuf;
 
 /**
- * Protobuf type {@code RxConfig}
+ * Protobuf type {@code InitRequest}
  */
-public  final class RxConfig extends
+public  final class InitRequest extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:RxConfig)
-    RxConfigOrBuilder {
-  // Use RxConfig.newBuilder() to construct.
-  private RxConfig(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // @@protoc_insertion_point(message_implements:InitRequest)
+    InitRequestOrBuilder {
+  // Use InitRequest.newBuilder() to construct.
+  private InitRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private RxConfig() {
+  private InitRequest() {
     address_ = 0;
   }
 
@@ -23,7 +23,7 @@ public  final class RxConfig extends
   getUnknownFields() {
     return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
   }
-  private RxConfig(
+  private InitRequest(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -61,14 +61,14 @@ public  final class RxConfig extends
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return com.marshmallow.snet.service.protobuf.Snet.internal_static_RxConfig_descriptor;
+    return com.marshmallow.snet.service.protobuf.Snet.internal_static_InitRequest_descriptor;
   }
 
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return com.marshmallow.snet.service.protobuf.Snet.internal_static_RxConfig_fieldAccessorTable
+    return com.marshmallow.snet.service.protobuf.Snet.internal_static_InitRequest_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            com.marshmallow.snet.service.protobuf.RxConfig.class, com.marshmallow.snet.service.protobuf.RxConfig.Builder.class);
+            com.marshmallow.snet.service.protobuf.InitRequest.class, com.marshmallow.snet.service.protobuf.InitRequest.Builder.class);
   }
 
   public static final int ADDRESS_FIELD_NUMBER = 1;
@@ -116,10 +116,10 @@ public  final class RxConfig extends
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof com.marshmallow.snet.service.protobuf.RxConfig)) {
+    if (!(obj instanceof com.marshmallow.snet.service.protobuf.InitRequest)) {
       return super.equals(obj);
     }
-    com.marshmallow.snet.service.protobuf.RxConfig other = (com.marshmallow.snet.service.protobuf.RxConfig) obj;
+    com.marshmallow.snet.service.protobuf.InitRequest other = (com.marshmallow.snet.service.protobuf.InitRequest) obj;
 
     boolean result = true;
     result = result && (getAddress()
@@ -141,69 +141,69 @@ public  final class RxConfig extends
     return hash;
   }
 
-  public static com.marshmallow.snet.service.protobuf.RxConfig parseFrom(
+  public static com.marshmallow.snet.service.protobuf.InitRequest parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.marshmallow.snet.service.protobuf.RxConfig parseFrom(
+  public static com.marshmallow.snet.service.protobuf.InitRequest parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.marshmallow.snet.service.protobuf.RxConfig parseFrom(
+  public static com.marshmallow.snet.service.protobuf.InitRequest parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.marshmallow.snet.service.protobuf.RxConfig parseFrom(
+  public static com.marshmallow.snet.service.protobuf.InitRequest parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.marshmallow.snet.service.protobuf.RxConfig parseFrom(byte[] data)
+  public static com.marshmallow.snet.service.protobuf.InitRequest parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.marshmallow.snet.service.protobuf.RxConfig parseFrom(
+  public static com.marshmallow.snet.service.protobuf.InitRequest parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.marshmallow.snet.service.protobuf.RxConfig parseFrom(java.io.InputStream input)
+  public static com.marshmallow.snet.service.protobuf.InitRequest parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.marshmallow.snet.service.protobuf.RxConfig parseFrom(
+  public static com.marshmallow.snet.service.protobuf.InitRequest parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.marshmallow.snet.service.protobuf.RxConfig parseDelimitedFrom(java.io.InputStream input)
+  public static com.marshmallow.snet.service.protobuf.InitRequest parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static com.marshmallow.snet.service.protobuf.RxConfig parseDelimitedFrom(
+  public static com.marshmallow.snet.service.protobuf.InitRequest parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.marshmallow.snet.service.protobuf.RxConfig parseFrom(
+  public static com.marshmallow.snet.service.protobuf.InitRequest parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.marshmallow.snet.service.protobuf.RxConfig parseFrom(
+  public static com.marshmallow.snet.service.protobuf.InitRequest parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -215,7 +215,7 @@ public  final class RxConfig extends
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(com.marshmallow.snet.service.protobuf.RxConfig prototype) {
+  public static Builder newBuilder(com.marshmallow.snet.service.protobuf.InitRequest prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   public Builder toBuilder() {
@@ -230,25 +230,25 @@ public  final class RxConfig extends
     return builder;
   }
   /**
-   * Protobuf type {@code RxConfig}
+   * Protobuf type {@code InitRequest}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:RxConfig)
-      com.marshmallow.snet.service.protobuf.RxConfigOrBuilder {
+      // @@protoc_insertion_point(builder_implements:InitRequest)
+      com.marshmallow.snet.service.protobuf.InitRequestOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.marshmallow.snet.service.protobuf.Snet.internal_static_RxConfig_descriptor;
+      return com.marshmallow.snet.service.protobuf.Snet.internal_static_InitRequest_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.marshmallow.snet.service.protobuf.Snet.internal_static_RxConfig_fieldAccessorTable
+      return com.marshmallow.snet.service.protobuf.Snet.internal_static_InitRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.marshmallow.snet.service.protobuf.RxConfig.class, com.marshmallow.snet.service.protobuf.RxConfig.Builder.class);
+              com.marshmallow.snet.service.protobuf.InitRequest.class, com.marshmallow.snet.service.protobuf.InitRequest.Builder.class);
     }
 
-    // Construct using com.marshmallow.snet.service.protobuf.RxConfig.newBuilder()
+    // Construct using com.marshmallow.snet.service.protobuf.InitRequest.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -272,23 +272,23 @@ public  final class RxConfig extends
 
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return com.marshmallow.snet.service.protobuf.Snet.internal_static_RxConfig_descriptor;
+      return com.marshmallow.snet.service.protobuf.Snet.internal_static_InitRequest_descriptor;
     }
 
-    public com.marshmallow.snet.service.protobuf.RxConfig getDefaultInstanceForType() {
-      return com.marshmallow.snet.service.protobuf.RxConfig.getDefaultInstance();
+    public com.marshmallow.snet.service.protobuf.InitRequest getDefaultInstanceForType() {
+      return com.marshmallow.snet.service.protobuf.InitRequest.getDefaultInstance();
     }
 
-    public com.marshmallow.snet.service.protobuf.RxConfig build() {
-      com.marshmallow.snet.service.protobuf.RxConfig result = buildPartial();
+    public com.marshmallow.snet.service.protobuf.InitRequest build() {
+      com.marshmallow.snet.service.protobuf.InitRequest result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
       return result;
     }
 
-    public com.marshmallow.snet.service.protobuf.RxConfig buildPartial() {
-      com.marshmallow.snet.service.protobuf.RxConfig result = new com.marshmallow.snet.service.protobuf.RxConfig(this);
+    public com.marshmallow.snet.service.protobuf.InitRequest buildPartial() {
+      com.marshmallow.snet.service.protobuf.InitRequest result = new com.marshmallow.snet.service.protobuf.InitRequest(this);
       result.address_ = address_;
       onBuilt();
       return result;
@@ -321,16 +321,16 @@ public  final class RxConfig extends
       return (Builder) super.addRepeatedField(field, value);
     }
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof com.marshmallow.snet.service.protobuf.RxConfig) {
-        return mergeFrom((com.marshmallow.snet.service.protobuf.RxConfig)other);
+      if (other instanceof com.marshmallow.snet.service.protobuf.InitRequest) {
+        return mergeFrom((com.marshmallow.snet.service.protobuf.InitRequest)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(com.marshmallow.snet.service.protobuf.RxConfig other) {
-      if (other == com.marshmallow.snet.service.protobuf.RxConfig.getDefaultInstance()) return this;
+    public Builder mergeFrom(com.marshmallow.snet.service.protobuf.InitRequest other) {
+      if (other == com.marshmallow.snet.service.protobuf.InitRequest.getDefaultInstance()) return this;
       if (other.getAddress() != 0) {
         setAddress(other.getAddress());
       }
@@ -346,11 +346,11 @@ public  final class RxConfig extends
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      com.marshmallow.snet.service.protobuf.RxConfig parsedMessage = null;
+      com.marshmallow.snet.service.protobuf.InitRequest parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (com.marshmallow.snet.service.protobuf.RxConfig) e.getUnfinishedMessage();
+        parsedMessage = (com.marshmallow.snet.service.protobuf.InitRequest) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -396,39 +396,39 @@ public  final class RxConfig extends
     }
 
 
-    // @@protoc_insertion_point(builder_scope:RxConfig)
+    // @@protoc_insertion_point(builder_scope:InitRequest)
   }
 
-  // @@protoc_insertion_point(class_scope:RxConfig)
-  private static final com.marshmallow.snet.service.protobuf.RxConfig DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:InitRequest)
+  private static final com.marshmallow.snet.service.protobuf.InitRequest DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new com.marshmallow.snet.service.protobuf.RxConfig();
+    DEFAULT_INSTANCE = new com.marshmallow.snet.service.protobuf.InitRequest();
   }
 
-  public static com.marshmallow.snet.service.protobuf.RxConfig getDefaultInstance() {
+  public static com.marshmallow.snet.service.protobuf.InitRequest getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<RxConfig>
-      PARSER = new com.google.protobuf.AbstractParser<RxConfig>() {
-    public RxConfig parsePartialFrom(
+  private static final com.google.protobuf.Parser<InitRequest>
+      PARSER = new com.google.protobuf.AbstractParser<InitRequest>() {
+    public InitRequest parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-        return new RxConfig(input, extensionRegistry);
+        return new InitRequest(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<RxConfig> parser() {
+  public static com.google.protobuf.Parser<InitRequest> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<RxConfig> getParserForType() {
+  public com.google.protobuf.Parser<InitRequest> getParserForType() {
     return PARSER;
   }
 
-  public com.marshmallow.snet.service.protobuf.RxConfig getDefaultInstanceForType() {
+  public com.marshmallow.snet.service.protobuf.InitRequest getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

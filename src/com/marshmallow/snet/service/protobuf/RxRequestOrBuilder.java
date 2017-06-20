@@ -3,8 +3,8 @@
 
 package com.marshmallow.snet.service.protobuf;
 
-public interface RxConfigOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:RxConfig)
+public interface RxRequestOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:RxRequest)
     com.google.protobuf.MessageOrBuilder {
 
   /**

@@ -16,6 +16,7 @@ public  final class Packet extends
   }
   private Packet() {
     length_ = 0;
+    sequence_ = 0;
     type_ = 0;
     source_ = 0;
     destination_ = 0;
@@ -53,22 +54,27 @@ public  final class Packet extends
             break;
           }
           case 16: {
+
+            sequence_ = input.readInt32();
+            break;
+          }
+          case 24: {
             int rawValue = input.readEnum();
 
             type_ = rawValue;
             break;
           }
-          case 24: {
+          case 32: {
 
             source_ = input.readInt32();
             break;
           }
-          case 32: {
+          case 40: {
 
             destination_ = input.readInt32();
             break;
           }
-          case 42: {
+          case 50: {
 
             payload_ = input.readBytes();
             break;
@@ -203,44 +209,53 @@ public  final class Packet extends
     return length_;
   }
 
-  public static final int TYPE_FIELD_NUMBER = 2;
+  public static final int SEQUENCE_FIELD_NUMBER = 2;
+  private int sequence_;
+  /**
+   * <code>int32 sequence = 2;</code>
+   */
+  public int getSequence() {
+    return sequence_;
+  }
+
+  public static final int TYPE_FIELD_NUMBER = 3;
   private int type_;
   /**
-   * <code>.Packet.Type type = 2;</code>
+   * <code>.Packet.Type type = 3;</code>
    */
   public int getTypeValue() {
     return type_;
   }
   /**
-   * <code>.Packet.Type type = 2;</code>
+   * <code>.Packet.Type type = 3;</code>
    */
   public com.marshmallow.snet.service.protobuf.Packet.Type getType() {
     com.marshmallow.snet.service.protobuf.Packet.Type result = com.marshmallow.snet.service.protobuf.Packet.Type.valueOf(type_);
     return result == null ? com.marshmallow.snet.service.protobuf.Packet.Type.UNRECOGNIZED : result;
   }
 
-  public static final int SOURCE_FIELD_NUMBER = 3;
+  public static final int SOURCE_FIELD_NUMBER = 4;
   private int source_;
   /**
-   * <code>int32 source = 3;</code>
+   * <code>int32 source = 4;</code>
    */
   public int getSource() {
     return source_;
   }
 
-  public static final int DESTINATION_FIELD_NUMBER = 4;
+  public static final int DESTINATION_FIELD_NUMBER = 5;
   private int destination_;
   /**
-   * <code>int32 destination = 4;</code>
+   * <code>int32 destination = 5;</code>
    */
   public int getDestination() {
     return destination_;
   }
 
-  public static final int PAYLOAD_FIELD_NUMBER = 5;
+  public static final int PAYLOAD_FIELD_NUMBER = 6;
   private com.google.protobuf.ByteString payload_;
   /**
-   * <code>bytes payload = 5;</code>
+   * <code>bytes payload = 6;</code>
    */
   public com.google.protobuf.ByteString getPayload() {
     return payload_;
@@ -261,17 +276,20 @@ public  final class Packet extends
     if (length_ != 0) {
       output.writeInt32(1, length_);
     }
+    if (sequence_ != 0) {
+      output.writeInt32(2, sequence_);
+    }
     if (type_ != com.marshmallow.snet.service.protobuf.Packet.Type.DATA.getNumber()) {
-      output.writeEnum(2, type_);
+      output.writeEnum(3, type_);
     }
     if (source_ != 0) {
-      output.writeInt32(3, source_);
+      output.writeInt32(4, source_);
     }
     if (destination_ != 0) {
-      output.writeInt32(4, destination_);
+      output.writeInt32(5, destination_);
     }
     if (!payload_.isEmpty()) {
-      output.writeBytes(5, payload_);
+      output.writeBytes(6, payload_);
     }
   }
 
@@ -284,21 +302,25 @@ public  final class Packet extends
       size += com.google.protobuf.CodedOutputStream
         .computeInt32Size(1, length_);
     }
+    if (sequence_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(2, sequence_);
+    }
     if (type_ != com.marshmallow.snet.service.protobuf.Packet.Type.DATA.getNumber()) {
       size += com.google.protobuf.CodedOutputStream
-        .computeEnumSize(2, type_);
+        .computeEnumSize(3, type_);
     }
     if (source_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(3, source_);
+        .computeInt32Size(4, source_);
     }
     if (destination_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(4, destination_);
+        .computeInt32Size(5, destination_);
     }
     if (!payload_.isEmpty()) {
       size += com.google.protobuf.CodedOutputStream
-        .computeBytesSize(5, payload_);
+        .computeBytesSize(6, payload_);
     }
     memoizedSize = size;
     return size;
@@ -318,6 +340,8 @@ public  final class Packet extends
     boolean result = true;
     result = result && (getLength()
         == other.getLength());
+    result = result && (getSequence()
+        == other.getSequence());
     result = result && type_ == other.type_;
     result = result && (getSource()
         == other.getSource());
@@ -337,6 +361,8 @@ public  final class Packet extends
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + LENGTH_FIELD_NUMBER;
     hash = (53 * hash) + getLength();
+    hash = (37 * hash) + SEQUENCE_FIELD_NUMBER;
+    hash = (53 * hash) + getSequence();
     hash = (37 * hash) + TYPE_FIELD_NUMBER;
     hash = (53 * hash) + type_;
     hash = (37 * hash) + SOURCE_FIELD_NUMBER;
@@ -476,6 +502,8 @@ public  final class Packet extends
       super.clear();
       length_ = 0;
 
+      sequence_ = 0;
+
       type_ = 0;
 
       source_ = 0;
@@ -507,6 +535,7 @@ public  final class Packet extends
     public com.marshmallow.snet.service.protobuf.Packet buildPartial() {
       com.marshmallow.snet.service.protobuf.Packet result = new com.marshmallow.snet.service.protobuf.Packet(this);
       result.length_ = length_;
+      result.sequence_ = sequence_;
       result.type_ = type_;
       result.source_ = source_;
       result.destination_ = destination_;
@@ -554,6 +583,9 @@ public  final class Packet extends
       if (other == com.marshmallow.snet.service.protobuf.Packet.getDefaultInstance()) return this;
       if (other.getLength() != 0) {
         setLength(other.getLength());
+      }
+      if (other.getSequence() != 0) {
+        setSequence(other.getSequence());
       }
       if (other.type_ != 0) {
         setTypeValue(other.getTypeValue());
@@ -619,15 +651,41 @@ public  final class Packet extends
       return this;
     }
 
+    private int sequence_ ;
+    /**
+     * <code>int32 sequence = 2;</code>
+     */
+    public int getSequence() {
+      return sequence_;
+    }
+    /**
+     * <code>int32 sequence = 2;</code>
+     */
+    public Builder setSequence(int value) {
+      
+      sequence_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int32 sequence = 2;</code>
+     */
+    public Builder clearSequence() {
+      
+      sequence_ = 0;
+      onChanged();
+      return this;
+    }
+
     private int type_ = 0;
     /**
-     * <code>.Packet.Type type = 2;</code>
+     * <code>.Packet.Type type = 3;</code>
      */
     public int getTypeValue() {
       return type_;
     }
     /**
-     * <code>.Packet.Type type = 2;</code>
+     * <code>.Packet.Type type = 3;</code>
      */
     public Builder setTypeValue(int value) {
       type_ = value;
@@ -635,14 +693,14 @@ public  final class Packet extends
       return this;
     }
     /**
-     * <code>.Packet.Type type = 2;</code>
+     * <code>.Packet.Type type = 3;</code>
      */
     public com.marshmallow.snet.service.protobuf.Packet.Type getType() {
       com.marshmallow.snet.service.protobuf.Packet.Type result = com.marshmallow.snet.service.protobuf.Packet.Type.valueOf(type_);
       return result == null ? com.marshmallow.snet.service.protobuf.Packet.Type.UNRECOGNIZED : result;
     }
     /**
-     * <code>.Packet.Type type = 2;</code>
+     * <code>.Packet.Type type = 3;</code>
      */
     public Builder setType(com.marshmallow.snet.service.protobuf.Packet.Type value) {
       if (value == null) {
@@ -654,7 +712,7 @@ public  final class Packet extends
       return this;
     }
     /**
-     * <code>.Packet.Type type = 2;</code>
+     * <code>.Packet.Type type = 3;</code>
      */
     public Builder clearType() {
       
@@ -665,13 +723,13 @@ public  final class Packet extends
 
     private int source_ ;
     /**
-     * <code>int32 source = 3;</code>
+     * <code>int32 source = 4;</code>
      */
     public int getSource() {
       return source_;
     }
     /**
-     * <code>int32 source = 3;</code>
+     * <code>int32 source = 4;</code>
      */
     public Builder setSource(int value) {
       
@@ -680,7 +738,7 @@ public  final class Packet extends
       return this;
     }
     /**
-     * <code>int32 source = 3;</code>
+     * <code>int32 source = 4;</code>
      */
     public Builder clearSource() {
       
@@ -691,13 +749,13 @@ public  final class Packet extends
 
     private int destination_ ;
     /**
-     * <code>int32 destination = 4;</code>
+     * <code>int32 destination = 5;</code>
      */
     public int getDestination() {
       return destination_;
     }
     /**
-     * <code>int32 destination = 4;</code>
+     * <code>int32 destination = 5;</code>
      */
     public Builder setDestination(int value) {
       
@@ -706,7 +764,7 @@ public  final class Packet extends
       return this;
     }
     /**
-     * <code>int32 destination = 4;</code>
+     * <code>int32 destination = 5;</code>
      */
     public Builder clearDestination() {
       
@@ -717,13 +775,13 @@ public  final class Packet extends
 
     private com.google.protobuf.ByteString payload_ = com.google.protobuf.ByteString.EMPTY;
     /**
-     * <code>bytes payload = 5;</code>
+     * <code>bytes payload = 6;</code>
      */
     public com.google.protobuf.ByteString getPayload() {
       return payload_;
     }
     /**
-     * <code>bytes payload = 5;</code>
+     * <code>bytes payload = 6;</code>
      */
     public Builder setPayload(com.google.protobuf.ByteString value) {
       if (value == null) {
@@ -735,7 +793,7 @@ public  final class Packet extends
       return this;
     }
     /**
-     * <code>bytes payload = 5;</code>
+     * <code>bytes payload = 6;</code>
      */
     public Builder clearPayload() {
       

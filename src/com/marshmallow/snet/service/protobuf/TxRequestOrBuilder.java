@@ -3,8 +3,8 @@
 
 package com.marshmallow.snet.service.protobuf;
 
-public interface TxConfigOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:TxConfig)
+public interface TxRequestOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:TxRequest)
     com.google.protobuf.MessageOrBuilder {
 
   /**

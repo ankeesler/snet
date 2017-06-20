@@ -41,9 +41,10 @@ following languages.
 API
 ---
 The SNET RPC API can be found in protobuf/snet.proto. Essentially, a node on the
-network communicates in 2 ways with the service.
-1. Tx - the node transmits some data to the service (i.e., the network medium).
-2. Rx - the node listens for data from the service (i.e., the network medium).
+network communicates in 3 ways with the service.
+1. Init - the node initializes itself on the simulated medium.
+1. Tx   - the node transmits some data to the simulated medium.
+2. Rx   - the node receives for data from the simulated medium.
 
 Here is a communication diagram for how clients communicate with the SNET
 service.
@@ -51,43 +52,55 @@ service.
                           |
     (boot) |              |
            |              |
-[A] Tx()   |    ->        |
+[A] Init() |    ->        |
+           |    <- Status |
+           |              |
+[B] Tx()   |    ->        |
            |              | (nothing)
            |    <- Status |
+           |              |
            |              |               | (boot)
            |              |               |
-[B]        |              |        <-     | Rx()
-           |              |               |
 [C] Tx()   |    ->        |               |
-           |              | Packet ->     |
+           |              | (nothing)     |
            |    <- Status |               |
            |              |               |
-           |              |        <-     | Tx()
-[A]        |    (nothing) |               |
-           |              | Status ->     |
+           |              |         <-    | Init()
+           |              | Status  ->    |
            |              |               |
-[C] Tx()   |    ->        |               |
-           |              | Packet ->     |
+[D] Tx()   |    ->        |               |
+           |              | (packet)      |
            |    <- Status |               |
+           |              |               |
+[E]        |              |         <-    | Rx()
+           |              | Packet  ->    |
+           |              |               |
+[F]        |              |         <-    | Rx()
+           |              | Nothing ->    |
+           |              |               |
 
-There are a couple of specific notes that need to be made here.
-[A] If a client transmits a message (using the Tx() RPC API), it will be
-    delivered to all clients currently in RX mode (entered through the Rx() RPC
-    API. If no clients are in RX mode, then the packet will not be delivered to
-    any nodes. However, the transmission may still be marked as successful.
-[B] Once a client boots, it can call the Rx() RPC API to enter RX mode, meaning
-    that it can receive packets. This call should be made _non blocking_ so that
-    the service can deliver a stream of packets to the client. A physical medium
-    would never enqueue data for devices, so the SNET service will not do that.
-    For more information about propagation of simulated data, see the Propagation
-    section below.
-[C] When a TX takes place (using the Tx() RPC API), and there exist nodes in RX
-    mode, then the transmitted packet will be delivered to those nodes. The Tx()
-    RPC API call can be made blocking or non-blocking, mostly depending on the
-    simulated client device. For example, a real radio may not perform
-    synchronous transmission actions - instead, it may transmit, and then read a
-    hardware register at a later date to learn of the success or failure of the
-    transmission.
+There are a couple of specific notes that need to be made here. Note that all of
+the SNET RPC calls are meant to be made SYNCHRONOUSLY.
+[A] A client needs to call the Init() RPC API in order to establish itself on
+    the simulated medium. If it does not do this, then it will not receive any
+    information over the simulated medium, and the SNET service will not report
+    any information about the device.
+[B] Once a client initializes itself (with the Init() RPC API), it can start
+    sending packets (with the Tx() RPC API). Packets sent over the simulated
+    medium are sent to all nodes, or only the nodes with a matching address
+    (see Propagation section below). Even if there are no other clients
+    listening on the simulated medium, the SNET service will report that the
+    packet has been sent successfully.
+[C] If no other clients have initialized themselves on the network, then a
+    packet sent from the lone initialized node will go unnoticed.
+[D] Once another node joins the network (see [A]), packets will be queued by the
+    SNET service upon transmission from other nodes (see [B]).
+[E] Nodes may synchronously call the RPC API Rx() in order to receive any
+    messages queued in the the network. See propagation section for more
+    configurable propagation options.
+[F] If there is nothing in the network to be received, an RPC API Rx() call will
+    result in the SNET service reporting that there are no packets to be
+    received.
 
 Propagation
 -----------
@@ -99,3 +112,4 @@ potential uses for this feature.
 - Propagation delay
 - Packet error simulation
 - Simulated hardware packet filtering
+- Packet queueing (maximum number, timeout)
