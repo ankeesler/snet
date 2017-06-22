@@ -7,3 +7,5 @@ To run the network simulator, issue the following command.
 ```gradle
 $ ./gradlew run
 ```
+
+See ARCH.md for more cool information.

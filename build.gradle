@@ -22,7 +22,8 @@ apply plugin: 'application'
 
 def protobufJavaDir = '/Users/agkeesle/Developer/me/protobuf/java'
 def grpcJavaDir = '/Users/agkeesle/Developer/me/grpc-java'
-def genDir = 'src/com/marshmallow/snet/service/protobuf'
+def javaGenDir = 'src/com/marshmallow/snet/service/protobuf'
+def cppGenDir = 'cpp/protobuf'
 
 repositories {
   mavenLocal()
@@ -44,7 +45,8 @@ dependencies {
 mainClassName = 'com.marshmallow.snet.app.SnetApp'
 
 task cleanGen(type: Delete) {
-  delete genDir
+  delete javaGenDir
+  delete cppGenDir
 }
 
 task gen(type: Exec, dependsOn: cleanGen) {
@@ -52,6 +54,7 @@ task gen(type: Exec, dependsOn: cleanGen) {
   commandLine "/Users/agkeesle/Developer/me/protobuf/src/protoc",
               "--plugin=protoc-gen-grpc-java=/Users/agkeesle/Developer/me/grpc-java/compiler/build/exe/java_plugin/protoc-gen-grpc-java",
               "--java_out=src",
+              "--cpp_out=cpp",
               "--grpc-java_out=src",
               "protobuf/snet.proto"
 }

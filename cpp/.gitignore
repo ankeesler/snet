@@ -1,0 +1,24 @@
+# Autotools stuff
+aclocal.m4
+autom4te.cache
+configure
+config.h
+config.h.in
+config.log
+config.status
+install-sh
+Makefile
+Makefile.in
+missing
+
+# Build remains
+*.o
+*.d
+snet_client
+
+# Huh?
+autoscan.log
+compile
+.deps
+stamp-h1
+depcomp
