@@ -37,7 +37,7 @@ There is future support planned for the following languages.
 - Python
 
 The C++ source files can be found in the cpp directory. See
-[cpp/README.md](cpp/README.md) for more information.
+[cpp/README](cpp/README) for more information.
 
 API
 ---
