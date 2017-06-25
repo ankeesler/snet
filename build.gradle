@@ -75,6 +75,13 @@ task testCpp(type: Exec) {
   commandLine "make", "-C", "cpp", "test"
 }
 
+task cleanCpp(type: Exec) {
+  description 'Clean the C++ SNET Client code.'
+  commandLine "make", "-C", "cpp", "clean"
+}
+
+clean.dependsOn(cleanCpp)
+
 task gen(dependsOn: [genJava, genCpp])
 
 sourceSets {
