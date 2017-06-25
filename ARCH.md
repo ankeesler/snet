@@ -42,10 +42,11 @@ The C++ source files can be found in the cpp directory. See
 API
 ---
 The SNET RPC API can be found in protobuf/snet.proto. Essentially, a node on the
-network communicates in 3 ways with the service.
-1. Init - the node initializes itself on the simulated medium.
-1. Tx   - the node transmits some data to the simulated medium.
-2. Rx   - the node receives for data from the simulated medium.
+network communicates in 4 ways with the service.
+1. Init  - the node initializes itself on the simulated medium.
+2. Tx    - the node transmits some data to the simulated medium.
+3. Rx    - the node receives for data from the simulated medium.
+4. Reset - completely reset the service so that it forgets all current nodes.
 
 Here is a communication diagram for how clients communicate with the SNET
 service.
