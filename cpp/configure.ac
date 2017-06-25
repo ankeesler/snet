@@ -4,7 +4,7 @@
 AC_PREREQ([2.69])
 AC_INIT([snet_client], [0.0.0.0], [ankeesler1@gmail.com])
 AC_CONFIG_SRCDIR([snet_client.cpp])
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([subdir-objects])
 AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.

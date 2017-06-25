@@ -52,6 +52,12 @@ extern InitResponseDefaultTypeInternal _InitResponse_default_instance_;
 class Packet;
 class PacketDefaultTypeInternal;
 extern PacketDefaultTypeInternal _Packet_default_instance_;
+class ResetRequest;
+class ResetRequestDefaultTypeInternal;
+extern ResetRequestDefaultTypeInternal _ResetRequest_default_instance_;
+class ResetResponse;
+class ResetResponseDefaultTypeInternal;
+extern ResetResponseDefaultTypeInternal _ResetResponse_default_instance_;
 class RxRequest;
 class RxRequestDefaultTypeInternal;
 extern RxRequestDefaultTypeInternal _RxRequest_default_instance_;
@@ -417,6 +423,169 @@ class EchoResponse : public ::google::protobuf::Message /* @@protoc_insertion_po
 };
 // -------------------------------------------------------------------
 
+class ResetRequest : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ResetRequest) */ {
+ public:
+  ResetRequest();
+  virtual ~ResetRequest();
+
+  ResetRequest(const ResetRequest& from);
+
+  inline ResetRequest& operator=(const ResetRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ResetRequest& default_instance();
+
+  static inline const ResetRequest* internal_default_instance() {
+    return reinterpret_cast<const ResetRequest*>(
+               &_ResetRequest_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    3;
+
+  void Swap(ResetRequest* other);
+
+  // implements Message ----------------------------------------------
+
+  inline ResetRequest* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  ResetRequest* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const ResetRequest& from);
+  void MergeFrom(const ResetRequest& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(ResetRequest* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // int32 address = 1;
+  void clear_address();
+  static const int kAddressFieldNumber = 1;
+  ::google::protobuf::int32 address() const;
+  void set_address(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:ResetRequest)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::int32 address_;
+  mutable int _cached_size_;
+  friend struct protobuf_protobuf_2fsnet_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class ResetResponse : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ResetResponse) */ {
+ public:
+  ResetResponse();
+  virtual ~ResetResponse();
+
+  ResetResponse(const ResetResponse& from);
+
+  inline ResetResponse& operator=(const ResetResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ResetResponse& default_instance();
+
+  static inline const ResetResponse* internal_default_instance() {
+    return reinterpret_cast<const ResetResponse*>(
+               &_ResetResponse_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    4;
+
+  void Swap(ResetResponse* other);
+
+  // implements Message ----------------------------------------------
+
+  inline ResetResponse* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  ResetResponse* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const ResetResponse& from);
+  void MergeFrom(const ResetResponse& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(ResetResponse* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // .Status status = 1;
+  bool has_status() const;
+  void clear_status();
+  static const int kStatusFieldNumber = 1;
+  const ::Status& status() const;
+  ::Status* mutable_status();
+  ::Status* release_status();
+  void set_allocated_status(::Status* status);
+
+  // @@protoc_insertion_point(class_scope:ResetResponse)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::Status* status_;
+  mutable int _cached_size_;
+  friend struct protobuf_protobuf_2fsnet_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
 class InfoRequest : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:InfoRequest) */ {
  public:
   InfoRequest();
@@ -437,7 +606,7 @@ class InfoRequest : public ::google::protobuf::Message /* @@protoc_insertion_poi
                &_InfoRequest_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    3;
+    5;
 
   void Swap(InfoRequest* other);
 
@@ -510,7 +679,7 @@ class InfoResponse : public ::google::protobuf::Message /* @@protoc_insertion_po
                &_InfoResponse_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    4;
+    6;
 
   void Swap(InfoResponse* other);
 
@@ -583,7 +752,7 @@ class InitRequest : public ::google::protobuf::Message /* @@protoc_insertion_poi
                &_InitRequest_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    5;
+    7;
 
   void Swap(InitRequest* other);
 
@@ -663,7 +832,7 @@ class InitResponse : public ::google::protobuf::Message /* @@protoc_insertion_po
                &_InitResponse_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    6;
+    8;
 
   void Swap(InitResponse* other);
 
@@ -746,7 +915,7 @@ class Packet : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
                &_Packet_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    7;
+    9;
 
   void Swap(Packet* other);
 
@@ -895,7 +1064,7 @@ class TxRequest : public ::google::protobuf::Message /* @@protoc_insertion_point
                &_TxRequest_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    8;
+    10;
 
   void Swap(TxRequest* other);
 
@@ -978,7 +1147,7 @@ class TxResponse : public ::google::protobuf::Message /* @@protoc_insertion_poin
                &_TxResponse_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    9;
+    11;
 
   void Swap(TxResponse* other);
 
@@ -1061,7 +1230,7 @@ class RxRequest : public ::google::protobuf::Message /* @@protoc_insertion_point
                &_RxRequest_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    10;
+    12;
 
   void Swap(RxRequest* other);
 
@@ -1141,7 +1310,7 @@ class RxResponse : public ::google::protobuf::Message /* @@protoc_insertion_poin
                &_RxResponse_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    11;
+    13;
 
   void Swap(RxResponse* other);
 
@@ -1346,6 +1515,67 @@ inline void EchoResponse::set_allocated_message(::std::string* message) {
   }
   message_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), message);
   // @@protoc_insertion_point(field_set_allocated:EchoResponse.message)
+}
+
+// -------------------------------------------------------------------
+
+// ResetRequest
+
+// int32 address = 1;
+inline void ResetRequest::clear_address() {
+  address_ = 0;
+}
+inline ::google::protobuf::int32 ResetRequest::address() const {
+  // @@protoc_insertion_point(field_get:ResetRequest.address)
+  return address_;
+}
+inline void ResetRequest::set_address(::google::protobuf::int32 value) {
+  
+  address_ = value;
+  // @@protoc_insertion_point(field_set:ResetRequest.address)
+}
+
+// -------------------------------------------------------------------
+
+// ResetResponse
+
+// .Status status = 1;
+inline bool ResetResponse::has_status() const {
+  return this != internal_default_instance() && status_ != NULL;
+}
+inline void ResetResponse::clear_status() {
+  if (GetArenaNoVirtual() == NULL && status_ != NULL) delete status_;
+  status_ = NULL;
+}
+inline const ::Status& ResetResponse::status() const {
+  // @@protoc_insertion_point(field_get:ResetResponse.status)
+  return status_ != NULL ? *status_
+                         : *::Status::internal_default_instance();
+}
+inline ::Status* ResetResponse::mutable_status() {
+  
+  if (status_ == NULL) {
+    status_ = new ::Status;
+  }
+  // @@protoc_insertion_point(field_mutable:ResetResponse.status)
+  return status_;
+}
+inline ::Status* ResetResponse::release_status() {
+  // @@protoc_insertion_point(field_release:ResetResponse.status)
+  
+  ::Status* temp = status_;
+  status_ = NULL;
+  return temp;
+}
+inline void ResetResponse::set_allocated_status(::Status* status) {
+  delete status_;
+  status_ = status;
+  if (status) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:ResetResponse.status)
 }
 
 // -------------------------------------------------------------------
@@ -1731,6 +1961,10 @@ inline void RxResponse::set_allocated_packet(::Packet* packet) {
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

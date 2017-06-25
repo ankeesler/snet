@@ -14,11 +14,12 @@ missing
 # Build remains
 *.o
 *.d
-snet_client
+snet_client_test
 
 # Huh?
 autoscan.log
 compile
 .deps
+.dirstamp
 stamp-h1
 depcomp

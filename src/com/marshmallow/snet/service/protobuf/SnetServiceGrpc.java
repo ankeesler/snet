@@ -40,6 +40,18 @@ public final class SnetServiceGrpc {
               com.marshmallow.snet.service.protobuf.EchoResponse.getDefaultInstance()))
           .build();
   @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
+  public static final io.grpc.MethodDescriptor<com.marshmallow.snet.service.protobuf.ResetRequest,
+      com.marshmallow.snet.service.protobuf.ResetResponse> METHOD_RESET =
+      io.grpc.MethodDescriptor.<com.marshmallow.snet.service.protobuf.ResetRequest, com.marshmallow.snet.service.protobuf.ResetResponse>newBuilder()
+          .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+          .setFullMethodName(generateFullMethodName(
+              "SnetService", "Reset"))
+          .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+              com.marshmallow.snet.service.protobuf.ResetRequest.getDefaultInstance()))
+          .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+              com.marshmallow.snet.service.protobuf.ResetResponse.getDefaultInstance()))
+          .build();
+  @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
   public static final io.grpc.MethodDescriptor<com.marshmallow.snet.service.protobuf.InfoRequest,
       com.marshmallow.snet.service.protobuf.InfoResponse> METHOD_INFO =
       io.grpc.MethodDescriptor.<com.marshmallow.snet.service.protobuf.InfoRequest, com.marshmallow.snet.service.protobuf.InfoResponse>newBuilder()
@@ -124,6 +136,13 @@ public final class SnetServiceGrpc {
 
     /**
      */
+    public void reset(com.marshmallow.snet.service.protobuf.ResetRequest request,
+        io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.ResetResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(METHOD_RESET, responseObserver);
+    }
+
+    /**
+     */
     public void info(com.marshmallow.snet.service.protobuf.InfoRequest request,
         io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.InfoResponse> responseObserver) {
       asyncUnimplementedUnaryCall(METHOD_INFO, responseObserver);
@@ -159,6 +178,13 @@ public final class SnetServiceGrpc {
                 com.marshmallow.snet.service.protobuf.EchoRequest,
                 com.marshmallow.snet.service.protobuf.EchoResponse>(
                   this, METHODID_ECHO)))
+          .addMethod(
+            METHOD_RESET,
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.marshmallow.snet.service.protobuf.ResetRequest,
+                com.marshmallow.snet.service.protobuf.ResetResponse>(
+                  this, METHODID_RESET)))
           .addMethod(
             METHOD_INFO,
             asyncUnaryCall(
@@ -215,6 +241,14 @@ public final class SnetServiceGrpc {
         io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.EchoResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(METHOD_ECHO, getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void reset(com.marshmallow.snet.service.protobuf.ResetRequest request,
+        io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.ResetResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_RESET, getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -277,6 +311,13 @@ public final class SnetServiceGrpc {
 
     /**
      */
+    public com.marshmallow.snet.service.protobuf.ResetResponse reset(com.marshmallow.snet.service.protobuf.ResetRequest request) {
+      return blockingUnaryCall(
+          getChannel(), METHOD_RESET, getCallOptions(), request);
+    }
+
+    /**
+     */
     public com.marshmallow.snet.service.protobuf.InfoResponse info(com.marshmallow.snet.service.protobuf.InfoRequest request) {
       return blockingUnaryCall(
           getChannel(), METHOD_INFO, getCallOptions(), request);
@@ -332,6 +373,14 @@ public final class SnetServiceGrpc {
 
     /**
      */
+    public com.google.common.util.concurrent.ListenableFuture<com.marshmallow.snet.service.protobuf.ResetResponse> reset(
+        com.marshmallow.snet.service.protobuf.ResetRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_RESET, getCallOptions()), request);
+    }
+
+    /**
+     */
     public com.google.common.util.concurrent.ListenableFuture<com.marshmallow.snet.service.protobuf.InfoResponse> info(
         com.marshmallow.snet.service.protobuf.InfoRequest request) {
       return futureUnaryCall(
@@ -364,10 +413,11 @@ public final class SnetServiceGrpc {
   }
 
   private static final int METHODID_ECHO = 0;
-  private static final int METHODID_INFO = 1;
-  private static final int METHODID_INIT = 2;
-  private static final int METHODID_TX = 3;
-  private static final int METHODID_RX = 4;
+  private static final int METHODID_RESET = 1;
+  private static final int METHODID_INFO = 2;
+  private static final int METHODID_INIT = 3;
+  private static final int METHODID_TX = 4;
+  private static final int METHODID_RX = 5;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -389,6 +439,10 @@ public final class SnetServiceGrpc {
         case METHODID_ECHO:
           serviceImpl.echo((com.marshmallow.snet.service.protobuf.EchoRequest) request,
               (io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.EchoResponse>) responseObserver);
+          break;
+        case METHODID_RESET:
+          serviceImpl.reset((com.marshmallow.snet.service.protobuf.ResetRequest) request,
+              (io.grpc.stub.StreamObserver<com.marshmallow.snet.service.protobuf.ResetResponse>) responseObserver);
           break;
         case METHODID_INFO:
           serviceImpl.info((com.marshmallow.snet.service.protobuf.InfoRequest) request,
@@ -440,6 +494,7 @@ public final class SnetServiceGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new SnetServiceDescriptorSupplier())
               .addMethod(METHOD_ECHO)
+              .addMethod(METHOD_RESET)
               .addMethod(METHOD_INFO)
               .addMethod(METHOD_INIT)
               .addMethod(METHOD_TX)

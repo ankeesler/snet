@@ -44,20 +44,32 @@ dependencies {
 // Define the main class for the application
 mainClassName = 'com.marshmallow.snet.app.SnetApp'
 
-task cleanGen(type: Delete) {
+task cleanGenJava(type: Delete) {
   delete javaGenDir
-  delete cppGenDir
 }
 
-task gen(type: Exec, dependsOn: cleanGen) {
-  description 'Generates protobuf and grpc files using protobuf compiler.'
+task cleanGenCpp(type: Delete) {
+  //delete cppGenDir // TODO: how do I make this only clear out .cc and .h files?
+}
+
+task genJava(type: Exec, dependsOn: cleanGenJava) {
+  description 'Generates protobuf and grpc Java code using protobuf compiler.'
   commandLine "/Users/agkeesle/Developer/me/protobuf/src/protoc",
               "--plugin=protoc-gen-grpc-java=/Users/agkeesle/Developer/me/grpc-java/compiler/build/exe/java_plugin/protoc-gen-grpc-java",
               "--java_out=src",
-              "--cpp_out=cpp",
               "--grpc-java_out=src",
               "protobuf/snet.proto"
 }
+
+task genCpp(type: Exec, dependsOn: cleanGenCpp) {
+  commandLine "/usr/local/bin/protoc",
+              "--plugin=protoc-gen-grpc=/usr/local/bin/grpc_cpp_plugin",
+              "--cpp_out=cpp",
+              "--grpc_out=cpp",
+              "protobuf/snet.proto"
+}
+
+task gen(dependsOn: [genJava, genCpp])
 
 sourceSets {
   main {

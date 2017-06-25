@@ -13,6 +13,8 @@ import com.marshmallow.snet.service.protobuf.InfoResponse;
 import com.marshmallow.snet.service.protobuf.InitRequest;
 import com.marshmallow.snet.service.protobuf.InitResponse;
 import com.marshmallow.snet.service.protobuf.Packet;
+import com.marshmallow.snet.service.protobuf.ResetRequest;
+import com.marshmallow.snet.service.protobuf.ResetResponse;
 import com.marshmallow.snet.service.protobuf.RxRequest;
 import com.marshmallow.snet.service.protobuf.RxResponse;
 import com.marshmallow.snet.service.protobuf.SnetServiceGrpc;
@@ -30,6 +32,15 @@ public class GrpcSnetServiceImpl extends SnetServiceGrpc.SnetServiceImplBase {
   @Override
   public void echo(EchoRequest request, StreamObserver<EchoResponse> response) {
     response.onNext(EchoResponse.newBuilder().setMessage(request.getMessage()).build());
+    response.onCompleted();
+  }
+
+  @Override
+  public void reset(ResetRequest request, StreamObserver<ResetResponse> response) {
+    Log.instance().note(this.getClass(), "reset(" + request.getAddress() + ")");
+    packetQueues.clear();
+    Status status = Status.newBuilder().setId(Status.Id.SUCCESS).build();
+    response.onNext(ResetResponse.newBuilder().setStatus(status).build());
     response.onCompleted();
   }
 

@@ -22,6 +22,14 @@ message EchoResponse {
   string message = 1;
 }
 
+message ResetRequest {
+  int32 address = 1;
+}
+
+message ResetResponse {
+  Status status = 1;
+}
+
 message InfoRequest {
 }
 
@@ -68,6 +76,7 @@ message RxResponse {
 
 service SnetService {
   rpc Echo(EchoRequest) returns (EchoResponse);
+  rpc Reset(ResetRequest) returns (ResetResponse);
   rpc Info(InfoRequest) returns (InfoResponse);
   rpc Init(InitRequest) returns (InitResponse);
   rpc Tx(TxRequest) returns (TxResponse);
