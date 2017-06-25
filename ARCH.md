@@ -36,8 +36,8 @@ The only currently supported client-side SNET language is C++ (other than Java).
 There is future support planned for the following languages.
 - Python
 
-The C++ source files can be found in the cpp directory. See cpp/README.md for
-more information.
+The C++ source files can be found in the cpp directory. See
+[cpp/README.md](cpp/README.md) for more information.
 
 API
 ---
@@ -49,6 +49,7 @@ network communicates in 3 ways with the service.
 
 Here is a communication diagram for how clients communicate with the SNET
 service.
+```
          client0       service          client1
                           |
     (boot) |              |
@@ -79,29 +80,29 @@ service.
 [F]        |              |         <-    | Rx()
            |              | Nothing ->    |
            |              |               |
-
+```
 There are a couple of specific notes that need to be made here. Note that all of
 the SNET RPC calls are meant to be made SYNCHRONOUSLY.
-[A] A client needs to call the Init() RPC API in order to establish itself on
-    the simulated medium. If it does not do this, then it will not receive any
-    information over the simulated medium, and the SNET service will not report
-    any information about the device.
-[B] Once a client initializes itself (with the Init() RPC API), it can start
-    sending packets (with the Tx() RPC API). Packets sent over the simulated
-    medium are sent to all nodes, or only the nodes with a matching address
-    (see Propagation section below). Even if there are no other clients
-    listening on the simulated medium, the SNET service will report that the
-    packet has been sent successfully.
-[C] If no other clients have initialized themselves on the network, then a
-    packet sent from the lone initialized node will go unnoticed.
-[D] Once another node joins the network (see [A]), packets will be queued by the
-    SNET service upon transmission from other nodes (see [B]).
-[E] Nodes may synchronously call the RPC API Rx() in order to receive any
-    messages queued in the the network. See propagation section for more
-    configurable propagation options.
-[F] If there is nothing in the network to be received, an RPC API Rx() call will
-    result in the SNET service reporting that there are no packets to be
-    received.
+- [A] A client needs to call the Init() RPC API in order to establish itself on
+      the simulated medium. If it does not do this, then it will not receive any
+      information over the simulated medium, and the SNET service will not report
+      any information about the device.
+- [B] Once a client initializes itself (with the Init() RPC API), it can start
+      sending packets (with the Tx() RPC API). Packets sent over the simulated
+      medium are sent to all nodes, or only the nodes with a matching address
+      (see Propagation section below). Even if there are no other clients
+      listening on the simulated medium, the SNET service will report that the
+      packet has been sent successfully.
+- [C] If no other clients have initialized themselves on the network, then a
+      packet sent from the lone initialized node will go unnoticed.
+- [D] Once another node joins the network (see [A]), packets will be queued by
+      the SNET service upon transmission from other nodes (see [B]).
+- [E] Nodes may synchronously call the RPC API Rx() in order to receive any
+      messages queued in the the network. See propagation section for more
+      configurable propagation options.
+- [F] If there is nothing in the network to be received, an RPC API Rx() call
+      will result in the SNET service reporting that there are no packets to be
+      received.
 
 Propagation
 -----------
