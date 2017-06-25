@@ -69,6 +69,12 @@ task genCpp(type: Exec, dependsOn: cleanGenCpp) {
               "protobuf/snet.proto"
 }
 
+task testCpp(type: Exec) {
+  description 'Run the C++ SNET Client unit test.'
+  // TODO: how do I start a service before this?
+  commandLine "make", "-C", "cpp", "test"
+}
+
 task gen(dependsOn: [genJava, genCpp])
 
 sourceSets {
@@ -85,5 +91,11 @@ sourceSets {
     resources {
       srcDirs = ['cfg']
     }
+  }
+}
+
+test {
+  doLast {
+    
   }
 }
