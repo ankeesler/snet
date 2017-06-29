@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
+import java.util.logging.Logger;
 
-import com.marshmallow.snet.core.Log;
 import com.marshmallow.snet.service.protobuf.EchoRequest;
 import com.marshmallow.snet.service.protobuf.EchoResponse;
 import com.marshmallow.snet.service.protobuf.InfoRequest;
@@ -26,6 +26,8 @@ import io.grpc.stub.StreamObserver;
 
 public class GrpcSnetServiceImpl extends SnetServiceGrpc.SnetServiceImplBase {
 
+  private static final Logger log = Logger.getGlobal();
+
   private Map<Integer, Queue<Packet>> packetQueues
     = new HashMap<Integer, Queue<Packet>>();
 
@@ -37,7 +39,7 @@ public class GrpcSnetServiceImpl extends SnetServiceGrpc.SnetServiceImplBase {
 
   @Override
   public void reset(ResetRequest request, StreamObserver<ResetResponse> response) {
-    Log.instance().note(this.getClass(), "reset(" + request.getAddress() + ")");
+    log.info("reset(" + request.getAddress() + ")");
     packetQueues.clear();
     Status status = Status.newBuilder().setId(Status.Id.SUCCESS).build();
     response.onNext(ResetResponse.newBuilder().setStatus(status).build());
@@ -46,7 +48,7 @@ public class GrpcSnetServiceImpl extends SnetServiceGrpc.SnetServiceImplBase {
 
   @Override
   public void init(InitRequest request, StreamObserver<InitResponse> response) {
-    Log.instance().note(this.getClass(), "init(" + request.getAddress() + ")");
+    log.info("init(" + request.getAddress() + ")");
     Status.Id statusId;
     Integer source = request.getAddress();
     if (packetQueues.containsKey(source)) {
@@ -65,14 +67,14 @@ public class GrpcSnetServiceImpl extends SnetServiceGrpc.SnetServiceImplBase {
   @Override
   public void info(InfoRequest request, StreamObserver<InfoResponse> responseObserver) {
     InfoResponse response = InfoResponse.newBuilder().build();
-    Log.instance().note(this.getClass(), "info(...) -> " + response);
+    log.info("info(...) -> " + response);
     responseObserver.onNext(response);
     responseObserver.onCompleted();
   }
 
   @Override
   public void tx(TxRequest request, StreamObserver<TxResponse> response) {
-    Log.instance().note(this.getClass(), "tx(" + request.toString().trim() + ")");
+    log.info("tx(" + request.toString().trim() + ")");
 
     // TODO: propagation stuff here.
 
@@ -96,7 +98,7 @@ public class GrpcSnetServiceImpl extends SnetServiceGrpc.SnetServiceImplBase {
 
   @Override
   public void rx(RxRequest request, StreamObserver<RxResponse> response) {
-    Log.instance().note(this.getClass(), "rx(" + request.toString().trim() + ")");
+    log.info("rx(" + request.toString().trim() + ")");
 
     Status.Id statusId;
     Packet packet = null;
