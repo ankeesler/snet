@@ -48,7 +48,7 @@ task cleanGenJava(type: Delete) {
 }
 
 task cleanGenCpp(type: Delete) {
-  //delete cppGenDir // TODO: how do I make this only clear out .cc and .h files?
+  delete fileTree(dir: 'cpp/protobuf', includes: ['*.cc', '*.h'])
 }
 
 task genJava(type: Exec, dependsOn: cleanGenJava) {
