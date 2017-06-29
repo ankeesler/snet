@@ -23,9 +23,6 @@ snet_client::snet_client(void)
                           grpc::InsecureChannelCredentials());
 
   m_stub = SnetService::NewStub(channel);
-
-  // If we fail, throw an exception.
-  // If we pass, carry on.
 }
 
 int snet_client::get_addr(void) const
