@@ -25,7 +25,6 @@ service code.
 | com.marshmallow.snet.app              | SNET applications built on top of the rest of the SNET code |
 | com.marshmallow.snet.client           | SNET client code |
 | com.marshmallow.snet.core             | Core SNET utilities (like logging) |
-| com.marshmallow.snet.handler          | Code for handling specific SNET service access points |
 | com.marshmallow.snet.service          | SNET service code |
 | com.marshmallow.snet.service.protobuf | Generated Google Protocol Buffers/gRPC code | 
 | com.marshmallow.snet.service.test     | SNET unit tests |
