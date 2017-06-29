@@ -14,7 +14,7 @@ public class BadConfigurationTest extends TestCase {
       // pass
     } catch (Exception exception) {
       exception.printStackTrace();
-      fail("threw wrong kind of exception; wanted IllegalArgumentException, got "+ exception);
+      fail("threw wrong kind of exception; wanted IllegalArgumentException, got " + exception);
     }
   }
 

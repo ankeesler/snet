@@ -13,7 +13,9 @@ public enum ConfigurationKey {
     this.dephault = dephault;
   }
 
-  public String dephault() { return this.dephault; }
+  public String dephault() {
+    return this.dephault;
+  }
 
   public String get(final Properties properties) {
     return properties.getProperty(this.name(), this.dephault());

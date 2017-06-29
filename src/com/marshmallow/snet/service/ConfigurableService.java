@@ -31,7 +31,8 @@ public class ConfigurableService extends GrpcBaseService {
       if (serviceInstance instanceof BindableService) {
         services.add((BindableService)serviceInstance);
       } else {
-        String message = "Class is not instance of IMessageHandler: " + serviceInstance.getClass().toString();
+        String message = "Class is not instance of IMessageHandler: "
+                         + serviceInstance.getClass().toString();
         throw new IllegalArgumentException(message);
       }
     }
