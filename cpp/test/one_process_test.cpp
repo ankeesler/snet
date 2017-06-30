@@ -1,5 +1,5 @@
 //
-// snet_client_test.cpp
+// one_process_test.cpp
 //
 // SNET Client C++ test
 //
@@ -7,7 +7,7 @@
 #include <iostream>
 #include <cassert>
 
-#include "snet_client.hpp"
+#include "src/snet_client.hpp"
 
 #define expect(a, b)                              \
  do {                                             \
