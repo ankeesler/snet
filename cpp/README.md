@@ -5,6 +5,7 @@ SNET C++ Client Code
 This C++ code contains SNET client-side functionality.
 
 Here is the directory structure.
+
 | Directory | Description |
 | --------- | ----------- |
 | src/      | SNET C++ client-side core functionality |
