@@ -21,6 +21,7 @@ public:
   };
 
   snet_client(void);
+  snet_client(int);
   int get_addr(void) const;
   status reset(void);
   status init(void);
@@ -36,4 +37,6 @@ private:
   int m_nxt_seq;
   int m_addr;
   std::unique_ptr<SnetService::Stub> m_stub;
+
+  void init_stub(void);
 };

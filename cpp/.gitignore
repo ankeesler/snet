@@ -14,7 +14,9 @@ missing
 # Build remains
 *.o
 *.d
-snet_client_test
+one_process_test
+multi_process_test
+echo_app
 
 # Huh?
 autoscan.log

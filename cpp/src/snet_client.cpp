@@ -18,11 +18,13 @@ int snet_client::sm_nxt_src_addr = 0;
 snet_client::snet_client(void)
   : m_nxt_seq(0), m_addr(sm_nxt_src_addr++)
 {
-  std::shared_ptr<grpc::ChannelInterface> channel
-    = grpc::CreateChannel("localhost:12345",
-                          grpc::InsecureChannelCredentials());
+  init_stub();
+}
 
-  m_stub = SnetService::NewStub(channel);
+snet_client::snet_client(int addr)
+  : m_nxt_seq(0), m_addr(addr)
+{
+  init_stub();
 }
 
 int snet_client::get_addr(void) const
@@ -113,4 +115,13 @@ void snet_client::make_ctx(grpc::ClientContext *ctx)
   std::chrono::system_clock::time_point deadline =
     std::chrono::system_clock::now() + std::chrono::seconds(SM_RPC_TIMEOUT_S);
   ctx->set_deadline(deadline);
+}
+
+void snet_client::init_stub(void)
+{
+  std::shared_ptr<grpc::ChannelInterface> channel
+    = grpc::CreateChannel("localhost:12345",
+                          grpc::InsecureChannelCredentials());
+
+  m_stub = SnetService::NewStub(channel);
 }
