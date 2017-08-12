@@ -15,6 +15,7 @@ public  final class InitRequest extends
     super(builder);
   }
   private InitRequest() {
+    type_ = 0;
     address_ = 0;
   }
 
@@ -44,6 +45,12 @@ public  final class InitRequest extends
             break;
           }
           case 8: {
+            int rawValue = input.readEnum();
+
+            type_ = rawValue;
+            break;
+          }
+          case 16: {
 
             address_ = input.readInt32();
             break;
@@ -71,10 +78,26 @@ public  final class InitRequest extends
             com.marshmallow.snet.service.protobuf.InitRequest.class, com.marshmallow.snet.service.protobuf.InitRequest.Builder.class);
   }
 
-  public static final int ADDRESS_FIELD_NUMBER = 1;
+  public static final int TYPE_FIELD_NUMBER = 1;
+  private int type_;
+  /**
+   * <code>.ClientType type = 1;</code>
+   */
+  public int getTypeValue() {
+    return type_;
+  }
+  /**
+   * <code>.ClientType type = 1;</code>
+   */
+  public com.marshmallow.snet.service.protobuf.ClientType getType() {
+    com.marshmallow.snet.service.protobuf.ClientType result = com.marshmallow.snet.service.protobuf.ClientType.valueOf(type_);
+    return result == null ? com.marshmallow.snet.service.protobuf.ClientType.UNRECOGNIZED : result;
+  }
+
+  public static final int ADDRESS_FIELD_NUMBER = 2;
   private int address_;
   /**
-   * <code>int32 address = 1;</code>
+   * <code>int32 address = 2;</code>
    */
   public int getAddress() {
     return address_;
@@ -92,8 +115,11 @@ public  final class InitRequest extends
 
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
+    if (type_ != com.marshmallow.snet.service.protobuf.ClientType.ADMIN.getNumber()) {
+      output.writeEnum(1, type_);
+    }
     if (address_ != 0) {
-      output.writeInt32(1, address_);
+      output.writeInt32(2, address_);
     }
   }
 
@@ -102,9 +128,13 @@ public  final class InitRequest extends
     if (size != -1) return size;
 
     size = 0;
+    if (type_ != com.marshmallow.snet.service.protobuf.ClientType.ADMIN.getNumber()) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeEnumSize(1, type_);
+    }
     if (address_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(1, address_);
+        .computeInt32Size(2, address_);
     }
     memoizedSize = size;
     return size;
@@ -122,6 +152,7 @@ public  final class InitRequest extends
     com.marshmallow.snet.service.protobuf.InitRequest other = (com.marshmallow.snet.service.protobuf.InitRequest) obj;
 
     boolean result = true;
+    result = result && type_ == other.type_;
     result = result && (getAddress()
         == other.getAddress());
     return result;
@@ -134,6 +165,8 @@ public  final class InitRequest extends
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
+    hash = (37 * hash) + TYPE_FIELD_NUMBER;
+    hash = (53 * hash) + type_;
     hash = (37 * hash) + ADDRESS_FIELD_NUMBER;
     hash = (53 * hash) + getAddress();
     hash = (29 * hash) + unknownFields.hashCode();
@@ -265,6 +298,8 @@ public  final class InitRequest extends
     }
     public Builder clear() {
       super.clear();
+      type_ = 0;
+
       address_ = 0;
 
       return this;
@@ -289,6 +324,7 @@ public  final class InitRequest extends
 
     public com.marshmallow.snet.service.protobuf.InitRequest buildPartial() {
       com.marshmallow.snet.service.protobuf.InitRequest result = new com.marshmallow.snet.service.protobuf.InitRequest(this);
+      result.type_ = type_;
       result.address_ = address_;
       onBuilt();
       return result;
@@ -331,6 +367,9 @@ public  final class InitRequest extends
 
     public Builder mergeFrom(com.marshmallow.snet.service.protobuf.InitRequest other) {
       if (other == com.marshmallow.snet.service.protobuf.InitRequest.getDefaultInstance()) return this;
+      if (other.type_ != 0) {
+        setTypeValue(other.getTypeValue());
+      }
       if (other.getAddress() != 0) {
         setAddress(other.getAddress());
       }
@@ -360,15 +399,59 @@ public  final class InitRequest extends
       return this;
     }
 
+    private int type_ = 0;
+    /**
+     * <code>.ClientType type = 1;</code>
+     */
+    public int getTypeValue() {
+      return type_;
+    }
+    /**
+     * <code>.ClientType type = 1;</code>
+     */
+    public Builder setTypeValue(int value) {
+      type_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>.ClientType type = 1;</code>
+     */
+    public com.marshmallow.snet.service.protobuf.ClientType getType() {
+      com.marshmallow.snet.service.protobuf.ClientType result = com.marshmallow.snet.service.protobuf.ClientType.valueOf(type_);
+      return result == null ? com.marshmallow.snet.service.protobuf.ClientType.UNRECOGNIZED : result;
+    }
+    /**
+     * <code>.ClientType type = 1;</code>
+     */
+    public Builder setType(com.marshmallow.snet.service.protobuf.ClientType value) {
+      if (value == null) {
+        throw new NullPointerException();
+      }
+      
+      type_ = value.getNumber();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>.ClientType type = 1;</code>
+     */
+    public Builder clearType() {
+      
+      type_ = 0;
+      onChanged();
+      return this;
+    }
+
     private int address_ ;
     /**
-     * <code>int32 address = 1;</code>
+     * <code>int32 address = 2;</code>
      */
     public int getAddress() {
       return address_;
     }
     /**
-     * <code>int32 address = 1;</code>
+     * <code>int32 address = 2;</code>
      */
     public Builder setAddress(int value) {
       
@@ -377,7 +460,7 @@ public  final class InitRequest extends
       return this;
     }
     /**
-     * <code>int32 address = 1;</code>
+     * <code>int32 address = 2;</code>
      */
     public Builder clearAddress() {
       

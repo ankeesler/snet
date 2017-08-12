@@ -47,12 +47,13 @@ snet_client::status snet_client::reset(void)
              : snet_client::OK));
 }
 
-snet_client::status snet_client::init(void)
+snet_client::status snet_client::init(client_type type)
 {
   grpc::ClientContext ctx;
   make_ctx(&ctx);
   InitRequest req;
   InitResponse rsp;
+  req.set_type(type == snet_client::ADMIN ? ClientType::ADMIN : ClientType::NODE);
   req.set_address(m_addr);
   grpc::Status status = m_stub->Init(&ctx, req, &rsp);
   return (!status.ok()

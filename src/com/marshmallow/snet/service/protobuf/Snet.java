@@ -92,26 +92,30 @@ public final class Snet {
       "message\030\001 \001(\t\"\037\n\014EchoResponse\022\017\n\007message" +
       "\030\001 \001(\t\"\037\n\014ResetRequest\022\017\n\007address\030\001 \001(\005\"" +
       "(\n\rResetResponse\022\027\n\006status\030\001 \001(\0162\007.Statu" +
-      "s\"\r\n\013InfoRequest\"\016\n\014InfoResponse\"\036\n\013Init" +
-      "Request\022\017\n\007address\030\001 \001(\005\"\'\n\014InitResponse" +
-      "\022\027\n\006status\030\001 \001(\0162\007.Status\"\233\001\n\006Packet\022\016\n\006" +
-      "length\030\001 \001(\005\022\020\n\010sequence\030\002 \001(\005\022\032\n\004type\030\003" +
-      " \001(\0162\014.Packet.Type\022\016\n\006source\030\004 \001(\005\022\023\n\013de" +
-      "stination\030\005 \001(\005\022\017\n\007payload\030\006 \001(\014\"\035\n\004Type",
-      "\022\010\n\004DATA\020\000\022\013\n\007COMMAND\020\001\"$\n\tTxRequest\022\027\n\006" +
-      "packet\030\001 \001(\0132\007.Packet\"%\n\nTxResponse\022\027\n\006s" +
-      "tatus\030\001 \001(\0162\007.Status\"\034\n\tRxRequest\022\017\n\007add" +
-      "ress\030\001 \001(\005\">\n\nRxResponse\022\027\n\006status\030\001 \001(\016" +
-      "2\007.Status\022\027\n\006packet\030\002 \001(\0132\007.Packet*I\n\006St" +
-      "atus\022\013\n\007SUCCESS\020\000\022\013\n\007FAILURE\020\001\022\013\n\007UNKNOW" +
-      "N\020\002\022\t\n\005EMPTY\020\003\022\r\n\tDUPLICATE\020\0042\342\001\n\013SnetSe" +
-      "rvice\022#\n\004Echo\022\014.EchoRequest\032\r.EchoRespon" +
-      "se\022&\n\005Reset\022\r.ResetRequest\032\016.ResetRespon" +
-      "se\022#\n\004Info\022\014.InfoRequest\032\r.InfoResponse\022",
-      "#\n\004Init\022\014.InitRequest\032\r.InitResponse\022\035\n\002" +
-      "Tx\022\n.TxRequest\032\013.TxResponse\022\035\n\002Rx\022\n.RxRe" +
-      "quest\032\013.RxResponseB)\n%com.marshmallow.sn" +
-      "et.service.protobufP\001b\006proto3"
+      "s\"\035\n\013InfoRequest\022\016\n\006source\030\001 \001(\005\":\n\014Info" +
+      "Response\022\027\n\006status\030\001 \001(\0162\007.Status\022\021\n\tnod" +
+      "eCount\030\002 \001(\005\"9\n\013InitRequest\022\031\n\004type\030\001 \001(" +
+      "\0162\013.ClientType\022\017\n\007address\030\002 \001(\005\"\'\n\014InitR" +
+      "esponse\022\027\n\006status\030\001 \001(\0162\007.Status\"\233\001\n\006Pac" +
+      "ket\022\016\n\006length\030\001 \001(\005\022\020\n\010sequence\030\002 \001(\005\022\032\n",
+      "\004type\030\003 \001(\0162\014.Packet.Type\022\016\n\006source\030\004 \001(" +
+      "\005\022\023\n\013destination\030\005 \001(\005\022\017\n\007payload\030\006 \001(\014\"" +
+      "\035\n\004Type\022\010\n\004DATA\020\000\022\013\n\007COMMAND\020\001\"$\n\tTxRequ" +
+      "est\022\027\n\006packet\030\001 \001(\0132\007.Packet\"%\n\nTxRespon" +
+      "se\022\027\n\006status\030\001 \001(\0162\007.Status\"\034\n\tRxRequest" +
+      "\022\017\n\007address\030\001 \001(\005\">\n\nRxResponse\022\027\n\006statu" +
+      "s\030\001 \001(\0162\007.Status\022\027\n\006packet\030\002 \001(\0132\007.Packe" +
+      "t*V\n\006Status\022\013\n\007SUCCESS\020\000\022\013\n\007FAILURE\020\001\022\013\n" +
+      "\007UNKNOWN\020\002\022\t\n\005EMPTY\020\003\022\r\n\tDUPLICATE\020\004\022\013\n\007" +
+      "BADTYPE\020\005*!\n\nClientType\022\t\n\005ADMIN\020\000\022\010\n\004NO",
+      "DE\020\0012\342\001\n\013SnetService\022#\n\004Echo\022\014.EchoReque" +
+      "st\032\r.EchoResponse\022&\n\005Reset\022\r.ResetReques" +
+      "t\032\016.ResetResponse\022#\n\004Info\022\014.InfoRequest\032" +
+      "\r.InfoResponse\022#\n\004Init\022\014.InitRequest\032\r.I" +
+      "nitResponse\022\035\n\002Tx\022\n.TxRequest\032\013.TxRespon" +
+      "se\022\035\n\002Rx\022\n.RxRequest\032\013.RxResponseB)\n%com" +
+      ".marshmallow.snet.service.protobufP\001b\006pr" +
+      "oto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -154,19 +158,19 @@ public final class Snet {
     internal_static_InfoRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_InfoRequest_descriptor,
-        new java.lang.String[] { });
+        new java.lang.String[] { "Source", });
     internal_static_InfoResponse_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_InfoResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_InfoResponse_descriptor,
-        new java.lang.String[] { });
+        new java.lang.String[] { "Status", "NodeCount", });
     internal_static_InitRequest_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_InitRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_InitRequest_descriptor,
-        new java.lang.String[] { "Address", });
+        new java.lang.String[] { "Type", "Address", });
     internal_static_InitResponse_descriptor =
       getDescriptor().getMessageTypes().get(7);
     internal_static_InitResponse_fieldAccessorTable = new

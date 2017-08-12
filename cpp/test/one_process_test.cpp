@@ -38,8 +38,8 @@ static void test(void)
   TEST_ASSERT_EQUAL_INT(client0.rx(&src_addr, &rx_payload), snet_client::BAD);
 
   // Now we should initialize successfully...
-  TEST_ASSERT_EQUAL_INT(client0.init(), snet_client::OK);
-  TEST_ASSERT_EQUAL_INT(client1.init(), snet_client::OK);
+  TEST_ASSERT_EQUAL_INT(client0.init(snet_client::NODE), snet_client::OK);
+  TEST_ASSERT_EQUAL_INT(client1.init(snet_client::NODE), snet_client::OK);
 
   // ...and rx successfully (with no data)...
   TEST_ASSERT_EQUAL_INT(client0.rx(&src_addr, &rx_payload), snet_client::NONE);

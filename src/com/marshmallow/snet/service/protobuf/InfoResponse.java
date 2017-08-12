@@ -15,6 +15,8 @@ public  final class InfoResponse extends
     super(builder);
   }
   private InfoResponse() {
+    status_ = 0;
+    nodeCount_ = 0;
   }
 
   @java.lang.Override
@@ -27,6 +29,7 @@ public  final class InfoResponse extends
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     this();
+    int mutable_bitField0_ = 0;
     try {
       boolean done = false;
       while (!done) {
@@ -39,6 +42,17 @@ public  final class InfoResponse extends
             if (!input.skipField(tag)) {
               done = true;
             }
+            break;
+          }
+          case 8: {
+            int rawValue = input.readEnum();
+
+            status_ = rawValue;
+            break;
+          }
+          case 16: {
+
+            nodeCount_ = input.readInt32();
             break;
           }
         }
@@ -64,6 +78,31 @@ public  final class InfoResponse extends
             com.marshmallow.snet.service.protobuf.InfoResponse.class, com.marshmallow.snet.service.protobuf.InfoResponse.Builder.class);
   }
 
+  public static final int STATUS_FIELD_NUMBER = 1;
+  private int status_;
+  /**
+   * <code>.Status status = 1;</code>
+   */
+  public int getStatusValue() {
+    return status_;
+  }
+  /**
+   * <code>.Status status = 1;</code>
+   */
+  public com.marshmallow.snet.service.protobuf.Status getStatus() {
+    com.marshmallow.snet.service.protobuf.Status result = com.marshmallow.snet.service.protobuf.Status.valueOf(status_);
+    return result == null ? com.marshmallow.snet.service.protobuf.Status.UNRECOGNIZED : result;
+  }
+
+  public static final int NODECOUNT_FIELD_NUMBER = 2;
+  private int nodeCount_;
+  /**
+   * <code>int32 nodeCount = 2;</code>
+   */
+  public int getNodeCount() {
+    return nodeCount_;
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -76,6 +115,12 @@ public  final class InfoResponse extends
 
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
+    if (status_ != com.marshmallow.snet.service.protobuf.Status.SUCCESS.getNumber()) {
+      output.writeEnum(1, status_);
+    }
+    if (nodeCount_ != 0) {
+      output.writeInt32(2, nodeCount_);
+    }
   }
 
   public int getSerializedSize() {
@@ -83,6 +128,14 @@ public  final class InfoResponse extends
     if (size != -1) return size;
 
     size = 0;
+    if (status_ != com.marshmallow.snet.service.protobuf.Status.SUCCESS.getNumber()) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeEnumSize(1, status_);
+    }
+    if (nodeCount_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(2, nodeCount_);
+    }
     memoizedSize = size;
     return size;
   }
@@ -99,6 +152,9 @@ public  final class InfoResponse extends
     com.marshmallow.snet.service.protobuf.InfoResponse other = (com.marshmallow.snet.service.protobuf.InfoResponse) obj;
 
     boolean result = true;
+    result = result && status_ == other.status_;
+    result = result && (getNodeCount()
+        == other.getNodeCount());
     return result;
   }
 
@@ -109,6 +165,10 @@ public  final class InfoResponse extends
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
+    hash = (37 * hash) + STATUS_FIELD_NUMBER;
+    hash = (53 * hash) + status_;
+    hash = (37 * hash) + NODECOUNT_FIELD_NUMBER;
+    hash = (53 * hash) + getNodeCount();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -238,6 +298,10 @@ public  final class InfoResponse extends
     }
     public Builder clear() {
       super.clear();
+      status_ = 0;
+
+      nodeCount_ = 0;
+
       return this;
     }
 
@@ -260,6 +324,8 @@ public  final class InfoResponse extends
 
     public com.marshmallow.snet.service.protobuf.InfoResponse buildPartial() {
       com.marshmallow.snet.service.protobuf.InfoResponse result = new com.marshmallow.snet.service.protobuf.InfoResponse(this);
+      result.status_ = status_;
+      result.nodeCount_ = nodeCount_;
       onBuilt();
       return result;
     }
@@ -301,6 +367,12 @@ public  final class InfoResponse extends
 
     public Builder mergeFrom(com.marshmallow.snet.service.protobuf.InfoResponse other) {
       if (other == com.marshmallow.snet.service.protobuf.InfoResponse.getDefaultInstance()) return this;
+      if (other.status_ != 0) {
+        setStatusValue(other.getStatusValue());
+      }
+      if (other.getNodeCount() != 0) {
+        setNodeCount(other.getNodeCount());
+      }
       onChanged();
       return this;
     }
@@ -324,6 +396,76 @@ public  final class InfoResponse extends
           mergeFrom(parsedMessage);
         }
       }
+      return this;
+    }
+
+    private int status_ = 0;
+    /**
+     * <code>.Status status = 1;</code>
+     */
+    public int getStatusValue() {
+      return status_;
+    }
+    /**
+     * <code>.Status status = 1;</code>
+     */
+    public Builder setStatusValue(int value) {
+      status_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>.Status status = 1;</code>
+     */
+    public com.marshmallow.snet.service.protobuf.Status getStatus() {
+      com.marshmallow.snet.service.protobuf.Status result = com.marshmallow.snet.service.protobuf.Status.valueOf(status_);
+      return result == null ? com.marshmallow.snet.service.protobuf.Status.UNRECOGNIZED : result;
+    }
+    /**
+     * <code>.Status status = 1;</code>
+     */
+    public Builder setStatus(com.marshmallow.snet.service.protobuf.Status value) {
+      if (value == null) {
+        throw new NullPointerException();
+      }
+      
+      status_ = value.getNumber();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>.Status status = 1;</code>
+     */
+    public Builder clearStatus() {
+      
+      status_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private int nodeCount_ ;
+    /**
+     * <code>int32 nodeCount = 2;</code>
+     */
+    public int getNodeCount() {
+      return nodeCount_;
+    }
+    /**
+     * <code>int32 nodeCount = 2;</code>
+     */
+    public Builder setNodeCount(int value) {
+      
+      nodeCount_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int32 nodeCount = 2;</code>
+     */
+    public Builder clearNodeCount() {
+      
+      nodeCount_ = 0;
+      onChanged();
       return this;
     }
     public final Builder setUnknownFields(

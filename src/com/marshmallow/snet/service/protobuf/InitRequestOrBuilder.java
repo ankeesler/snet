@@ -8,7 +8,16 @@ public interface InitRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>int32 address = 1;</code>
+   * <code>.ClientType type = 1;</code>
+   */
+  int getTypeValue();
+  /**
+   * <code>.ClientType type = 1;</code>
+   */
+  com.marshmallow.snet.service.protobuf.ClientType getType();
+
+  /**
+   * <code>int32 address = 2;</code>
    */
   int getAddress();
 }

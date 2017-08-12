@@ -37,7 +37,12 @@ There is future support planned for the following languages.
 The C++ source files can be found in the cpp directory. See
 [cpp/README](cpp/README) for more information.
 
-API
+There are 2 types of clients: an admin and a node. An admin can obtain
+information from the service with the Info() RPC API. A node communicates
+with the service like a communication interface would interact with a physical
+medium. See below for the node API.
+
+Node API
 ---
 The SNET RPC API can be found in protobuf/snet.proto. Essentially, a node on the
 network communicates in 4 ways with the service.
@@ -85,7 +90,8 @@ the SNET RPC calls are meant to be made SYNCHRONOUSLY.
 - [A] A client needs to call the Init() RPC API in order to establish itself on
       the simulated medium. If it does not do this, then it will not receive any
       information over the simulated medium, and the SNET service will not report
-      any information about the device.
+      any information about the device. The client must pass the NODE ClientType
+      to this API in order to establish itself as a node (not an admin).
 - [B] Once a client initializes itself (with the Init() RPC API), it can start
       sending packets (with the Tx() RPC API). Packets sent over the simulated
       medium are sent to all nodes, or only the nodes with a matching address

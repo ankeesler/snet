@@ -15,6 +15,7 @@ public  final class InfoRequest extends
     super(builder);
   }
   private InfoRequest() {
+    source_ = 0;
   }
 
   @java.lang.Override
@@ -27,6 +28,7 @@ public  final class InfoRequest extends
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     this();
+    int mutable_bitField0_ = 0;
     try {
       boolean done = false;
       while (!done) {
@@ -39,6 +41,11 @@ public  final class InfoRequest extends
             if (!input.skipField(tag)) {
               done = true;
             }
+            break;
+          }
+          case 8: {
+
+            source_ = input.readInt32();
             break;
           }
         }
@@ -64,6 +71,15 @@ public  final class InfoRequest extends
             com.marshmallow.snet.service.protobuf.InfoRequest.class, com.marshmallow.snet.service.protobuf.InfoRequest.Builder.class);
   }
 
+  public static final int SOURCE_FIELD_NUMBER = 1;
+  private int source_;
+  /**
+   * <code>int32 source = 1;</code>
+   */
+  public int getSource() {
+    return source_;
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -76,6 +92,9 @@ public  final class InfoRequest extends
 
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
+    if (source_ != 0) {
+      output.writeInt32(1, source_);
+    }
   }
 
   public int getSerializedSize() {
@@ -83,6 +102,10 @@ public  final class InfoRequest extends
     if (size != -1) return size;
 
     size = 0;
+    if (source_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(1, source_);
+    }
     memoizedSize = size;
     return size;
   }
@@ -99,6 +122,8 @@ public  final class InfoRequest extends
     com.marshmallow.snet.service.protobuf.InfoRequest other = (com.marshmallow.snet.service.protobuf.InfoRequest) obj;
 
     boolean result = true;
+    result = result && (getSource()
+        == other.getSource());
     return result;
   }
 
@@ -109,6 +134,8 @@ public  final class InfoRequest extends
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
+    hash = (37 * hash) + SOURCE_FIELD_NUMBER;
+    hash = (53 * hash) + getSource();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -238,6 +265,8 @@ public  final class InfoRequest extends
     }
     public Builder clear() {
       super.clear();
+      source_ = 0;
+
       return this;
     }
 
@@ -260,6 +289,7 @@ public  final class InfoRequest extends
 
     public com.marshmallow.snet.service.protobuf.InfoRequest buildPartial() {
       com.marshmallow.snet.service.protobuf.InfoRequest result = new com.marshmallow.snet.service.protobuf.InfoRequest(this);
+      result.source_ = source_;
       onBuilt();
       return result;
     }
@@ -301,6 +331,9 @@ public  final class InfoRequest extends
 
     public Builder mergeFrom(com.marshmallow.snet.service.protobuf.InfoRequest other) {
       if (other == com.marshmallow.snet.service.protobuf.InfoRequest.getDefaultInstance()) return this;
+      if (other.getSource() != 0) {
+        setSource(other.getSource());
+      }
       onChanged();
       return this;
     }
@@ -324,6 +357,32 @@ public  final class InfoRequest extends
           mergeFrom(parsedMessage);
         }
       }
+      return this;
+    }
+
+    private int source_ ;
+    /**
+     * <code>int32 source = 1;</code>
+     */
+    public int getSource() {
+      return source_;
+    }
+    /**
+     * <code>int32 source = 1;</code>
+     */
+    public Builder setSource(int value) {
+      
+      source_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int32 source = 1;</code>
+     */
+    public Builder clearSource() {
+      
+      source_ = 0;
+      onChanged();
       return this;
     }
     public final Builder setUnknownFields(

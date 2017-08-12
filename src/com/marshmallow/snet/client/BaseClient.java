@@ -3,8 +3,12 @@ package com.marshmallow.snet.client;
 import java.io.IOException;
 
 import com.marshmallow.snet.service.IService;
+import com.marshmallow.snet.service.protobuf.ClientType;
+import com.marshmallow.snet.service.protobuf.InfoRequest;
+import com.marshmallow.snet.service.protobuf.InfoResponse;
 import com.marshmallow.snet.service.protobuf.InitRequest;
 import com.marshmallow.snet.service.protobuf.Packet;
+import com.marshmallow.snet.service.protobuf.ResetRequest;
 import com.marshmallow.snet.service.protobuf.RxRequest;
 import com.marshmallow.snet.service.protobuf.RxResponse;
 import com.marshmallow.snet.service.protobuf.SnetServiceGrpc;
@@ -30,9 +34,10 @@ public class BaseClient implements IClient {
   }
 
   @Override
-  public boolean init() {
+  public boolean init(ClientType clientType) {
     return (this.stub.init(InitRequest
                            .newBuilder()
+                           .setType(clientType)
                            .setAddress(this.address)
                            .build())
                      .getStatus()
@@ -64,6 +69,26 @@ public class BaseClient implements IClient {
     return (rxResponse.getStatus() == Status.SUCCESS
             ? rxResponse.getPacket()
             : null);
+  }
+
+  @Override
+  public InfoResponse info() {
+    InfoResponse response
+      = this.stub.info(InfoRequest
+                       .newBuilder()
+                       .setSource(this.address)
+                       .build());
+    return (response.getStatus() == Status.SUCCESS ? response : null);
+  }
+
+  @Override
+  public boolean reset() {
+    return (this.stub.reset(ResetRequest
+                            .newBuilder()
+                            .setAddress(this.address)
+                            .build())
+                      .getStatus()
+            == Status.SUCCESS);
   }
 
   @Override

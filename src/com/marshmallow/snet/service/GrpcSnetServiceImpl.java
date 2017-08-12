@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.logging.Logger;
 
+import com.marshmallow.snet.service.protobuf.ClientType;
 import com.marshmallow.snet.service.protobuf.EchoRequest;
 import com.marshmallow.snet.service.protobuf.EchoResponse;
 import com.marshmallow.snet.service.protobuf.InfoRequest;
@@ -28,6 +29,9 @@ public class GrpcSnetServiceImpl extends SnetServiceGrpc.SnetServiceImplBase {
 
   private static final Logger log = Logger.getGlobal();
 
+  private Map<Integer, ClientType> clientTypes
+    = new HashMap<Integer, ClientType>();
+
   private Map<Integer, Queue<Packet>> packetQueues
     = new HashMap<Integer, Queue<Packet>>();
 
@@ -40,6 +44,7 @@ public class GrpcSnetServiceImpl extends SnetServiceGrpc.SnetServiceImplBase {
   @Override
   public void reset(ResetRequest request, StreamObserver<ResetResponse> response) {
     log.info("reset(" + request.getAddress() + ")");
+    clientTypes.clear();
     packetQueues.clear();
     response.onNext(ResetResponse.newBuilder().setStatus(Status.SUCCESS).build());
     response.onCompleted();
@@ -49,11 +54,15 @@ public class GrpcSnetServiceImpl extends SnetServiceGrpc.SnetServiceImplBase {
   public void init(InitRequest request, StreamObserver<InitResponse> response) {
     log.info("init(" + request.getAddress() + ")");
     Status status;
+    ClientType type = request.getType();
     Integer source = request.getAddress();
-    if (packetQueues.containsKey(source)) {
+    if (clientTypes.containsKey(source)) {
       status = Status.DUPLICATE;
     } else {
-      packetQueues.put(source, new LinkedList<Packet>());
+      if (type == ClientType.NODE) {
+        packetQueues.put(source, new LinkedList<Packet>());
+      }
+      clientTypes.put(source, type);
       status = Status.SUCCESS;
     }
 
@@ -64,8 +73,15 @@ public class GrpcSnetServiceImpl extends SnetServiceGrpc.SnetServiceImplBase {
 
   @Override
   public void info(InfoRequest request, StreamObserver<InfoResponse> responseObserver) {
-    InfoResponse response = InfoResponse.newBuilder().build();
-    log.info("info(...) -> " + response);
+    Integer source = request.getSource();
+    Status status = validateClient(source, false); // node?
+    int nodeCount = 0;
+    if (status == Status.SUCCESS) {
+      nodeCount = packetQueues.size();
+      status = Status.SUCCESS;
+    }
+    InfoResponse response = InfoResponse.newBuilder().setStatus(status).setNodeCount(nodeCount).build();
+    log.info("info(" + source +") -> " + response);
     responseObserver.onNext(response);
     responseObserver.onCompleted();
   }
@@ -76,11 +92,9 @@ public class GrpcSnetServiceImpl extends SnetServiceGrpc.SnetServiceImplBase {
 
     // TODO: propagation stuff here.
 
-    Status status;
     Integer source = request.getPacket().getSource();
-    if (!packetQueues.containsKey(source)) {
-      status = Status.UNKNOWN;
-    } else {
+    Status status = validateClient(source, true); // node?
+    if (status == Status.SUCCESS) {
       Integer destination = request.getPacket().getDestination();
       if (packetQueues.containsKey(destination)) {
         packetQueues.get(destination).add(request.getPacket());
@@ -97,12 +111,10 @@ public class GrpcSnetServiceImpl extends SnetServiceGrpc.SnetServiceImplBase {
   public void rx(RxRequest request, StreamObserver<RxResponse> response) {
     log.info("rx(" + request.toString().trim() + ")");
 
-    Status status;
-    Packet packet = null;
     Integer source = request.getAddress();
-    if (!packetQueues.containsKey(source)) {
-      status = Status.UNKNOWN;
-    } else {
+    Status status = validateClient(source, true); // node?
+    Packet packet = null;
+    if (status == Status.SUCCESS) {
       Queue<Packet> queue = packetQueues.get(source);
       if (queue.isEmpty()) {
         status = Status.EMPTY;
@@ -119,5 +131,13 @@ public class GrpcSnetServiceImpl extends SnetServiceGrpc.SnetServiceImplBase {
     RxResponse rxResponse = rxResponseBuilder.build();
     response.onNext(rxResponse);
     response.onCompleted();
+  }
+
+  private Status validateClient(int source, boolean node) {
+    return (!clientTypes.containsKey(source)
+            ? Status.UNKNOWN
+            : (((clientTypes.get(source) == ClientType.NODE) == node))
+               ? Status.SUCCESS
+               : Status.BADTYPE);
   }
 }

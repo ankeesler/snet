@@ -6,6 +6,8 @@ import com.marshmallow.snet.client.BaseClient;
 import com.marshmallow.snet.client.IClient;
 import com.marshmallow.snet.service.IService;
 import com.marshmallow.snet.service.ServiceUtilities;
+import com.marshmallow.snet.service.protobuf.ClientType;
+import com.marshmallow.snet.service.protobuf.InfoResponse;
 import com.marshmallow.snet.service.protobuf.Packet;
 
 import junit.framework.TestCase;
@@ -25,6 +27,52 @@ public class NetifTest extends TestCase {
   }
 
   @Test
+  public void testAdmin() throws Exception {
+    IClient admin = new BaseClient(0, service);
+
+    // All commands should fail before we init the admin.
+    Packet p01 = Packet.newBuilder().setSequence(0).setSource(0).setDestination(1).build();
+    assertFalse(admin.tx(p01));
+    assertNull(admin.rx());
+    assertNull(admin.info());
+
+    // Once we init the admin, we shouldn't be able to init again.
+    assertTrue(admin.init(ClientType.ADMIN));
+    assertFalse(admin.init(ClientType.NODE));
+    assertFalse(admin.init(ClientType.ADMIN));
+
+    // Since we are an admin, we shouldn't be able to TX or RX.
+    assertFalse(admin.tx(p01));
+    assertNull(admin.rx());
+
+    // We should be able to call the INFO API and get a response back.
+    InfoResponse infoResponse = admin.info();
+    assertNotNull(infoResponse);
+    assertEquals(0, infoResponse.getNodeCount());
+
+    // After we add another client, we get an increased node count.
+    IClient client0 = new BaseClient(1, service);
+    assertTrue(client0.init(ClientType.NODE));
+    infoResponse = admin.info();
+    assertNotNull(infoResponse);
+    assertEquals(1, infoResponse.getNodeCount());
+
+    // After we add another client, we get an increased node count.
+    IClient client1 = new BaseClient(2, service);
+    assertTrue(client1.init(ClientType.NODE));
+    infoResponse = admin.info();
+    assertNotNull(infoResponse);
+    assertEquals(2, infoResponse.getNodeCount());
+
+    // After we reset the network, the node count goes back to 0.
+    assertTrue(client0.reset());
+    assertTrue(admin.init(ClientType.ADMIN));
+    infoResponse = admin.info();
+    assertNotNull(infoResponse);
+    assertEquals(0, infoResponse.getNodeCount());    
+  }
+
+  @Test
   public void testOneNode() throws Exception {
     IClient client0 = new BaseClient(0, service);
 
@@ -36,7 +84,7 @@ public class NetifTest extends TestCase {
     assertNull(client0.rx());
 
     // Init should pass.
-    assertTrue(client0.init());
+    assertTrue(client0.init(ClientType.NODE));
 
     // Still no data.
     assertNull(client0.rx());
@@ -44,6 +92,14 @@ public class NetifTest extends TestCase {
     // Transmission should succeed, but no one else should get it.
     assertTrue(client0.tx(p01));
     assertNull(client0.rx());
+
+    // Clients of type NODE cannot send the INFO command.
+    assertNull(client0.info());
+
+    // Calling the RESET API should make the network forget this node.
+    assertTrue(client0.reset());
+    assertFalse(client0.tx(p01));
+    assertTrue(client0.init(ClientType.NODE));
   }
 
   @Test
@@ -61,8 +117,8 @@ public class NetifTest extends TestCase {
     assertNull(client1.rx());
 
     // Only client0 and client1 init.
-    assertTrue(client0.init());
-    assertTrue(client1.init());
+    assertTrue(client0.init(ClientType.NODE));
+    assertTrue(client1.init(ClientType.NODE));
 
     // Client1 still doesn't get client0's original packet.
     assertNull(client1.rx());
@@ -75,7 +131,7 @@ public class NetifTest extends TestCase {
     assertNull(client2.rx());
 
     // Client2 successfully initializes.
-    assertTrue(client2.init());
+    assertTrue(client2.init(ClientType.NODE));
 
     // client0 transmits to client2 again - it works this time.
     assertTrue(client0.tx(p02));
@@ -92,6 +148,16 @@ public class NetifTest extends TestCase {
     assertTrue(client1.tx(p10));
     assertEquals(client0.rx(), p10);
     assertNull(client2.rx());
+
+    // Calling the RESET API will make the network forget about all nodes.
+    Packet p21 = Packet.newBuilder().setSequence(3).setSource(2).setDestination(1).build();
+    assertTrue(client0.reset());
+    assertFalse(client0.tx(p01));
+    assertFalse(client1.tx(p10));
+    assertFalse(client2.tx(p21));
+    assertTrue(client0.init(ClientType.NODE));
+    assertTrue(client1.init(ClientType.NODE));
+    assertTrue(client2.init(ClientType.NODE));
   }
 
   @Test
@@ -101,8 +167,8 @@ public class NetifTest extends TestCase {
     IClient client0 = new BaseClient(0, service);
     IClient client1 = new BaseClient(1, service);
     Packet p01 = Packet.newBuilder().setSequence(0).setSource(0).setDestination(1).build();
-    assertTrue(client0.init());
-    assertTrue(client1.init());
+    assertTrue(client0.init(ClientType.NODE));
+    assertTrue(client1.init(ClientType.NODE));
     assertTrue(client0.tx(p01));
     assertTrue(client0.tx(p01));
     assertEquals(client1.rx(), p01);
@@ -119,10 +185,10 @@ public class NetifTest extends TestCase {
     IClient client1 = new BaseClient(1, service);
     IClient client2 = new BaseClient(2, service);
     IClient client3 = new BaseClient(3, service);
-    assertTrue(client0.init());
-    assertTrue(client1.init());
-    assertTrue(client2.init());
-    assertTrue(client3.init());
+    assertTrue(client0.init(ClientType.NODE));
+    assertTrue(client1.init(ClientType.NODE));
+    assertTrue(client2.init(ClientType.NODE));
+    assertTrue(client3.init(ClientType.NODE));
 
     Packet p02 = Packet.newBuilder().setSequence(0).setSource(0).setDestination(2).build();
     Packet p13 = Packet.newBuilder().setSequence(1).setSource(1).setDestination(3).build();
@@ -149,7 +215,11 @@ public class NetifTest extends TestCase {
     // a DUPLICATE status in return.
     IClient client0 = new BaseClient(0, service);
     IClient client0Again = new BaseClient(0, service);
-    assertTrue(client0.init());
-    assertFalse(client0Again.init());
+    assertTrue(client0.init(ClientType.NODE));
+    assertFalse(client0Again.init(ClientType.NODE));
+
+    // Same goes for an admin node.
+    IClient admin0 = new BaseClient(0, service);
+    assertFalse(admin0.init(ClientType.ADMIN));
   }
 }

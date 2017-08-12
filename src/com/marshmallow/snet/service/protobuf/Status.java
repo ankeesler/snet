@@ -28,6 +28,10 @@ public enum Status
    * <code>DUPLICATE = 4;</code>
    */
   DUPLICATE(4),
+  /**
+   * <code>BADTYPE = 5;</code>
+   */
+  BADTYPE(5),
   UNRECOGNIZED(-1),
   ;
 
@@ -51,6 +55,10 @@ public enum Status
    * <code>DUPLICATE = 4;</code>
    */
   public static final int DUPLICATE_VALUE = 4;
+  /**
+   * <code>BADTYPE = 5;</code>
+   */
+  public static final int BADTYPE_VALUE = 5;
 
 
   public final int getNumber() {
@@ -76,6 +84,7 @@ public enum Status
       case 2: return UNKNOWN;
       case 3: return EMPTY;
       case 4: return DUPLICATE;
+      case 5: return BADTYPE;
       default: return null;
     }
   }

@@ -43,7 +43,7 @@ static void test(void)
   TEST_ASSERT_EQUAL_INT(client.reset(), snet_client::OK);
 
   // Initialize successfully.
-  TEST_ASSERT_EQUAL_INT(client.init(), snet_client::OK);
+  TEST_ASSERT_EQUAL_INT(client.init(snet_client::NODE), snet_client::OK);
 
   // Wait for the child app to boot.
   sleep(2);

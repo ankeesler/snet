@@ -6,4 +6,18 @@ package com.marshmallow.snet.service.protobuf;
 public interface InfoResponseOrBuilder extends
     // @@protoc_insertion_point(interface_extends:InfoResponse)
     com.google.protobuf.MessageOrBuilder {
+
+  /**
+   * <code>.Status status = 1;</code>
+   */
+  int getStatusValue();
+  /**
+   * <code>.Status status = 1;</code>
+   */
+  com.marshmallow.snet.service.protobuf.Status getStatus();
+
+  /**
+   * <code>int32 nodeCount = 2;</code>
+   */
+  int getNodeCount();
 }

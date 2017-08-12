@@ -9,6 +9,12 @@ enum Status {
   UNKNOWN = 2;
   EMPTY = 3;
   DUPLICATE = 4;
+  BADTYPE = 5;
+}
+
+enum ClientType {
+  ADMIN = 0;
+  NODE = 1;
 }
 
 message EchoRequest {
@@ -28,13 +34,17 @@ message ResetResponse {
 }
 
 message InfoRequest {
+  int32 source = 1;
 }
 
 message InfoResponse {
+  Status status = 1;
+  int32 nodeCount = 2;
 }
 
 message InitRequest {
-  int32 address = 1;
+  ClientType type = 1;
+  int32 address = 2;
 }
 
 message InitResponse {

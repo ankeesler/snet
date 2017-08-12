@@ -6,4 +6,9 @@ package com.marshmallow.snet.service.protobuf;
 public interface InfoRequestOrBuilder extends
     // @@protoc_insertion_point(interface_extends:InfoRequest)
     com.google.protobuf.MessageOrBuilder {
+
+  /**
+   * <code>int32 source = 1;</code>
+   */
+  int getSource();
 }

@@ -112,12 +112,13 @@ enum Status {
   UNKNOWN = 2,
   EMPTY = 3,
   DUPLICATE = 4,
+  BADTYPE = 5,
   Status_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   Status_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
 bool Status_IsValid(int value);
 const Status Status_MIN = SUCCESS;
-const Status Status_MAX = DUPLICATE;
+const Status Status_MAX = BADTYPE;
 const int Status_ARRAYSIZE = Status_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* Status_descriptor();
@@ -129,6 +130,27 @@ inline bool Status_Parse(
     const ::std::string& name, Status* value) {
   return ::google::protobuf::internal::ParseNamedEnum<Status>(
     Status_descriptor(), name, value);
+}
+enum ClientType {
+  ADMIN = 0,
+  NODE = 1,
+  ClientType_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
+  ClientType_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
+};
+bool ClientType_IsValid(int value);
+const ClientType ClientType_MIN = ADMIN;
+const ClientType ClientType_MAX = NODE;
+const int ClientType_ARRAYSIZE = ClientType_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* ClientType_descriptor();
+inline const ::std::string& ClientType_Name(ClientType value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    ClientType_descriptor(), value);
+}
+inline bool ClientType_Parse(
+    const ::std::string& name, ClientType* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<ClientType>(
+    ClientType_descriptor(), name, value);
 }
 // ===================================================================
 
@@ -532,10 +554,17 @@ class InfoRequest : public ::google::protobuf::Message /* @@protoc_insertion_poi
 
   // accessors -------------------------------------------------------
 
+  // int32 source = 1;
+  void clear_source();
+  static const int kSourceFieldNumber = 1;
+  ::google::protobuf::int32 source() const;
+  void set_source(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:InfoRequest)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::int32 source_;
   mutable int _cached_size_;
   friend struct protobuf_protobuf_2fsnet_2eproto::TableStruct;
 };
@@ -605,10 +634,24 @@ class InfoResponse : public ::google::protobuf::Message /* @@protoc_insertion_po
 
   // accessors -------------------------------------------------------
 
+  // .Status status = 1;
+  void clear_status();
+  static const int kStatusFieldNumber = 1;
+  ::Status status() const;
+  void set_status(::Status value);
+
+  // int32 nodeCount = 2;
+  void clear_nodecount();
+  static const int kNodeCountFieldNumber = 2;
+  ::google::protobuf::int32 nodecount() const;
+  void set_nodecount(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:InfoResponse)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  int status_;
+  ::google::protobuf::int32 nodecount_;
   mutable int _cached_size_;
   friend struct protobuf_protobuf_2fsnet_2eproto::TableStruct;
 };
@@ -678,9 +721,15 @@ class InitRequest : public ::google::protobuf::Message /* @@protoc_insertion_poi
 
   // accessors -------------------------------------------------------
 
-  // int32 address = 1;
+  // .ClientType type = 1;
+  void clear_type();
+  static const int kTypeFieldNumber = 1;
+  ::ClientType type() const;
+  void set_type(::ClientType value);
+
+  // int32 address = 2;
   void clear_address();
-  static const int kAddressFieldNumber = 1;
+  static const int kAddressFieldNumber = 2;
   ::google::protobuf::int32 address() const;
   void set_address(::google::protobuf::int32 value);
 
@@ -688,6 +737,7 @@ class InitRequest : public ::google::protobuf::Message /* @@protoc_insertion_poi
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  int type_;
   ::google::protobuf::int32 address_;
   mutable int _cached_size_;
   friend struct protobuf_protobuf_2fsnet_2eproto::TableStruct;
@@ -1412,15 +1462,71 @@ inline void ResetResponse::set_status(::Status value) {
 
 // InfoRequest
 
+// int32 source = 1;
+inline void InfoRequest::clear_source() {
+  source_ = 0;
+}
+inline ::google::protobuf::int32 InfoRequest::source() const {
+  // @@protoc_insertion_point(field_get:InfoRequest.source)
+  return source_;
+}
+inline void InfoRequest::set_source(::google::protobuf::int32 value) {
+  
+  source_ = value;
+  // @@protoc_insertion_point(field_set:InfoRequest.source)
+}
+
 // -------------------------------------------------------------------
 
 // InfoResponse
+
+// .Status status = 1;
+inline void InfoResponse::clear_status() {
+  status_ = 0;
+}
+inline ::Status InfoResponse::status() const {
+  // @@protoc_insertion_point(field_get:InfoResponse.status)
+  return static_cast< ::Status >(status_);
+}
+inline void InfoResponse::set_status(::Status value) {
+  
+  status_ = value;
+  // @@protoc_insertion_point(field_set:InfoResponse.status)
+}
+
+// int32 nodeCount = 2;
+inline void InfoResponse::clear_nodecount() {
+  nodecount_ = 0;
+}
+inline ::google::protobuf::int32 InfoResponse::nodecount() const {
+  // @@protoc_insertion_point(field_get:InfoResponse.nodeCount)
+  return nodecount_;
+}
+inline void InfoResponse::set_nodecount(::google::protobuf::int32 value) {
+  
+  nodecount_ = value;
+  // @@protoc_insertion_point(field_set:InfoResponse.nodeCount)
+}
 
 // -------------------------------------------------------------------
 
 // InitRequest
 
-// int32 address = 1;
+// .ClientType type = 1;
+inline void InitRequest::clear_type() {
+  type_ = 0;
+}
+inline ::ClientType InitRequest::type() const {
+  // @@protoc_insertion_point(field_get:InitRequest.type)
+  return static_cast< ::ClientType >(type_);
+}
+inline void InitRequest::set_type(::ClientType value) {
+  
+  type_ = value;
+  // @@protoc_insertion_point(field_set:InitRequest.type)
+}
+
+// int32 address = 2;
 inline void InitRequest::clear_address() {
   address_ = 0;
 }
@@ -1757,6 +1863,11 @@ template <> struct is_proto_enum< ::Status> : ::google::protobuf::internal::true
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::Status>() {
   return ::Status_descriptor();
+}
+template <> struct is_proto_enum< ::ClientType> : ::google::protobuf::internal::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::ClientType>() {
+  return ::ClientType_descriptor();
 }
 
 }  // namespace protobuf

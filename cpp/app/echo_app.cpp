@@ -18,7 +18,7 @@ static void die(const std::string reason)
 int main(int argc, char *argv[])
 {
   snet_client::snet_client client(123);
-  if (client.init() != snet_client::OK) {
+  if (client.init(snet_client::NODE) != snet_client::OK) {
     die("INIT");
   }
 

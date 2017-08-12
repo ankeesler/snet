@@ -20,11 +20,16 @@ public:
     CMD,
   };
 
+  enum client_type {
+    ADMIN,
+    NODE,
+  };
+
   snet_client(void);
   snet_client(int);
   int get_addr(void) const;
   status reset(void);
-  status init(void);
+  status init(client_type);
   status tx(packet_type, int, const std::string &);
   status rx(int *src_addr, std::string *payload);
 
