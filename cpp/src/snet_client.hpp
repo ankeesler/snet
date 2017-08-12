@@ -4,6 +4,9 @@
 // SNET Client C++ header
 //
 
+#ifndef __SNET_CLIENT_HPP__
+#define __SNET_CLIENT_HPP__
+
 #include "protobuf/snet.grpc.pb.h"
 
 class snet_client {
@@ -32,6 +35,7 @@ public:
   status init(client_type);
   status tx(packet_type, int, const std::string &);
   status rx(int *src_addr, std::string *payload);
+  status info(int *node_cnt);
 
 private:
   static const int SM_RPC_TIMEOUT_S = 1;
@@ -45,3 +49,5 @@ private:
 
   void init_stub(void);
 };
+
+#endif // __SNET_CLIENT_HPP__

@@ -111,6 +111,26 @@ snet_client::status snet_client::rx(int *src_addr, std::string *payload)
   }
 }
 
+snet_client::status snet_client::info(int *node_cnt)
+{
+  grpc::ClientContext ctx;
+  make_ctx(&ctx);
+  InfoRequest req;
+  req.set_source(m_addr);
+  InfoResponse rsp;
+  grpc::Status status = m_stub->Info(&ctx, req, &rsp);
+  if (!status.ok()) {
+    return snet_client::RPCERR;
+  }
+  switch (rsp.status()) {
+    case Status::SUCCESS:
+      *node_cnt = rsp.nodecount();
+      return snet_client::OK;
+    default:
+      return snet_client::BAD;
+  }
+}
+
 void snet_client::make_ctx(grpc::ClientContext *ctx)
 {
   std::chrono::system_clock::time_point deadline =
