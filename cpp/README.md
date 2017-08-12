@@ -10,6 +10,7 @@ Here is the directory structure.
 | --------- | ----------- |
 | src/      | SNET C++ client-side core functionality |
 | protobuf/ | Google Protocol Buffer specification files; these files are generated from the Google Protocol Buffers compiler |
+| app/      | Sample applications built with the SNET C++ client-side code |
 | test/     | Tests of the SNET C++ client-side core functionality |
 
 Building
