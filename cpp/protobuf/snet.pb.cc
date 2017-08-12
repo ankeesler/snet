@@ -16,8 +16,6 @@
 #include <google/protobuf/reflection_ops.h>
 #include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
-class StatusDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<Status> {
-} _Status_default_instance_;
 class EchoRequestDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<EchoRequest> {
 } _EchoRequest_default_instance_;
 class EchoResponseDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<EchoResponse> {
@@ -50,7 +48,7 @@ namespace protobuf_protobuf_2fsnet_2eproto {
 
 namespace {
 
-::google::protobuf::Metadata file_level_metadata[14];
+::google::protobuf::Metadata file_level_metadata[13];
 const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors[2];
 
 }  // namespace
@@ -79,16 +77,9 @@ PROTOBUF_CONSTEXPR_VAR ::google::protobuf::internal::ParseTable const
   { NULL, NULL, 0, -1, -1, false },
   { NULL, NULL, 0, -1, -1, false },
   { NULL, NULL, 0, -1, -1, false },
-  { NULL, NULL, 0, -1, -1, false },
 };
 
 const ::google::protobuf::uint32 TableStruct::offsets[] = {
-  ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Status, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Status, id_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EchoRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -174,24 +165,22 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
 };
 
 static const ::google::protobuf::internal::MigrationSchema schemas[] = {
-  { 0, -1, sizeof(Status)},
-  { 6, -1, sizeof(EchoRequest)},
-  { 12, -1, sizeof(EchoResponse)},
-  { 18, -1, sizeof(ResetRequest)},
-  { 24, -1, sizeof(ResetResponse)},
-  { 30, -1, sizeof(InfoRequest)},
-  { 35, -1, sizeof(InfoResponse)},
-  { 40, -1, sizeof(InitRequest)},
-  { 46, -1, sizeof(InitResponse)},
-  { 52, -1, sizeof(Packet)},
-  { 63, -1, sizeof(TxRequest)},
-  { 69, -1, sizeof(TxResponse)},
-  { 75, -1, sizeof(RxRequest)},
-  { 81, -1, sizeof(RxResponse)},
+  { 0, -1, sizeof(EchoRequest)},
+  { 6, -1, sizeof(EchoResponse)},
+  { 12, -1, sizeof(ResetRequest)},
+  { 18, -1, sizeof(ResetResponse)},
+  { 24, -1, sizeof(InfoRequest)},
+  { 29, -1, sizeof(InfoResponse)},
+  { 34, -1, sizeof(InitRequest)},
+  { 40, -1, sizeof(InitResponse)},
+  { 46, -1, sizeof(Packet)},
+  { 57, -1, sizeof(TxRequest)},
+  { 63, -1, sizeof(TxResponse)},
+  { 69, -1, sizeof(RxRequest)},
+  { 75, -1, sizeof(RxResponse)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::google::protobuf::Message*>(&_Status_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&_EchoRequest_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&_EchoResponse_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&_ResetRequest_default_instance_),
@@ -225,47 +214,44 @@ void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 14);
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 13);
 }
 
 }  // namespace
 
 void TableStruct::Shutdown() {
-  _Status_default_instance_.Shutdown();
-  delete file_level_metadata[0].reflection;
   _EchoRequest_default_instance_.Shutdown();
-  delete file_level_metadata[1].reflection;
+  delete file_level_metadata[0].reflection;
   _EchoResponse_default_instance_.Shutdown();
-  delete file_level_metadata[2].reflection;
+  delete file_level_metadata[1].reflection;
   _ResetRequest_default_instance_.Shutdown();
-  delete file_level_metadata[3].reflection;
+  delete file_level_metadata[2].reflection;
   _ResetResponse_default_instance_.Shutdown();
-  delete file_level_metadata[4].reflection;
+  delete file_level_metadata[3].reflection;
   _InfoRequest_default_instance_.Shutdown();
-  delete file_level_metadata[5].reflection;
+  delete file_level_metadata[4].reflection;
   _InfoResponse_default_instance_.Shutdown();
-  delete file_level_metadata[6].reflection;
+  delete file_level_metadata[5].reflection;
   _InitRequest_default_instance_.Shutdown();
-  delete file_level_metadata[7].reflection;
+  delete file_level_metadata[6].reflection;
   _InitResponse_default_instance_.Shutdown();
-  delete file_level_metadata[8].reflection;
+  delete file_level_metadata[7].reflection;
   _Packet_default_instance_.Shutdown();
-  delete file_level_metadata[9].reflection;
+  delete file_level_metadata[8].reflection;
   _TxRequest_default_instance_.Shutdown();
-  delete file_level_metadata[10].reflection;
+  delete file_level_metadata[9].reflection;
   _TxResponse_default_instance_.Shutdown();
-  delete file_level_metadata[11].reflection;
+  delete file_level_metadata[10].reflection;
   _RxRequest_default_instance_.Shutdown();
-  delete file_level_metadata[12].reflection;
+  delete file_level_metadata[11].reflection;
   _RxResponse_default_instance_.Shutdown();
-  delete file_level_metadata[13].reflection;
+  delete file_level_metadata[12].reflection;
 }
 
 void TableStruct::InitDefaultsImpl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::internal::InitProtobufDefaults();
-  _Status_default_instance_.DefaultConstruct();
   _EchoRequest_default_instance_.DefaultConstruct();
   _EchoResponse_default_instance_.DefaultConstruct();
   _ResetRequest_default_instance_.DefaultConstruct();
@@ -279,16 +265,8 @@ void TableStruct::InitDefaultsImpl() {
   _TxResponse_default_instance_.DefaultConstruct();
   _RxRequest_default_instance_.DefaultConstruct();
   _RxResponse_default_instance_.DefaultConstruct();
-  _ResetResponse_default_instance_.get_mutable()->status_ = const_cast< ::Status*>(
-      ::Status::internal_default_instance());
-  _InitResponse_default_instance_.get_mutable()->status_ = const_cast< ::Status*>(
-      ::Status::internal_default_instance());
   _TxRequest_default_instance_.get_mutable()->packet_ = const_cast< ::Packet*>(
       ::Packet::internal_default_instance());
-  _TxResponse_default_instance_.get_mutable()->status_ = const_cast< ::Status*>(
-      ::Status::internal_default_instance());
-  _RxResponse_default_instance_.get_mutable()->status_ = const_cast< ::Status*>(
-      ::Status::internal_default_instance());
   _RxResponse_default_instance_.get_mutable()->packet_ = const_cast< ::Packet*>(
       ::Packet::internal_default_instance());
 }
@@ -300,34 +278,33 @@ void InitDefaults() {
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] = {
-      "\n\023protobuf/snet.proto\"g\n\006Status\022\026\n\002id\030\001 "
-      "\001(\0162\n.Status.Id\"E\n\002Id\022\013\n\007SUCCESS\020\000\022\013\n\007FA"
-      "ILURE\020\001\022\013\n\007UNKNOWN\020\002\022\t\n\005EMPTY\020\003\022\r\n\tDUPLI"
-      "CATE\020\004\"\036\n\013EchoRequest\022\017\n\007message\030\001 \001(\t\"\037"
-      "\n\014EchoResponse\022\017\n\007message\030\001 \001(\t\"\037\n\014Reset"
-      "Request\022\017\n\007address\030\001 \001(\005\"(\n\rResetRespons"
-      "e\022\027\n\006status\030\001 \001(\0132\007.Status\"\r\n\013InfoReques"
-      "t\"\016\n\014InfoResponse\"\036\n\013InitRequest\022\017\n\007addr"
-      "ess\030\001 \001(\005\"\'\n\014InitResponse\022\027\n\006status\030\001 \001("
-      "\0132\007.Status\"\233\001\n\006Packet\022\016\n\006length\030\001 \001(\005\022\020\n"
-      "\010sequence\030\002 \001(\005\022\032\n\004type\030\003 \001(\0162\014.Packet.T"
-      "ype\022\016\n\006source\030\004 \001(\005\022\023\n\013destination\030\005 \001(\005"
-      "\022\017\n\007payload\030\006 \001(\014\"\035\n\004Type\022\010\n\004DATA\020\000\022\013\n\007C"
-      "OMMAND\020\001\"$\n\tTxRequest\022\027\n\006packet\030\001 \001(\0132\007."
-      "Packet\"%\n\nTxResponse\022\027\n\006status\030\001 \001(\0132\007.S"
-      "tatus\"\034\n\tRxRequest\022\017\n\007address\030\001 \001(\005\">\n\nR"
-      "xResponse\022\027\n\006status\030\001 \001(\0132\007.Status\022\027\n\006pa"
-      "cket\030\002 \001(\0132\007.Packet2\342\001\n\013SnetService\022#\n\004E"
-      "cho\022\014.EchoRequest\032\r.EchoResponse\022&\n\005Rese"
-      "t\022\r.ResetRequest\032\016.ResetResponse\022#\n\004Info"
-      "\022\014.InfoRequest\032\r.InfoResponse\022#\n\004Init\022\014."
-      "InitRequest\032\r.InitResponse\022\035\n\002Tx\022\n.TxReq"
-      "uest\032\013.TxResponse\022\035\n\002Rx\022\n.RxRequest\032\013.Rx"
-      "ResponseB)\n%com.marshmallow.snet.service"
-      ".protobufP\001b\006proto3"
+      "\n\023protobuf/snet.proto\"\036\n\013EchoRequest\022\017\n\007"
+      "message\030\001 \001(\t\"\037\n\014EchoResponse\022\017\n\007message"
+      "\030\001 \001(\t\"\037\n\014ResetRequest\022\017\n\007address\030\001 \001(\005\""
+      "(\n\rResetResponse\022\027\n\006status\030\001 \001(\0162\007.Statu"
+      "s\"\r\n\013InfoRequest\"\016\n\014InfoResponse\"\036\n\013Init"
+      "Request\022\017\n\007address\030\001 \001(\005\"\'\n\014InitResponse"
+      "\022\027\n\006status\030\001 \001(\0162\007.Status\"\233\001\n\006Packet\022\016\n\006"
+      "length\030\001 \001(\005\022\020\n\010sequence\030\002 \001(\005\022\032\n\004type\030\003"
+      " \001(\0162\014.Packet.Type\022\016\n\006source\030\004 \001(\005\022\023\n\013de"
+      "stination\030\005 \001(\005\022\017\n\007payload\030\006 \001(\014\"\035\n\004Type"
+      "\022\010\n\004DATA\020\000\022\013\n\007COMMAND\020\001\"$\n\tTxRequest\022\027\n\006"
+      "packet\030\001 \001(\0132\007.Packet\"%\n\nTxResponse\022\027\n\006s"
+      "tatus\030\001 \001(\0162\007.Status\"\034\n\tRxRequest\022\017\n\007add"
+      "ress\030\001 \001(\005\">\n\nRxResponse\022\027\n\006status\030\001 \001(\016"
+      "2\007.Status\022\027\n\006packet\030\002 \001(\0132\007.Packet*I\n\006St"
+      "atus\022\013\n\007SUCCESS\020\000\022\013\n\007FAILURE\020\001\022\013\n\007UNKNOW"
+      "N\020\002\022\t\n\005EMPTY\020\003\022\r\n\tDUPLICATE\020\0042\342\001\n\013SnetSe"
+      "rvice\022#\n\004Echo\022\014.EchoRequest\032\r.EchoRespon"
+      "se\022&\n\005Reset\022\r.ResetRequest\032\016.ResetRespon"
+      "se\022#\n\004Info\022\014.InfoRequest\032\r.InfoResponse\022"
+      "#\n\004Init\022\014.InitRequest\032\r.InitResponse\022\035\n\002"
+      "Tx\022\n.TxRequest\032\013.TxResponse\022\035\n\002Rx\022\n.RxRe"
+      "quest\032\013.RxResponseB)\n%com.marshmallow.sn"
+      "et.service.protobufP\001b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 979);
+      descriptor, 949);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "protobuf/snet.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
@@ -346,36 +323,9 @@ struct StaticDescriptorInitializer {
 
 }  // namespace protobuf_protobuf_2fsnet_2eproto
 
-const ::google::protobuf::EnumDescriptor* Status_Id_descriptor() {
-  protobuf_protobuf_2fsnet_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_protobuf_2fsnet_2eproto::file_level_enum_descriptors[0];
-}
-bool Status_Id_IsValid(int value) {
-  switch (value) {
-    case 0:
-    case 1:
-    case 2:
-    case 3:
-    case 4:
-      return true;
-    default:
-      return false;
-  }
-}
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const Status_Id Status::SUCCESS;
-const Status_Id Status::FAILURE;
-const Status_Id Status::UNKNOWN;
-const Status_Id Status::EMPTY;
-const Status_Id Status::DUPLICATE;
-const Status_Id Status::Id_MIN;
-const Status_Id Status::Id_MAX;
-const int Status::Id_ARRAYSIZE;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 const ::google::protobuf::EnumDescriptor* Packet_Type_descriptor() {
   protobuf_protobuf_2fsnet_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_protobuf_2fsnet_2eproto::file_level_enum_descriptors[1];
+  return protobuf_protobuf_2fsnet_2eproto::file_level_enum_descriptors[0];
 }
 bool Packet_Type_IsValid(int value) {
   switch (value) {
@@ -394,242 +344,23 @@ const Packet_Type Packet::Type_MIN;
 const Packet_Type Packet::Type_MAX;
 const int Packet::Type_ARRAYSIZE;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-// ===================================================================
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int Status::kIdFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-Status::Status()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    protobuf_protobuf_2fsnet_2eproto::InitDefaults();
-  }
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:Status)
-}
-Status::Status(const Status& from)
-  : ::google::protobuf::Message(),
-      _internal_metadata_(NULL),
-      _cached_size_(0) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  id_ = from.id_;
-  // @@protoc_insertion_point(copy_constructor:Status)
-}
-
-void Status::SharedCtor() {
-  id_ = 0;
-  _cached_size_ = 0;
-}
-
-Status::~Status() {
-  // @@protoc_insertion_point(destructor:Status)
-  SharedDtor();
-}
-
-void Status::SharedDtor() {
-}
-
-void Status::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* Status::descriptor() {
+const ::google::protobuf::EnumDescriptor* Status_descriptor() {
   protobuf_protobuf_2fsnet_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_protobuf_2fsnet_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+  return protobuf_protobuf_2fsnet_2eproto::file_level_enum_descriptors[1];
 }
-
-const Status& Status::default_instance() {
-  protobuf_protobuf_2fsnet_2eproto::InitDefaults();
-  return *internal_default_instance();
-}
-
-Status* Status::New(::google::protobuf::Arena* arena) const {
-  Status* n = new Status;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
-
-void Status::Clear() {
-// @@protoc_insertion_point(message_clear_start:Status)
-  id_ = 0;
-}
-
-bool Status::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:Status)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // .Status.Id id = 1;
-      case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(8u)) {
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          set_id(static_cast< ::Status_Id >(value));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:Status)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:Status)
-  return false;
-#undef DO_
-}
-
-void Status::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:Status)
-  ::google::protobuf::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // .Status.Id id = 1;
-  if (this->id() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      1, this->id(), output);
-  }
-
-  // @@protoc_insertion_point(serialize_end:Status)
-}
-
-::google::protobuf::uint8* Status::InternalSerializeWithCachedSizesToArray(
-    bool deterministic, ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Status)
-  ::google::protobuf::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // .Status.Id id = 1;
-  if (this->id() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      1, this->id(), target);
-  }
-
-  // @@protoc_insertion_point(serialize_to_array_end:Status)
-  return target;
-}
-
-size_t Status::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Status)
-  size_t total_size = 0;
-
-  // .Status.Id id = 1;
-  if (this->id() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->id());
-  }
-
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void Status::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:Status)
-  GOOGLE_DCHECK_NE(&from, this);
-  const Status* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const Status>(
-          &from);
-  if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:Status)
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:Status)
-    MergeFrom(*source);
+bool Status_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+      return true;
+    default:
+      return false;
   }
 }
 
-void Status::MergeFrom(const Status& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:Status)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::google::protobuf::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (from.id() != 0) {
-    set_id(from.id());
-  }
-}
-
-void Status::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:Status)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void Status::CopyFrom(const Status& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Status)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool Status::IsInitialized() const {
-  return true;
-}
-
-void Status::Swap(Status* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void Status::InternalSwap(Status* other) {
-  std::swap(id_, other->id_);
-  std::swap(_cached_size_, other->_cached_size_);
-}
-
-::google::protobuf::Metadata Status::GetMetadata() const {
-  protobuf_protobuf_2fsnet_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_protobuf_2fsnet_2eproto::file_level_metadata[kIndexInFileMessages];
-}
-
-#if PROTOBUF_INLINE_NOT_IN_HEADERS
-// Status
-
-// .Status.Id id = 1;
-void Status::clear_id() {
-  id_ = 0;
-}
-::Status_Id Status::id() const {
-  // @@protoc_insertion_point(field_get:Status.id)
-  return static_cast< ::Status_Id >(id_);
-}
-void Status::set_id(::Status_Id value) {
-  
-  id_ = value;
-  // @@protoc_insertion_point(field_set:Status.id)
-}
-
-#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
 
@@ -1466,16 +1197,12 @@ ResetResponse::ResetResponse(const ResetResponse& from)
       _internal_metadata_(NULL),
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  if (from.has_status()) {
-    status_ = new ::Status(*from.status_);
-  } else {
-    status_ = NULL;
-  }
+  status_ = from.status_;
   // @@protoc_insertion_point(copy_constructor:ResetResponse)
 }
 
 void ResetResponse::SharedCtor() {
-  status_ = NULL;
+  status_ = 0;
   _cached_size_ = 0;
 }
 
@@ -1485,9 +1212,6 @@ ResetResponse::~ResetResponse() {
 }
 
 void ResetResponse::SharedDtor() {
-  if (this != internal_default_instance()) {
-    delete status_;
-  }
 }
 
 void ResetResponse::SetCachedSize(int size) const {
@@ -1515,10 +1239,7 @@ ResetResponse* ResetResponse::New(::google::protobuf::Arena* arena) const {
 
 void ResetResponse::Clear() {
 // @@protoc_insertion_point(message_clear_start:ResetResponse)
-  if (GetArenaNoVirtual() == NULL && status_ != NULL) {
-    delete status_;
-  }
-  status_ = NULL;
+  status_ = 0;
 }
 
 bool ResetResponse::MergePartialFromCodedStream(
@@ -1534,9 +1255,12 @@ bool ResetResponse::MergePartialFromCodedStream(
       // .Status status = 1;
       case 1: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_status()));
+            static_cast< ::google::protobuf::uint8>(8u)) {
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_status(static_cast< ::Status >(value));
         } else {
           goto handle_unusual;
         }
@@ -1571,9 +1295,9 @@ void ResetResponse::SerializeWithCachedSizes(
   (void) cached_has_bits;
 
   // .Status status = 1;
-  if (this->has_status()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, *this->status_, output);
+  if (this->status() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      1, this->status(), output);
   }
 
   // @@protoc_insertion_point(serialize_end:ResetResponse)
@@ -1586,10 +1310,9 @@ void ResetResponse::SerializeWithCachedSizes(
   (void) cached_has_bits;
 
   // .Status status = 1;
-  if (this->has_status()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      InternalWriteMessageNoVirtualToArray(
-        1, *this->status_, deterministic, target);
+  if (this->status() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      1, this->status(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:ResetResponse)
@@ -1601,10 +1324,9 @@ size_t ResetResponse::ByteSizeLong() const {
   size_t total_size = 0;
 
   // .Status status = 1;
-  if (this->has_status()) {
+  if (this->status() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->status_);
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->status());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -1636,8 +1358,8 @@ void ResetResponse::MergeFrom(const ResetResponse& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.has_status()) {
-    mutable_status()->::Status::MergeFrom(from.status());
+  if (from.status() != 0) {
+    set_status(from.status());
   }
 }
 
@@ -1677,42 +1399,17 @@ void ResetResponse::InternalSwap(ResetResponse* other) {
 // ResetResponse
 
 // .Status status = 1;
-bool ResetResponse::has_status() const {
-  return this != internal_default_instance() && status_ != NULL;
-}
 void ResetResponse::clear_status() {
-  if (GetArenaNoVirtual() == NULL && status_ != NULL) delete status_;
-  status_ = NULL;
+  status_ = 0;
 }
-const ::Status& ResetResponse::status() const {
+::Status ResetResponse::status() const {
   // @@protoc_insertion_point(field_get:ResetResponse.status)
-  return status_ != NULL ? *status_
-                         : *::Status::internal_default_instance();
+  return static_cast< ::Status >(status_);
 }
-::Status* ResetResponse::mutable_status() {
+void ResetResponse::set_status(::Status value) {
   
-  if (status_ == NULL) {
-    status_ = new ::Status;
-  }
-  // @@protoc_insertion_point(field_mutable:ResetResponse.status)
-  return status_;
-}
-::Status* ResetResponse::release_status() {
-  // @@protoc_insertion_point(field_release:ResetResponse.status)
-  
-  ::Status* temp = status_;
-  status_ = NULL;
-  return temp;
-}
-void ResetResponse::set_allocated_status(::Status* status) {
-  delete status_;
-  status_ = status;
-  if (status) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:ResetResponse.status)
+  status_ = value;
+  // @@protoc_insertion_point(field_set:ResetResponse.status)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -2322,16 +2019,12 @@ InitResponse::InitResponse(const InitResponse& from)
       _internal_metadata_(NULL),
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  if (from.has_status()) {
-    status_ = new ::Status(*from.status_);
-  } else {
-    status_ = NULL;
-  }
+  status_ = from.status_;
   // @@protoc_insertion_point(copy_constructor:InitResponse)
 }
 
 void InitResponse::SharedCtor() {
-  status_ = NULL;
+  status_ = 0;
   _cached_size_ = 0;
 }
 
@@ -2341,9 +2034,6 @@ InitResponse::~InitResponse() {
 }
 
 void InitResponse::SharedDtor() {
-  if (this != internal_default_instance()) {
-    delete status_;
-  }
 }
 
 void InitResponse::SetCachedSize(int size) const {
@@ -2371,10 +2061,7 @@ InitResponse* InitResponse::New(::google::protobuf::Arena* arena) const {
 
 void InitResponse::Clear() {
 // @@protoc_insertion_point(message_clear_start:InitResponse)
-  if (GetArenaNoVirtual() == NULL && status_ != NULL) {
-    delete status_;
-  }
-  status_ = NULL;
+  status_ = 0;
 }
 
 bool InitResponse::MergePartialFromCodedStream(
@@ -2390,9 +2077,12 @@ bool InitResponse::MergePartialFromCodedStream(
       // .Status status = 1;
       case 1: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_status()));
+            static_cast< ::google::protobuf::uint8>(8u)) {
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_status(static_cast< ::Status >(value));
         } else {
           goto handle_unusual;
         }
@@ -2427,9 +2117,9 @@ void InitResponse::SerializeWithCachedSizes(
   (void) cached_has_bits;
 
   // .Status status = 1;
-  if (this->has_status()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, *this->status_, output);
+  if (this->status() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      1, this->status(), output);
   }
 
   // @@protoc_insertion_point(serialize_end:InitResponse)
@@ -2442,10 +2132,9 @@ void InitResponse::SerializeWithCachedSizes(
   (void) cached_has_bits;
 
   // .Status status = 1;
-  if (this->has_status()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      InternalWriteMessageNoVirtualToArray(
-        1, *this->status_, deterministic, target);
+  if (this->status() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      1, this->status(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:InitResponse)
@@ -2457,10 +2146,9 @@ size_t InitResponse::ByteSizeLong() const {
   size_t total_size = 0;
 
   // .Status status = 1;
-  if (this->has_status()) {
+  if (this->status() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->status_);
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->status());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -2492,8 +2180,8 @@ void InitResponse::MergeFrom(const InitResponse& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.has_status()) {
-    mutable_status()->::Status::MergeFrom(from.status());
+  if (from.status() != 0) {
+    set_status(from.status());
   }
 }
 
@@ -2533,42 +2221,17 @@ void InitResponse::InternalSwap(InitResponse* other) {
 // InitResponse
 
 // .Status status = 1;
-bool InitResponse::has_status() const {
-  return this != internal_default_instance() && status_ != NULL;
-}
 void InitResponse::clear_status() {
-  if (GetArenaNoVirtual() == NULL && status_ != NULL) delete status_;
-  status_ = NULL;
+  status_ = 0;
 }
-const ::Status& InitResponse::status() const {
+::Status InitResponse::status() const {
   // @@protoc_insertion_point(field_get:InitResponse.status)
-  return status_ != NULL ? *status_
-                         : *::Status::internal_default_instance();
+  return static_cast< ::Status >(status_);
 }
-::Status* InitResponse::mutable_status() {
+void InitResponse::set_status(::Status value) {
   
-  if (status_ == NULL) {
-    status_ = new ::Status;
-  }
-  // @@protoc_insertion_point(field_mutable:InitResponse.status)
-  return status_;
-}
-::Status* InitResponse::release_status() {
-  // @@protoc_insertion_point(field_release:InitResponse.status)
-  
-  ::Status* temp = status_;
-  status_ = NULL;
-  return temp;
-}
-void InitResponse::set_allocated_status(::Status* status) {
-  delete status_;
-  status_ = status;
-  if (status) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:InitResponse.status)
+  status_ = value;
+  // @@protoc_insertion_point(field_set:InitResponse.status)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -3400,16 +3063,12 @@ TxResponse::TxResponse(const TxResponse& from)
       _internal_metadata_(NULL),
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  if (from.has_status()) {
-    status_ = new ::Status(*from.status_);
-  } else {
-    status_ = NULL;
-  }
+  status_ = from.status_;
   // @@protoc_insertion_point(copy_constructor:TxResponse)
 }
 
 void TxResponse::SharedCtor() {
-  status_ = NULL;
+  status_ = 0;
   _cached_size_ = 0;
 }
 
@@ -3419,9 +3078,6 @@ TxResponse::~TxResponse() {
 }
 
 void TxResponse::SharedDtor() {
-  if (this != internal_default_instance()) {
-    delete status_;
-  }
 }
 
 void TxResponse::SetCachedSize(int size) const {
@@ -3449,10 +3105,7 @@ TxResponse* TxResponse::New(::google::protobuf::Arena* arena) const {
 
 void TxResponse::Clear() {
 // @@protoc_insertion_point(message_clear_start:TxResponse)
-  if (GetArenaNoVirtual() == NULL && status_ != NULL) {
-    delete status_;
-  }
-  status_ = NULL;
+  status_ = 0;
 }
 
 bool TxResponse::MergePartialFromCodedStream(
@@ -3468,9 +3121,12 @@ bool TxResponse::MergePartialFromCodedStream(
       // .Status status = 1;
       case 1: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_status()));
+            static_cast< ::google::protobuf::uint8>(8u)) {
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_status(static_cast< ::Status >(value));
         } else {
           goto handle_unusual;
         }
@@ -3505,9 +3161,9 @@ void TxResponse::SerializeWithCachedSizes(
   (void) cached_has_bits;
 
   // .Status status = 1;
-  if (this->has_status()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, *this->status_, output);
+  if (this->status() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      1, this->status(), output);
   }
 
   // @@protoc_insertion_point(serialize_end:TxResponse)
@@ -3520,10 +3176,9 @@ void TxResponse::SerializeWithCachedSizes(
   (void) cached_has_bits;
 
   // .Status status = 1;
-  if (this->has_status()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      InternalWriteMessageNoVirtualToArray(
-        1, *this->status_, deterministic, target);
+  if (this->status() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      1, this->status(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:TxResponse)
@@ -3535,10 +3190,9 @@ size_t TxResponse::ByteSizeLong() const {
   size_t total_size = 0;
 
   // .Status status = 1;
-  if (this->has_status()) {
+  if (this->status() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->status_);
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->status());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -3570,8 +3224,8 @@ void TxResponse::MergeFrom(const TxResponse& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.has_status()) {
-    mutable_status()->::Status::MergeFrom(from.status());
+  if (from.status() != 0) {
+    set_status(from.status());
   }
 }
 
@@ -3611,42 +3265,17 @@ void TxResponse::InternalSwap(TxResponse* other) {
 // TxResponse
 
 // .Status status = 1;
-bool TxResponse::has_status() const {
-  return this != internal_default_instance() && status_ != NULL;
-}
 void TxResponse::clear_status() {
-  if (GetArenaNoVirtual() == NULL && status_ != NULL) delete status_;
-  status_ = NULL;
+  status_ = 0;
 }
-const ::Status& TxResponse::status() const {
+::Status TxResponse::status() const {
   // @@protoc_insertion_point(field_get:TxResponse.status)
-  return status_ != NULL ? *status_
-                         : *::Status::internal_default_instance();
+  return static_cast< ::Status >(status_);
 }
-::Status* TxResponse::mutable_status() {
+void TxResponse::set_status(::Status value) {
   
-  if (status_ == NULL) {
-    status_ = new ::Status;
-  }
-  // @@protoc_insertion_point(field_mutable:TxResponse.status)
-  return status_;
-}
-::Status* TxResponse::release_status() {
-  // @@protoc_insertion_point(field_release:TxResponse.status)
-  
-  ::Status* temp = status_;
-  status_ = NULL;
-  return temp;
-}
-void TxResponse::set_allocated_status(::Status* status) {
-  delete status_;
-  status_ = status;
-  if (status) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:TxResponse.status)
+  status_ = value;
+  // @@protoc_insertion_point(field_set:TxResponse.status)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -3905,22 +3534,18 @@ RxResponse::RxResponse(const RxResponse& from)
       _internal_metadata_(NULL),
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  if (from.has_status()) {
-    status_ = new ::Status(*from.status_);
-  } else {
-    status_ = NULL;
-  }
   if (from.has_packet()) {
     packet_ = new ::Packet(*from.packet_);
   } else {
     packet_ = NULL;
   }
+  status_ = from.status_;
   // @@protoc_insertion_point(copy_constructor:RxResponse)
 }
 
 void RxResponse::SharedCtor() {
-  ::memset(&status_, 0, reinterpret_cast<char*>(&packet_) -
-    reinterpret_cast<char*>(&status_) + sizeof(packet_));
+  ::memset(&packet_, 0, reinterpret_cast<char*>(&status_) -
+    reinterpret_cast<char*>(&packet_) + sizeof(status_));
   _cached_size_ = 0;
 }
 
@@ -3930,9 +3555,6 @@ RxResponse::~RxResponse() {
 }
 
 void RxResponse::SharedDtor() {
-  if (this != internal_default_instance()) {
-    delete status_;
-  }
   if (this != internal_default_instance()) {
     delete packet_;
   }
@@ -3963,14 +3585,11 @@ RxResponse* RxResponse::New(::google::protobuf::Arena* arena) const {
 
 void RxResponse::Clear() {
 // @@protoc_insertion_point(message_clear_start:RxResponse)
-  if (GetArenaNoVirtual() == NULL && status_ != NULL) {
-    delete status_;
-  }
-  status_ = NULL;
   if (GetArenaNoVirtual() == NULL && packet_ != NULL) {
     delete packet_;
   }
   packet_ = NULL;
+  status_ = 0;
 }
 
 bool RxResponse::MergePartialFromCodedStream(
@@ -3986,9 +3605,12 @@ bool RxResponse::MergePartialFromCodedStream(
       // .Status status = 1;
       case 1: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_status()));
+            static_cast< ::google::protobuf::uint8>(8u)) {
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_status(static_cast< ::Status >(value));
         } else {
           goto handle_unusual;
         }
@@ -4035,9 +3657,9 @@ void RxResponse::SerializeWithCachedSizes(
   (void) cached_has_bits;
 
   // .Status status = 1;
-  if (this->has_status()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, *this->status_, output);
+  if (this->status() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      1, this->status(), output);
   }
 
   // .Packet packet = 2;
@@ -4056,10 +3678,9 @@ void RxResponse::SerializeWithCachedSizes(
   (void) cached_has_bits;
 
   // .Status status = 1;
-  if (this->has_status()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      InternalWriteMessageNoVirtualToArray(
-        1, *this->status_, deterministic, target);
+  if (this->status() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      1, this->status(), target);
   }
 
   // .Packet packet = 2;
@@ -4077,18 +3698,17 @@ size_t RxResponse::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:RxResponse)
   size_t total_size = 0;
 
-  // .Status status = 1;
-  if (this->has_status()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->status_);
-  }
-
   // .Packet packet = 2;
   if (this->has_packet()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->packet_);
+  }
+
+  // .Status status = 1;
+  if (this->status() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->status());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -4120,11 +3740,11 @@ void RxResponse::MergeFrom(const RxResponse& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.has_status()) {
-    mutable_status()->::Status::MergeFrom(from.status());
-  }
   if (from.has_packet()) {
     mutable_packet()->::Packet::MergeFrom(from.packet());
+  }
+  if (from.status() != 0) {
+    set_status(from.status());
   }
 }
 
@@ -4151,8 +3771,8 @@ void RxResponse::Swap(RxResponse* other) {
   InternalSwap(other);
 }
 void RxResponse::InternalSwap(RxResponse* other) {
-  std::swap(status_, other->status_);
   std::swap(packet_, other->packet_);
+  std::swap(status_, other->status_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
@@ -4165,42 +3785,17 @@ void RxResponse::InternalSwap(RxResponse* other) {
 // RxResponse
 
 // .Status status = 1;
-bool RxResponse::has_status() const {
-  return this != internal_default_instance() && status_ != NULL;
-}
 void RxResponse::clear_status() {
-  if (GetArenaNoVirtual() == NULL && status_ != NULL) delete status_;
-  status_ = NULL;
+  status_ = 0;
 }
-const ::Status& RxResponse::status() const {
+::Status RxResponse::status() const {
   // @@protoc_insertion_point(field_get:RxResponse.status)
-  return status_ != NULL ? *status_
-                         : *::Status::internal_default_instance();
+  return static_cast< ::Status >(status_);
 }
-::Status* RxResponse::mutable_status() {
+void RxResponse::set_status(::Status value) {
   
-  if (status_ == NULL) {
-    status_ = new ::Status;
-  }
-  // @@protoc_insertion_point(field_mutable:RxResponse.status)
-  return status_;
-}
-::Status* RxResponse::release_status() {
-  // @@protoc_insertion_point(field_release:RxResponse.status)
-  
-  ::Status* temp = status_;
-  status_ = NULL;
-  return temp;
-}
-void RxResponse::set_allocated_status(::Status* status) {
-  delete status_;
-  status_ = status;
-  if (status) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:RxResponse.status)
+  status_ = value;
+  // @@protoc_insertion_point(field_set:RxResponse.status)
 }
 
 // .Packet packet = 2;

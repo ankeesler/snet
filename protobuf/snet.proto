@@ -3,15 +3,12 @@ syntax = "proto3";
 option java_package = "com.marshmallow.snet.service.protobuf";
 option java_multiple_files = true;
 
-message Status {
-  enum Id {
-    SUCCESS = 0;
-    FAILURE = 1;
-    UNKNOWN = 2;
-    EMPTY = 3;
-    DUPLICATE = 4;
-  }
-  Id id = 1;
+enum Status {
+  SUCCESS = 0;
+  FAILURE = 1;
+  UNKNOWN = 2;
+  EMPTY = 3;
+  DUPLICATE = 4;
 }
 
 message EchoRequest {

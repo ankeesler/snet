@@ -36,8 +36,7 @@ public class BaseClient implements IClient {
                            .setAddress(this.address)
                            .build())
                      .getStatus()
-                     .getId()
-            == Status.Id.SUCCESS);
+            == Status.SUCCESS);
   }
 
   @Override
@@ -52,8 +51,7 @@ public class BaseClient implements IClient {
                          .setPacket(packet)
                          .build())
                      .getStatus()
-                     .getId()
-            == Status.Id.SUCCESS);
+            == Status.SUCCESS);
   }
 
   @Override
@@ -63,7 +61,7 @@ public class BaseClient implements IClient {
                      .newBuilder()
                      .setAddress(this.address)
                      .build());
-    return (rxResponse.getStatus().getId() == Status.Id.SUCCESS
+    return (rxResponse.getStatus() == Status.SUCCESS
             ? rxResponse.getPacket()
             : null);
   }

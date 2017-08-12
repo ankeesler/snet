@@ -42,7 +42,7 @@ snet_client::status snet_client::reset(void)
   grpc::Status status = m_stub->Reset(&ctx, req, &rsp);
   return (!status.ok()
           ? snet_client::RPCERR
-          : (rsp.status().id() != Status::SUCCESS
+          : (rsp.status() != Status::SUCCESS
              ? snet_client::BAD
              : snet_client::OK));
 }
@@ -57,7 +57,7 @@ snet_client::status snet_client::init(void)
   grpc::Status status = m_stub->Init(&ctx, req, &rsp);
   return (!status.ok()
           ? snet_client::RPCERR
-          : (rsp.status().id() != Status::SUCCESS
+          : (rsp.status() != Status::SUCCESS
              ? snet_client::BAD
              : snet_client::OK));
 }
@@ -82,7 +82,7 @@ snet_client::status snet_client::tx(snet_client::packet_type type,
   grpc::Status status = m_stub->Tx(&ctx, req, &rsp);
   return (!status.ok()
           ? snet_client::RPCERR
-          : (rsp.status().id() != Status::SUCCESS
+          : (rsp.status() != Status::SUCCESS
              ? snet_client::BAD
              : snet_client::OK));
 }
@@ -98,7 +98,7 @@ snet_client::status snet_client::rx(int *src_addr, std::string *payload)
   if (!status.ok()) {
     return snet_client::RPCERR;
   }
-  switch (rsp.status().id()) {
+  switch (rsp.status()) {
     case Status::SUCCESS:
       *src_addr = rsp.packet().source();
       *payload = rsp.packet().payload();

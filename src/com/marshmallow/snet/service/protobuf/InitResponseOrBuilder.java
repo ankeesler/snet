@@ -10,13 +10,9 @@ public interface InitResponseOrBuilder extends
   /**
    * <code>.Status status = 1;</code>
    */
-  boolean hasStatus();
+  int getStatusValue();
   /**
    * <code>.Status status = 1;</code>
    */
   com.marshmallow.snet.service.protobuf.Status getStatus();
-  /**
-   * <code>.Status status = 1;</code>
-   */
-  com.marshmallow.snet.service.protobuf.StatusOrBuilder getStatusOrBuilder();
 }

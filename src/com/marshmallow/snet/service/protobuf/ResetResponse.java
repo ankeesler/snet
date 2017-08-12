@@ -15,6 +15,7 @@ public  final class ResetResponse extends
     super(builder);
   }
   private ResetResponse() {
+    status_ = 0;
   }
 
   @java.lang.Override
@@ -42,17 +43,10 @@ public  final class ResetResponse extends
             }
             break;
           }
-          case 10: {
-            com.marshmallow.snet.service.protobuf.Status.Builder subBuilder = null;
-            if (status_ != null) {
-              subBuilder = status_.toBuilder();
-            }
-            status_ = input.readMessage(com.marshmallow.snet.service.protobuf.Status.parser(), extensionRegistry);
-            if (subBuilder != null) {
-              subBuilder.mergeFrom(status_);
-              status_ = subBuilder.buildPartial();
-            }
+          case 8: {
+            int rawValue = input.readEnum();
 
+            status_ = rawValue;
             break;
           }
         }
@@ -79,24 +73,19 @@ public  final class ResetResponse extends
   }
 
   public static final int STATUS_FIELD_NUMBER = 1;
-  private com.marshmallow.snet.service.protobuf.Status status_;
+  private int status_;
   /**
    * <code>.Status status = 1;</code>
    */
-  public boolean hasStatus() {
-    return status_ != null;
+  public int getStatusValue() {
+    return status_;
   }
   /**
    * <code>.Status status = 1;</code>
    */
   public com.marshmallow.snet.service.protobuf.Status getStatus() {
-    return status_ == null ? com.marshmallow.snet.service.protobuf.Status.getDefaultInstance() : status_;
-  }
-  /**
-   * <code>.Status status = 1;</code>
-   */
-  public com.marshmallow.snet.service.protobuf.StatusOrBuilder getStatusOrBuilder() {
-    return getStatus();
+    com.marshmallow.snet.service.protobuf.Status result = com.marshmallow.snet.service.protobuf.Status.valueOf(status_);
+    return result == null ? com.marshmallow.snet.service.protobuf.Status.UNRECOGNIZED : result;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -111,8 +100,8 @@ public  final class ResetResponse extends
 
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (status_ != null) {
-      output.writeMessage(1, getStatus());
+    if (status_ != com.marshmallow.snet.service.protobuf.Status.SUCCESS.getNumber()) {
+      output.writeEnum(1, status_);
     }
   }
 
@@ -121,9 +110,9 @@ public  final class ResetResponse extends
     if (size != -1) return size;
 
     size = 0;
-    if (status_ != null) {
+    if (status_ != com.marshmallow.snet.service.protobuf.Status.SUCCESS.getNumber()) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(1, getStatus());
+        .computeEnumSize(1, status_);
     }
     memoizedSize = size;
     return size;
@@ -141,11 +130,7 @@ public  final class ResetResponse extends
     com.marshmallow.snet.service.protobuf.ResetResponse other = (com.marshmallow.snet.service.protobuf.ResetResponse) obj;
 
     boolean result = true;
-    result = result && (hasStatus() == other.hasStatus());
-    if (hasStatus()) {
-      result = result && getStatus()
-          .equals(other.getStatus());
-    }
+    result = result && status_ == other.status_;
     return result;
   }
 
@@ -156,10 +141,8 @@ public  final class ResetResponse extends
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    if (hasStatus()) {
-      hash = (37 * hash) + STATUS_FIELD_NUMBER;
-      hash = (53 * hash) + getStatus().hashCode();
-    }
+    hash = (37 * hash) + STATUS_FIELD_NUMBER;
+    hash = (53 * hash) + status_;
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -289,12 +272,8 @@ public  final class ResetResponse extends
     }
     public Builder clear() {
       super.clear();
-      if (statusBuilder_ == null) {
-        status_ = null;
-      } else {
-        status_ = null;
-        statusBuilder_ = null;
-      }
+      status_ = 0;
+
       return this;
     }
 
@@ -317,11 +296,7 @@ public  final class ResetResponse extends
 
     public com.marshmallow.snet.service.protobuf.ResetResponse buildPartial() {
       com.marshmallow.snet.service.protobuf.ResetResponse result = new com.marshmallow.snet.service.protobuf.ResetResponse(this);
-      if (statusBuilder_ == null) {
-        result.status_ = status_;
-      } else {
-        result.status_ = statusBuilder_.build();
-      }
+      result.status_ = status_;
       onBuilt();
       return result;
     }
@@ -363,8 +338,8 @@ public  final class ResetResponse extends
 
     public Builder mergeFrom(com.marshmallow.snet.service.protobuf.ResetResponse other) {
       if (other == com.marshmallow.snet.service.protobuf.ResetResponse.getDefaultInstance()) return this;
-      if (other.hasStatus()) {
-        mergeStatus(other.getStatus());
+      if (other.status_ != 0) {
+        setStatusValue(other.getStatusValue());
       }
       onChanged();
       return this;
@@ -392,121 +367,48 @@ public  final class ResetResponse extends
       return this;
     }
 
-    private com.marshmallow.snet.service.protobuf.Status status_ = null;
-    private com.google.protobuf.SingleFieldBuilderV3<
-        com.marshmallow.snet.service.protobuf.Status, com.marshmallow.snet.service.protobuf.Status.Builder, com.marshmallow.snet.service.protobuf.StatusOrBuilder> statusBuilder_;
+    private int status_ = 0;
     /**
      * <code>.Status status = 1;</code>
      */
-    public boolean hasStatus() {
-      return statusBuilder_ != null || status_ != null;
+    public int getStatusValue() {
+      return status_;
+    }
+    /**
+     * <code>.Status status = 1;</code>
+     */
+    public Builder setStatusValue(int value) {
+      status_ = value;
+      onChanged();
+      return this;
     }
     /**
      * <code>.Status status = 1;</code>
      */
     public com.marshmallow.snet.service.protobuf.Status getStatus() {
-      if (statusBuilder_ == null) {
-        return status_ == null ? com.marshmallow.snet.service.protobuf.Status.getDefaultInstance() : status_;
-      } else {
-        return statusBuilder_.getMessage();
-      }
+      com.marshmallow.snet.service.protobuf.Status result = com.marshmallow.snet.service.protobuf.Status.valueOf(status_);
+      return result == null ? com.marshmallow.snet.service.protobuf.Status.UNRECOGNIZED : result;
     }
     /**
      * <code>.Status status = 1;</code>
      */
     public Builder setStatus(com.marshmallow.snet.service.protobuf.Status value) {
-      if (statusBuilder_ == null) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        status_ = value;
-        onChanged();
-      } else {
-        statusBuilder_.setMessage(value);
+      if (value == null) {
+        throw new NullPointerException();
       }
-
-      return this;
-    }
-    /**
-     * <code>.Status status = 1;</code>
-     */
-    public Builder setStatus(
-        com.marshmallow.snet.service.protobuf.Status.Builder builderForValue) {
-      if (statusBuilder_ == null) {
-        status_ = builderForValue.build();
-        onChanged();
-      } else {
-        statusBuilder_.setMessage(builderForValue.build());
-      }
-
-      return this;
-    }
-    /**
-     * <code>.Status status = 1;</code>
-     */
-    public Builder mergeStatus(com.marshmallow.snet.service.protobuf.Status value) {
-      if (statusBuilder_ == null) {
-        if (status_ != null) {
-          status_ =
-            com.marshmallow.snet.service.protobuf.Status.newBuilder(status_).mergeFrom(value).buildPartial();
-        } else {
-          status_ = value;
-        }
-        onChanged();
-      } else {
-        statusBuilder_.mergeFrom(value);
-      }
-
+      
+      status_ = value.getNumber();
+      onChanged();
       return this;
     }
     /**
      * <code>.Status status = 1;</code>
      */
     public Builder clearStatus() {
-      if (statusBuilder_ == null) {
-        status_ = null;
-        onChanged();
-      } else {
-        status_ = null;
-        statusBuilder_ = null;
-      }
-
-      return this;
-    }
-    /**
-     * <code>.Status status = 1;</code>
-     */
-    public com.marshmallow.snet.service.protobuf.Status.Builder getStatusBuilder() {
       
+      status_ = 0;
       onChanged();
-      return getStatusFieldBuilder().getBuilder();
-    }
-    /**
-     * <code>.Status status = 1;</code>
-     */
-    public com.marshmallow.snet.service.protobuf.StatusOrBuilder getStatusOrBuilder() {
-      if (statusBuilder_ != null) {
-        return statusBuilder_.getMessageOrBuilder();
-      } else {
-        return status_ == null ?
-            com.marshmallow.snet.service.protobuf.Status.getDefaultInstance() : status_;
-      }
-    }
-    /**
-     * <code>.Status status = 1;</code>
-     */
-    private com.google.protobuf.SingleFieldBuilderV3<
-        com.marshmallow.snet.service.protobuf.Status, com.marshmallow.snet.service.protobuf.Status.Builder, com.marshmallow.snet.service.protobuf.StatusOrBuilder> 
-        getStatusFieldBuilder() {
-      if (statusBuilder_ == null) {
-        statusBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-            com.marshmallow.snet.service.protobuf.Status, com.marshmallow.snet.service.protobuf.Status.Builder, com.marshmallow.snet.service.protobuf.StatusOrBuilder>(
-                getStatus(),
-                getParentForChildren(),
-                isClean());
-        status_ = null;
-      }
-      return statusBuilder_;
+      return this;
     }
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {

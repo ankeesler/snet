@@ -41,24 +41,22 @@ public class GrpcSnetServiceImpl extends SnetServiceGrpc.SnetServiceImplBase {
   public void reset(ResetRequest request, StreamObserver<ResetResponse> response) {
     log.info("reset(" + request.getAddress() + ")");
     packetQueues.clear();
-    Status status = Status.newBuilder().setId(Status.Id.SUCCESS).build();
-    response.onNext(ResetResponse.newBuilder().setStatus(status).build());
+    response.onNext(ResetResponse.newBuilder().setStatus(Status.SUCCESS).build());
     response.onCompleted();
   }
 
   @Override
   public void init(InitRequest request, StreamObserver<InitResponse> response) {
     log.info("init(" + request.getAddress() + ")");
-    Status.Id statusId;
+    Status status;
     Integer source = request.getAddress();
     if (packetQueues.containsKey(source)) {
-      statusId = Status.Id.DUPLICATE;
+      status = Status.DUPLICATE;
     } else {
       packetQueues.put(source, new LinkedList<Packet>());
-      statusId = Status.Id.SUCCESS;
+      status = Status.SUCCESS;
     }
 
-    Status status = Status.newBuilder().setId(statusId).build();
     InitResponse initResponse = InitResponse.newBuilder().setStatus(status).build();
     response.onNext(initResponse);
     response.onCompleted();
@@ -78,19 +76,18 @@ public class GrpcSnetServiceImpl extends SnetServiceGrpc.SnetServiceImplBase {
 
     // TODO: propagation stuff here.
 
-    Status.Id statusId;
+    Status status;
     Integer source = request.getPacket().getSource();
     if (!packetQueues.containsKey(source)) {
-      statusId = Status.Id.UNKNOWN;
+      status = Status.UNKNOWN;
     } else {
       Integer destination = request.getPacket().getDestination();
       if (packetQueues.containsKey(destination)) {
         packetQueues.get(destination).add(request.getPacket());
       }
-      statusId = Status.Id.SUCCESS;
+      status = Status.SUCCESS;
     }
 
-    Status status = Status.newBuilder().setId(statusId).build();
     TxResponse txResponse = TxResponse.newBuilder().setStatus(status).build();
     response.onNext(txResponse);
     response.onCompleted();
@@ -100,22 +97,21 @@ public class GrpcSnetServiceImpl extends SnetServiceGrpc.SnetServiceImplBase {
   public void rx(RxRequest request, StreamObserver<RxResponse> response) {
     log.info("rx(" + request.toString().trim() + ")");
 
-    Status.Id statusId;
+    Status status;
     Packet packet = null;
     Integer source = request.getAddress();
     if (!packetQueues.containsKey(source)) {
-      statusId = Status.Id.UNKNOWN;
+      status = Status.UNKNOWN;
     } else {
       Queue<Packet> queue = packetQueues.get(source);
       if (queue.isEmpty()) {
-        statusId = Status.Id.EMPTY;
+        status = Status.EMPTY;
       } else {
         packet = queue.remove();
-        statusId = Status.Id.SUCCESS;
+        status = Status.SUCCESS;
       }
     }
 
-    Status status = Status.newBuilder().setId(statusId).build();
     RxResponse.Builder rxResponseBuilder = RxResponse.newBuilder().setStatus(status);
     if (packet != null) {
       rxResponseBuilder.setPacket(packet);

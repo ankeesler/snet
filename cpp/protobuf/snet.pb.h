@@ -64,9 +64,6 @@ extern RxRequestDefaultTypeInternal _RxRequest_default_instance_;
 class RxResponse;
 class RxResponseDefaultTypeInternal;
 extern RxResponseDefaultTypeInternal _RxResponse_default_instance_;
-class Status;
-class StatusDefaultTypeInternal;
-extern StatusDefaultTypeInternal _Status_default_instance_;
 class TxRequest;
 class TxRequestDefaultTypeInternal;
 extern TxRequestDefaultTypeInternal _TxRequest_default_instance_;
@@ -88,30 +85,6 @@ void AddDescriptors();
 void InitDefaults();
 }  // namespace protobuf_protobuf_2fsnet_2eproto
 
-enum Status_Id {
-  Status_Id_SUCCESS = 0,
-  Status_Id_FAILURE = 1,
-  Status_Id_UNKNOWN = 2,
-  Status_Id_EMPTY = 3,
-  Status_Id_DUPLICATE = 4,
-  Status_Id_Status_Id_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
-  Status_Id_Status_Id_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
-};
-bool Status_Id_IsValid(int value);
-const Status_Id Status_Id_Id_MIN = Status_Id_SUCCESS;
-const Status_Id Status_Id_Id_MAX = Status_Id_DUPLICATE;
-const int Status_Id_Id_ARRAYSIZE = Status_Id_Id_MAX + 1;
-
-const ::google::protobuf::EnumDescriptor* Status_Id_descriptor();
-inline const ::std::string& Status_Id_Name(Status_Id value) {
-  return ::google::protobuf::internal::NameOfEnum(
-    Status_Id_descriptor(), value);
-}
-inline bool Status_Id_Parse(
-    const ::std::string& name, Status_Id* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<Status_Id>(
-    Status_Id_descriptor(), name, value);
-}
 enum Packet_Type {
   Packet_Type_DATA = 0,
   Packet_Type_COMMAND = 1,
@@ -133,119 +106,31 @@ inline bool Packet_Type_Parse(
   return ::google::protobuf::internal::ParseNamedEnum<Packet_Type>(
     Packet_Type_descriptor(), name, value);
 }
-// ===================================================================
-
-class Status : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Status) */ {
- public:
-  Status();
-  virtual ~Status();
-
-  Status(const Status& from);
-
-  inline Status& operator=(const Status& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const Status& default_instance();
-
-  static inline const Status* internal_default_instance() {
-    return reinterpret_cast<const Status*>(
-               &_Status_default_instance_);
-  }
-  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    0;
-
-  void Swap(Status* other);
-
-  // implements Message ----------------------------------------------
-
-  inline Status* New() const PROTOBUF_FINAL { return New(NULL); }
-
-  Status* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
-  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
-  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
-  void CopyFrom(const Status& from);
-  void MergeFrom(const Status& from);
-  void Clear() PROTOBUF_FINAL;
-  bool IsInitialized() const PROTOBUF_FINAL;
-
-  size_t ByteSizeLong() const PROTOBUF_FINAL;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
-  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
-      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
-  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const PROTOBUF_FINAL;
-  void InternalSwap(Status* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return NULL;
-  }
-  inline void* MaybeArenaPtr() const {
-    return NULL;
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
-
-  // nested types ----------------------------------------------------
-
-  typedef Status_Id Id;
-  static const Id SUCCESS =
-    Status_Id_SUCCESS;
-  static const Id FAILURE =
-    Status_Id_FAILURE;
-  static const Id UNKNOWN =
-    Status_Id_UNKNOWN;
-  static const Id EMPTY =
-    Status_Id_EMPTY;
-  static const Id DUPLICATE =
-    Status_Id_DUPLICATE;
-  static inline bool Id_IsValid(int value) {
-    return Status_Id_IsValid(value);
-  }
-  static const Id Id_MIN =
-    Status_Id_Id_MIN;
-  static const Id Id_MAX =
-    Status_Id_Id_MAX;
-  static const int Id_ARRAYSIZE =
-    Status_Id_Id_ARRAYSIZE;
-  static inline const ::google::protobuf::EnumDescriptor*
-  Id_descriptor() {
-    return Status_Id_descriptor();
-  }
-  static inline const ::std::string& Id_Name(Id value) {
-    return Status_Id_Name(value);
-  }
-  static inline bool Id_Parse(const ::std::string& name,
-      Id* value) {
-    return Status_Id_Parse(name, value);
-  }
-
-  // accessors -------------------------------------------------------
-
-  // .Status.Id id = 1;
-  void clear_id();
-  static const int kIdFieldNumber = 1;
-  ::Status_Id id() const;
-  void set_id(::Status_Id value);
-
-  // @@protoc_insertion_point(class_scope:Status)
- private:
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  int id_;
-  mutable int _cached_size_;
-  friend struct protobuf_protobuf_2fsnet_2eproto::TableStruct;
+enum Status {
+  SUCCESS = 0,
+  FAILURE = 1,
+  UNKNOWN = 2,
+  EMPTY = 3,
+  DUPLICATE = 4,
+  Status_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
+  Status_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
-// -------------------------------------------------------------------
+bool Status_IsValid(int value);
+const Status Status_MIN = SUCCESS;
+const Status Status_MAX = DUPLICATE;
+const int Status_ARRAYSIZE = Status_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* Status_descriptor();
+inline const ::std::string& Status_Name(Status value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    Status_descriptor(), value);
+}
+inline bool Status_Parse(
+    const ::std::string& name, Status* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<Status>(
+    Status_descriptor(), name, value);
+}
+// ===================================================================
 
 class EchoRequest : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:EchoRequest) */ {
  public:
@@ -267,7 +152,7 @@ class EchoRequest : public ::google::protobuf::Message /* @@protoc_insertion_poi
                &_EchoRequest_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    1;
+    0;
 
   void Swap(EchoRequest* other);
 
@@ -355,7 +240,7 @@ class EchoResponse : public ::google::protobuf::Message /* @@protoc_insertion_po
                &_EchoResponse_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    2;
+    1;
 
   void Swap(EchoResponse* other);
 
@@ -443,7 +328,7 @@ class ResetRequest : public ::google::protobuf::Message /* @@protoc_insertion_po
                &_ResetRequest_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    3;
+    2;
 
   void Swap(ResetRequest* other);
 
@@ -523,7 +408,7 @@ class ResetResponse : public ::google::protobuf::Message /* @@protoc_insertion_p
                &_ResetResponse_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    4;
+    3;
 
   void Swap(ResetResponse* other);
 
@@ -568,19 +453,16 @@ class ResetResponse : public ::google::protobuf::Message /* @@protoc_insertion_p
   // accessors -------------------------------------------------------
 
   // .Status status = 1;
-  bool has_status() const;
   void clear_status();
   static const int kStatusFieldNumber = 1;
-  const ::Status& status() const;
-  ::Status* mutable_status();
-  ::Status* release_status();
-  void set_allocated_status(::Status* status);
+  ::Status status() const;
+  void set_status(::Status value);
 
   // @@protoc_insertion_point(class_scope:ResetResponse)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::Status* status_;
+  int status_;
   mutable int _cached_size_;
   friend struct protobuf_protobuf_2fsnet_2eproto::TableStruct;
 };
@@ -606,7 +488,7 @@ class InfoRequest : public ::google::protobuf::Message /* @@protoc_insertion_poi
                &_InfoRequest_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    5;
+    4;
 
   void Swap(InfoRequest* other);
 
@@ -679,7 +561,7 @@ class InfoResponse : public ::google::protobuf::Message /* @@protoc_insertion_po
                &_InfoResponse_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    6;
+    5;
 
   void Swap(InfoResponse* other);
 
@@ -752,7 +634,7 @@ class InitRequest : public ::google::protobuf::Message /* @@protoc_insertion_poi
                &_InitRequest_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    7;
+    6;
 
   void Swap(InitRequest* other);
 
@@ -832,7 +714,7 @@ class InitResponse : public ::google::protobuf::Message /* @@protoc_insertion_po
                &_InitResponse_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    8;
+    7;
 
   void Swap(InitResponse* other);
 
@@ -877,19 +759,16 @@ class InitResponse : public ::google::protobuf::Message /* @@protoc_insertion_po
   // accessors -------------------------------------------------------
 
   // .Status status = 1;
-  bool has_status() const;
   void clear_status();
   static const int kStatusFieldNumber = 1;
-  const ::Status& status() const;
-  ::Status* mutable_status();
-  ::Status* release_status();
-  void set_allocated_status(::Status* status);
+  ::Status status() const;
+  void set_status(::Status value);
 
   // @@protoc_insertion_point(class_scope:InitResponse)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::Status* status_;
+  int status_;
   mutable int _cached_size_;
   friend struct protobuf_protobuf_2fsnet_2eproto::TableStruct;
 };
@@ -915,7 +794,7 @@ class Packet : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
                &_Packet_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    9;
+    8;
 
   void Swap(Packet* other);
 
@@ -1064,7 +943,7 @@ class TxRequest : public ::google::protobuf::Message /* @@protoc_insertion_point
                &_TxRequest_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    10;
+    9;
 
   void Swap(TxRequest* other);
 
@@ -1147,7 +1026,7 @@ class TxResponse : public ::google::protobuf::Message /* @@protoc_insertion_poin
                &_TxResponse_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    11;
+    10;
 
   void Swap(TxResponse* other);
 
@@ -1192,19 +1071,16 @@ class TxResponse : public ::google::protobuf::Message /* @@protoc_insertion_poin
   // accessors -------------------------------------------------------
 
   // .Status status = 1;
-  bool has_status() const;
   void clear_status();
   static const int kStatusFieldNumber = 1;
-  const ::Status& status() const;
-  ::Status* mutable_status();
-  ::Status* release_status();
-  void set_allocated_status(::Status* status);
+  ::Status status() const;
+  void set_status(::Status value);
 
   // @@protoc_insertion_point(class_scope:TxResponse)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::Status* status_;
+  int status_;
   mutable int _cached_size_;
   friend struct protobuf_protobuf_2fsnet_2eproto::TableStruct;
 };
@@ -1230,7 +1106,7 @@ class RxRequest : public ::google::protobuf::Message /* @@protoc_insertion_point
                &_RxRequest_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    12;
+    11;
 
   void Swap(RxRequest* other);
 
@@ -1310,7 +1186,7 @@ class RxResponse : public ::google::protobuf::Message /* @@protoc_insertion_poin
                &_RxResponse_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    13;
+    12;
 
   void Swap(RxResponse* other);
 
@@ -1354,15 +1230,6 @@ class RxResponse : public ::google::protobuf::Message /* @@protoc_insertion_poin
 
   // accessors -------------------------------------------------------
 
-  // .Status status = 1;
-  bool has_status() const;
-  void clear_status();
-  static const int kStatusFieldNumber = 1;
-  const ::Status& status() const;
-  ::Status* mutable_status();
-  ::Status* release_status();
-  void set_allocated_status(::Status* status);
-
   // .Packet packet = 2;
   bool has_packet() const;
   void clear_packet();
@@ -1372,12 +1239,18 @@ class RxResponse : public ::google::protobuf::Message /* @@protoc_insertion_poin
   ::Packet* release_packet();
   void set_allocated_packet(::Packet* packet);
 
+  // .Status status = 1;
+  void clear_status();
+  static const int kStatusFieldNumber = 1;
+  ::Status status() const;
+  void set_status(::Status value);
+
   // @@protoc_insertion_point(class_scope:RxResponse)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::Status* status_;
   ::Packet* packet_;
+  int status_;
   mutable int _cached_size_;
   friend struct protobuf_protobuf_2fsnet_2eproto::TableStruct;
 };
@@ -1387,24 +1260,6 @@ class RxResponse : public ::google::protobuf::Message /* @@protoc_insertion_poin
 // ===================================================================
 
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
-// Status
-
-// .Status.Id id = 1;
-inline void Status::clear_id() {
-  id_ = 0;
-}
-inline ::Status_Id Status::id() const {
-  // @@protoc_insertion_point(field_get:Status.id)
-  return static_cast< ::Status_Id >(id_);
-}
-inline void Status::set_id(::Status_Id value) {
-  
-  id_ = value;
-  // @@protoc_insertion_point(field_set:Status.id)
-}
-
-// -------------------------------------------------------------------
-
 // EchoRequest
 
 // string message = 1;
@@ -1540,42 +1395,17 @@ inline void ResetRequest::set_address(::google::protobuf::int32 value) {
 // ResetResponse
 
 // .Status status = 1;
-inline bool ResetResponse::has_status() const {
-  return this != internal_default_instance() && status_ != NULL;
-}
 inline void ResetResponse::clear_status() {
-  if (GetArenaNoVirtual() == NULL && status_ != NULL) delete status_;
-  status_ = NULL;
+  status_ = 0;
 }
-inline const ::Status& ResetResponse::status() const {
+inline ::Status ResetResponse::status() const {
   // @@protoc_insertion_point(field_get:ResetResponse.status)
-  return status_ != NULL ? *status_
-                         : *::Status::internal_default_instance();
+  return static_cast< ::Status >(status_);
 }
-inline ::Status* ResetResponse::mutable_status() {
+inline void ResetResponse::set_status(::Status value) {
   
-  if (status_ == NULL) {
-    status_ = new ::Status;
-  }
-  // @@protoc_insertion_point(field_mutable:ResetResponse.status)
-  return status_;
-}
-inline ::Status* ResetResponse::release_status() {
-  // @@protoc_insertion_point(field_release:ResetResponse.status)
-  
-  ::Status* temp = status_;
-  status_ = NULL;
-  return temp;
-}
-inline void ResetResponse::set_allocated_status(::Status* status) {
-  delete status_;
-  status_ = status;
-  if (status) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:ResetResponse.status)
+  status_ = value;
+  // @@protoc_insertion_point(field_set:ResetResponse.status)
 }
 
 // -------------------------------------------------------------------
@@ -1609,42 +1439,17 @@ inline void InitRequest::set_address(::google::protobuf::int32 value) {
 // InitResponse
 
 // .Status status = 1;
-inline bool InitResponse::has_status() const {
-  return this != internal_default_instance() && status_ != NULL;
-}
 inline void InitResponse::clear_status() {
-  if (GetArenaNoVirtual() == NULL && status_ != NULL) delete status_;
-  status_ = NULL;
+  status_ = 0;
 }
-inline const ::Status& InitResponse::status() const {
+inline ::Status InitResponse::status() const {
   // @@protoc_insertion_point(field_get:InitResponse.status)
-  return status_ != NULL ? *status_
-                         : *::Status::internal_default_instance();
+  return static_cast< ::Status >(status_);
 }
-inline ::Status* InitResponse::mutable_status() {
+inline void InitResponse::set_status(::Status value) {
   
-  if (status_ == NULL) {
-    status_ = new ::Status;
-  }
-  // @@protoc_insertion_point(field_mutable:InitResponse.status)
-  return status_;
-}
-inline ::Status* InitResponse::release_status() {
-  // @@protoc_insertion_point(field_release:InitResponse.status)
-  
-  ::Status* temp = status_;
-  status_ = NULL;
-  return temp;
-}
-inline void InitResponse::set_allocated_status(::Status* status) {
-  delete status_;
-  status_ = status;
-  if (status) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:InitResponse.status)
+  status_ = value;
+  // @@protoc_insertion_point(field_set:InitResponse.status)
 }
 
 // -------------------------------------------------------------------
@@ -1822,42 +1627,17 @@ inline void TxRequest::set_allocated_packet(::Packet* packet) {
 // TxResponse
 
 // .Status status = 1;
-inline bool TxResponse::has_status() const {
-  return this != internal_default_instance() && status_ != NULL;
-}
 inline void TxResponse::clear_status() {
-  if (GetArenaNoVirtual() == NULL && status_ != NULL) delete status_;
-  status_ = NULL;
+  status_ = 0;
 }
-inline const ::Status& TxResponse::status() const {
+inline ::Status TxResponse::status() const {
   // @@protoc_insertion_point(field_get:TxResponse.status)
-  return status_ != NULL ? *status_
-                         : *::Status::internal_default_instance();
+  return static_cast< ::Status >(status_);
 }
-inline ::Status* TxResponse::mutable_status() {
+inline void TxResponse::set_status(::Status value) {
   
-  if (status_ == NULL) {
-    status_ = new ::Status;
-  }
-  // @@protoc_insertion_point(field_mutable:TxResponse.status)
-  return status_;
-}
-inline ::Status* TxResponse::release_status() {
-  // @@protoc_insertion_point(field_release:TxResponse.status)
-  
-  ::Status* temp = status_;
-  status_ = NULL;
-  return temp;
-}
-inline void TxResponse::set_allocated_status(::Status* status) {
-  delete status_;
-  status_ = status;
-  if (status) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:TxResponse.status)
+  status_ = value;
+  // @@protoc_insertion_point(field_set:TxResponse.status)
 }
 
 // -------------------------------------------------------------------
@@ -1883,42 +1663,17 @@ inline void RxRequest::set_address(::google::protobuf::int32 value) {
 // RxResponse
 
 // .Status status = 1;
-inline bool RxResponse::has_status() const {
-  return this != internal_default_instance() && status_ != NULL;
-}
 inline void RxResponse::clear_status() {
-  if (GetArenaNoVirtual() == NULL && status_ != NULL) delete status_;
-  status_ = NULL;
+  status_ = 0;
 }
-inline const ::Status& RxResponse::status() const {
+inline ::Status RxResponse::status() const {
   // @@protoc_insertion_point(field_get:RxResponse.status)
-  return status_ != NULL ? *status_
-                         : *::Status::internal_default_instance();
+  return static_cast< ::Status >(status_);
 }
-inline ::Status* RxResponse::mutable_status() {
+inline void RxResponse::set_status(::Status value) {
   
-  if (status_ == NULL) {
-    status_ = new ::Status;
-  }
-  // @@protoc_insertion_point(field_mutable:RxResponse.status)
-  return status_;
-}
-inline ::Status* RxResponse::release_status() {
-  // @@protoc_insertion_point(field_release:RxResponse.status)
-  
-  ::Status* temp = status_;
-  status_ = NULL;
-  return temp;
-}
-inline void RxResponse::set_allocated_status(::Status* status) {
-  delete status_;
-  status_ = status;
-  if (status) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:RxResponse.status)
+  status_ = value;
+  // @@protoc_insertion_point(field_set:RxResponse.status)
 }
 
 // .Packet packet = 2;
@@ -1985,8 +1740,6 @@ inline void RxResponse::set_allocated_packet(::Packet* packet) {
 
 // -------------------------------------------------------------------
 
-// -------------------------------------------------------------------
-
 
 // @@protoc_insertion_point(namespace_scope)
 
@@ -1995,15 +1748,15 @@ inline void RxResponse::set_allocated_packet(::Packet* packet) {
 namespace google {
 namespace protobuf {
 
-template <> struct is_proto_enum< ::Status_Id> : ::google::protobuf::internal::true_type {};
-template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::Status_Id>() {
-  return ::Status_Id_descriptor();
-}
 template <> struct is_proto_enum< ::Packet_Type> : ::google::protobuf::internal::true_type {};
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::Packet_Type>() {
   return ::Packet_Type_descriptor();
+}
+template <> struct is_proto_enum< ::Status> : ::google::protobuf::internal::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::Status>() {
+  return ::Status_descriptor();
 }
 
 }  // namespace protobuf
