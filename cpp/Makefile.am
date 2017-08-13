@@ -27,7 +27,7 @@ multi_process_test_SOURCES=$(UNITY_SOURCE) test/multi_process_test.cpp
 multi_process_test_LDADD=$(LIBS)
 
 echo_app_CXXFLAGS=$(FLAGS)
-echo_app_SOURCES=app/echo_app.cpp
+echo_app_SOURCES=app/echo/echo_app.cpp
 echo_app_LDADD=$(LIBS)
 
 .PHONY: test
