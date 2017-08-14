@@ -17,6 +17,7 @@ missing
 one_process_test
 multi_process_test
 echo_app
+cli_app
 libsnetclient.a
 
 # Huh?

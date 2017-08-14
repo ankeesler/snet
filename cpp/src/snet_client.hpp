@@ -28,6 +28,17 @@ public:
     NODE,
   };
 
+  static std::string status_to_str(status s)
+  {
+    switch (s) {
+    case OK: return "OK";
+    case BAD: return "BAD";
+    case NONE: return "NONE";
+    case RPCERR: return "RPCERR";
+    default: return "???";
+    }
+  }
+
   snet_client(void);
   snet_client(int);
   int get_addr(void) const;

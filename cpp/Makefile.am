@@ -16,7 +16,7 @@ libsnetclient_a_SOURCES=src/snet_client.cpp \
                         protobuf/snet.grpc.pb.cc \
                         protobuf/snet.pb.cc
 
-bin_PROGRAMS=one_process_test multi_process_test echo_app
+bin_PROGRAMS=one_process_test multi_process_test echo_app cli_app
 
 one_process_test_CXXFLAGS=$(FLAGS)
 one_process_test_SOURCES=$(UNITY_SOURCE) test/one_process_test.cpp
@@ -29,6 +29,10 @@ multi_process_test_LDADD=$(LIBS)
 echo_app_CXXFLAGS=$(FLAGS)
 echo_app_SOURCES=app/echo/echo_app.cpp
 echo_app_LDADD=$(LIBS)
+
+cli_app_CXXFLAGS=$(FLAGS)
+cli_app_SOURCES=app/cli/cli_app.cpp
+cli_app_LDADD=$(LIBS)
 
 .PHONY: test
 test: one_process_test multi_process_test echo_app
