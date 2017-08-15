@@ -1,4 +1,3 @@
-README
 SNET C++ Client Code
 ==================
 
