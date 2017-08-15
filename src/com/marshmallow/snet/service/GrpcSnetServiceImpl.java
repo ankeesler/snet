@@ -80,8 +80,9 @@ public class GrpcSnetServiceImpl extends SnetServiceGrpc.SnetServiceImplBase {
       nodeCount = packetQueues.size();
       status = Status.SUCCESS;
     }
-    InfoResponse response = InfoResponse.newBuilder().setStatus(status).setNodeCount(nodeCount).build();
-    log.info("info(" + source +") -> " + response);
+    InfoResponse response
+      = InfoResponse.newBuilder().setStatus(status).setNodeCount(nodeCount).build();
+    log.info("info(" + source + ") -> " + response);
     responseObserver.onNext(response);
     responseObserver.onCompleted();
   }
