@@ -16,7 +16,7 @@ libsnetclient_a_SOURCES=src/snet_client.cpp \
                         protobuf/snet.grpc.pb.cc \
                         protobuf/snet.pb.cc
 
-bin_PROGRAMS=one_process_test multi_process_test echo_app cli_app
+bin_PROGRAMS=one_process_test multi_process_test echo_app cli_app sensor_app sink_app
 
 one_process_test_CXXFLAGS=$(FLAGS)
 one_process_test_SOURCES=$(UNITY_SOURCE) test/one_process_test.cpp
@@ -34,8 +34,19 @@ cli_app_CXXFLAGS=$(FLAGS)
 cli_app_SOURCES=app/cli/cli_app.cpp
 cli_app_LDADD=$(LIBS)
 
+sensor_app_CXXFLAGS=$(FLAGS)
+sensor_app_SOURCES=app/sensor_sink/sensor_app.cpp
+sensor_app_LDADD=$(LIBS)
+
+sink_app_CXXFLAGS=$(FLAGS)
+sink_app_SOURCES=app/sensor_sink/sink_app.cpp
+sink_app_LDADD=$(LIBS)
+
+.PHONY: apps
+apps: echo_app sensor_app sink_app
+
 .PHONY: test
-test: one_process_test multi_process_test echo_app
+test: one_process_test multi_process_test apps
 	@echo "running one_process_test..."
 	@./one_process_test
 	@echo "running multi_process_test..."
