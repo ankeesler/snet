@@ -9,41 +9,33 @@
 
 #include "protobuf/snet.grpc.pb.h"
 
-class snet_client {
+namespace snet {
+
+enum status {
+  OK,
+  BAD,
+  NONE,
+  RPCERR,
+};
+std::string status_to_str(status s);
+
+enum packet_type {
+  DATA,
+  CMD,
+};
+
+class client {
 public:
-  enum status {
-    OK,
-    BAD,
-    NONE,
-    RPCERR,
-  };
-
-  enum packet_type {
-    DATA,
-    CMD,
-  };
-
-  enum client_type {
+  enum type {
     ADMIN,
     NODE,
   };
 
-  static std::string status_to_str(status s)
-  {
-    switch (s) {
-    case OK: return "OK";
-    case BAD: return "BAD";
-    case NONE: return "NONE";
-    case RPCERR: return "RPCERR";
-    default: return "???";
-    }
-  }
-
-  snet_client(void);
-  snet_client(int);
+  client(void);
+  client(int);
   int get_addr(void) const;
   status reset(void);
-  status init(client_type);
+  status init(type);
   status tx(packet_type, int, const std::string &);
   status rx(int *src_addr, std::string *payload);
   status info(int *node_cnt);
@@ -60,5 +52,7 @@ private:
 
   void init_stub(void);
 };
+
+}; // namespace snet
 
 #endif // __SNET_CLIENT_HPP__

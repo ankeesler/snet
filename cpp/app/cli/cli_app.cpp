@@ -70,24 +70,24 @@ public:
     if (arg_cnt == 1) {
       print_usage();
     } else if (args[1].compare("add") == 0) {
-      snet_node *node = new snet_node();
+      snet::node *node = new snet::node();
       int addr = node->get_addr();
       m_nodes[addr] = node;
       std::cout << "add " << addr << std::endl;
     } else {
       int addr;
       bool correct_addr = get_num(args[1], &addr);
-      std::map<int, snet_node*>::iterator it = m_nodes.find(addr);
+      std::map<int, snet::node*>::iterator it = m_nodes.find(addr);
       if (!correct_addr || it == m_nodes.end()) {
         std::cout << "unknown address: " << args[1] << std::endl;
         print_usage();
       } else if (arg_cnt >= 3) {
-        snet_node *node = it->second;
-        snet_client::status status;
+        snet::node *node = it->second;
+        snet::status status;
         if (args[2].compare("init") == 0) {
           status = node->init();
           std::cout << "init: ";
-          std::cout << snet_client::status_to_str(status);
+          std::cout << snet::status_to_str(status);
           std::cout << std::endl;
         } else if (args[2].compare("tx") == 0) {
           int type, dst;
@@ -100,9 +100,9 @@ public:
             std::cout << "unknown destination: " << args[4] << std::endl;
           } else {
             std::string payload = args[5];
-            status = node->tx((snet_client::packet_type)type, dst, payload);
+            status = node->tx((snet::packet_type)type, dst, payload);
             std::cout << "tx: ";
-            std::cout << snet_client::status_to_str(status);
+            std::cout << snet::status_to_str(status);
             std::cout << std::endl;
           }
         } else if (args[2].compare("rx") == 0) {
@@ -110,8 +110,8 @@ public:
           std::string payload;
           status = node->rx(&src_addr, &payload);
           std::cout << "rx: ";
-          std::cout << snet_client::status_to_str(status);
-          if (status == snet_client::OK) {
+          std::cout << snet::status_to_str(status);
+          if (status == snet::OK) {
             std::cout << ", src: " << src_addr;
             std::cout << ", payload: " << payload;
           }
@@ -119,7 +119,7 @@ public:
         } else if (args[2].compare("reset") == 0) {
           status = node->reset();
           std::cout << "reset: ";
-          std::cout << snet_client::status_to_str(status);
+          std::cout << snet::status_to_str(status);
           std::cout << std::endl;
         } else {
           std::cout << "unknown command: " << args[2] << std::endl;
@@ -147,7 +147,7 @@ private:
   // Hide the default constructor. Callers should use get_instance().
   node_handler(void) { }
 
-  std::map<int, snet_node*> m_nodes;
+  std::map<int, snet::node*> m_nodes;
 };
 
 class admin_handler : public cli::handler {
@@ -175,27 +175,27 @@ public:
       return false;
     }
 
-    snet_client::status status;
+    snet::status status;
     if (arg_cnt == 1) {
       print_usage();
     } else if (args[1].compare("init") == 0) {
       status = m_admin.init();
       std::cout << "init: ";
-      std::cout << snet_client::status_to_str(status);
+      std::cout << snet::status_to_str(status);
       std::cout << std::endl;
     } else if (args[1].compare("info") == 0) {
       int node_cnt;
       status = m_admin.info(&node_cnt);
       std::cout << "info: ";
-      std::cout << snet_client::status_to_str(status);
-      if (status == snet_client::OK) {
+      std::cout << snet::status_to_str(status);
+      if (status == snet::OK) {
         std::cout << ", node_cnt: " << node_cnt;
       }
       std::cout << std::endl;
     } else if (args[1].compare("reset") == 0) {
       status = m_admin.reset();
       std::cout << "reset: ";
-      std::cout << snet_client::status_to_str(status);
+      std::cout << snet::status_to_str(status);
       std::cout << std::endl;
     } else {
       print_usage();
@@ -207,7 +207,7 @@ private:
   // Hide the default constructor. Callers should use get_instance().
   admin_handler(void) { }
 
-  snet_admin m_admin;
+  snet::admin m_admin;
 };
 
 // -------------------------------------

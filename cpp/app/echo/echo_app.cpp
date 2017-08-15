@@ -17,22 +17,22 @@ static void die(const std::string reason)
 
 int main(int argc, char *argv[])
 {
-  snet_client::snet_client client(123);
-  if (client.init(snet_client::NODE) != snet_client::OK) {
+  snet::client client(123);
+  if (client.init(snet::client::NODE) != snet::OK) {
     die("INIT");
   }
 
   while (1) {
     int src;
     std::string payload;
-    snet_client::status stat = client.rx(&src, &payload);
+    snet::status stat = client.rx(&src, &payload);
     switch (stat) {
-      case snet_client::OK:
-        if (client.tx(snet_client::DATA, src, payload) != snet_client::OK) {
+      case snet::status::OK:
+        if (client.tx(snet::DATA, src, payload) != snet::OK) {
           die("TX");
         }
         break;
-      case snet_client::NONE:
+      case snet::NONE:
         sleep(1);
         break;
       default:

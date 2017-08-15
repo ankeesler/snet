@@ -6,7 +6,11 @@
 
 #include "snet_client.hpp"
 
-class snet_node : public snet_client {
+namespace snet {
+
+class node : public client {
 public:
   status init(void);
 };
+
+}; // namespace snet

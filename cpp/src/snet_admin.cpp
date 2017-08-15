@@ -8,7 +8,11 @@
 
 #include "snet_admin.hpp"
 
-snet_admin::status snet_admin::init(void)
+namespace snet {
+
+status admin::init(void)
 {
-  return snet_client::init(snet_client::ADMIN);
+  return client::init(client::ADMIN);
 }
+
+}; // namespace snet

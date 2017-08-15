@@ -8,7 +8,11 @@
 
 #include "snet_node.hpp"
 
-snet_node::status snet_node::init(void)
+namespace snet {
+
+status node::init(void)
 {
-  return snet_client::init(snet_client::NODE);
+  return client::init(client::NODE);
 }
+
+};

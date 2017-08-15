@@ -12,27 +12,40 @@
 
 #include "snet_client.hpp"
 
-const int snet_client::SM_RPC_TIMEOUT_S;
-int snet_client::sm_nxt_src_addr = 0;
+namespace snet {
 
-snet_client::snet_client(void)
+std::string status_to_str(status s)
+{
+  switch (s) {
+  case OK: return "OK";
+  case BAD: return "BAD";
+  case NONE: return "NONE";
+  case RPCERR: return "RPCERR";
+  default: return "???";
+  }
+}
+
+const int client::SM_RPC_TIMEOUT_S;
+int client::sm_nxt_src_addr = 0;
+
+client::client(void)
   : m_nxt_seq(0), m_addr(sm_nxt_src_addr++)
 {
   init_stub();
 }
 
-snet_client::snet_client(int addr)
+client::client(int addr)
   : m_nxt_seq(0), m_addr(addr)
 {
   init_stub();
 }
 
-int snet_client::get_addr(void) const
+int client::get_addr(void) const
 {
   return m_addr;
 }
 
-snet_client::status snet_client::reset(void)
+status client::reset(void)
 {
   grpc::ClientContext ctx;
   make_ctx(&ctx);
@@ -41,36 +54,36 @@ snet_client::status snet_client::reset(void)
   req.set_address(m_addr);
   grpc::Status status = m_stub->Reset(&ctx, req, &rsp);
   return (!status.ok()
-          ? snet_client::RPCERR
+          ? status::RPCERR
           : (rsp.status() != Status::SUCCESS
-             ? snet_client::BAD
-             : snet_client::OK));
+             ? status::BAD
+             : status::OK));
 }
 
-snet_client::status snet_client::init(client_type type)
+status client::init(type type)
 {
   grpc::ClientContext ctx;
   make_ctx(&ctx);
   InitRequest req;
   InitResponse rsp;
-  req.set_type(type == snet_client::ADMIN ? ClientType::ADMIN : ClientType::NODE);
+  req.set_type(type == client::ADMIN ? ClientType::ADMIN : ClientType::NODE);
   req.set_address(m_addr);
   grpc::Status status = m_stub->Init(&ctx, req, &rsp);
   return (!status.ok()
-          ? snet_client::RPCERR
+          ? status::RPCERR
           : (rsp.status() != Status::SUCCESS
-             ? snet_client::BAD
-             : snet_client::OK));
+             ? status::BAD
+             : status::OK));
 }
 
-snet_client::status snet_client::tx(snet_client::packet_type type,
-                                    int dst_addr,
-                                    const std::string &payload)
+status client::tx(packet_type type,
+                  int dst_addr,
+                  const std::string &payload)
 {
   Packet *packet = new Packet();
   packet->set_length(0);
   packet->set_sequence(m_nxt_seq++);
-  packet->set_type(type == snet_client::DATA ? Packet::DATA : Packet::COMMAND);
+  packet->set_type(type == packet_type::DATA ? Packet::DATA : Packet::COMMAND);
   packet->set_source(m_addr);
   packet->set_destination(dst_addr);
   packet->set_payload(payload);
@@ -82,13 +95,13 @@ snet_client::status snet_client::tx(snet_client::packet_type type,
   TxResponse rsp;
   grpc::Status status = m_stub->Tx(&ctx, req, &rsp);
   return (!status.ok()
-          ? snet_client::RPCERR
+          ? status::RPCERR
           : (rsp.status() != Status::SUCCESS
-             ? snet_client::BAD
-             : snet_client::OK));
+             ? status::BAD
+             : status::OK));
 }
 
-snet_client::status snet_client::rx(int *src_addr, std::string *payload)
+status client::rx(int *src_addr, std::string *payload)
 {
   grpc::ClientContext ctx;
   make_ctx(&ctx);
@@ -97,21 +110,21 @@ snet_client::status snet_client::rx(int *src_addr, std::string *payload)
   RxResponse rsp;
   grpc::Status status = m_stub->Rx(&ctx, req, &rsp);
   if (!status.ok()) {
-    return snet_client::RPCERR;
+    return status::RPCERR;
   }
   switch (rsp.status()) {
     case Status::SUCCESS:
       *src_addr = rsp.packet().source();
       *payload = rsp.packet().payload();
-      return snet_client::OK;
+      return status::OK;
     case Status::EMPTY:
-      return snet_client::NONE;
+      return status::NONE;
     default:
-      return snet_client::BAD;
+      return status::BAD;
   }
 }
 
-snet_client::status snet_client::info(int *node_cnt)
+status client::info(int *node_cnt)
 {
   grpc::ClientContext ctx;
   make_ctx(&ctx);
@@ -120,25 +133,25 @@ snet_client::status snet_client::info(int *node_cnt)
   InfoResponse rsp;
   grpc::Status status = m_stub->Info(&ctx, req, &rsp);
   if (!status.ok()) {
-    return snet_client::RPCERR;
+    return status::RPCERR;
   }
   switch (rsp.status()) {
     case Status::SUCCESS:
       *node_cnt = rsp.nodecount();
-      return snet_client::OK;
+      return status::OK;
     default:
-      return snet_client::BAD;
+      return status::BAD;
   }
 }
 
-void snet_client::make_ctx(grpc::ClientContext *ctx)
+void client::make_ctx(grpc::ClientContext *ctx)
 {
   std::chrono::system_clock::time_point deadline =
     std::chrono::system_clock::now() + std::chrono::seconds(SM_RPC_TIMEOUT_S);
   ctx->set_deadline(deadline);
 }
 
-void snet_client::init_stub(void)
+void client::init_stub(void)
 {
   std::shared_ptr<grpc::ChannelInterface> channel
     = grpc::CreateChannel("localhost:12345",
@@ -146,3 +159,5 @@ void snet_client::init_stub(void)
 
   m_stub = SnetService::NewStub(channel);
 }
+
+}; // namespace snet
