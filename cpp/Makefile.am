@@ -43,7 +43,7 @@ sink_app_SOURCES=app/sensor_sink/sink_app.cpp
 sink_app_LDADD=$(LIBS)
 
 .PHONY: apps
-apps: echo_app sensor_app sink_app
+apps: echo_app cli_app sensor_app sink_app
 
 .PHONY: test
 test: one_process_test multi_process_test apps

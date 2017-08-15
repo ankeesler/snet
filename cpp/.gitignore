@@ -18,6 +18,8 @@ one_process_test
 multi_process_test
 echo_app
 cli_app
+sink_app
+sensor_app
 libsnetclient.a
 
 # Huh?
