@@ -8,4 +8,4 @@ To run the network simulator, issue the following command.
 $ ./gradlew run
 ```
 
-See ARCH.md for more cool information.
+See [ARCH.md](ARCH.md) for more cool information.
