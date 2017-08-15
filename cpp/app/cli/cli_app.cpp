@@ -40,6 +40,12 @@ private:
 
 class node_handler : public cli::handler {
 public:
+  static node_handler *get_instance(void)
+  {
+    static node_handler instance;
+    return &instance;
+  }
+
   const std::string usage(void) const
   {
     std::ostringstream oss;
@@ -126,6 +132,7 @@ public:
     }
     return true;
   }
+
 private:
   static bool get_num(const std::string& s, int *addr)
   {
@@ -137,11 +144,20 @@ private:
     return true;
   }
 
+  // Hide the default constructor. Callers should use get_instance().
+  node_handler(void) { }
+
   std::map<int, snet_node*> m_nodes;
 };
 
 class admin_handler : public cli::handler {
 public:
+  static admin_handler *get_instance(void)
+  {
+    static admin_handler instance;
+    return &instance;
+  }
+
   const std::string usage(void) const
   {
     return "admin [init|info|reset]";
@@ -188,6 +204,9 @@ public:
   }
 
 private:
+  // Hide the default constructor. Callers should use get_instance().
+  admin_handler(void) { }
+
   snet_admin m_admin;
 };
 
@@ -196,15 +215,10 @@ private:
 
 int main(int argc, char *argv[])
 {
-  // TODO: make these instance classes.
-  node_handler node_handler0;
-  admin_handler admin_handler0;
-
   cli c("cli> ");
-  c.add_handler(&node_handler0);
-  c.add_handler(&admin_handler0);
+  c.add_handler(node_handler::get_instance());
+  c.add_handler(admin_handler::get_instance());
   c.run();
-
   return 0;
 }
 
