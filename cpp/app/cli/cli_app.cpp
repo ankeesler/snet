@@ -8,8 +8,7 @@
 #include <sstream>
 #include <map>
 
-#include "src/snet_node.hpp"
-#include "src/snet_admin.hpp"
+#include "src/snet_client.hpp"
 
 // ----------------------------------------------------------------------------
 // CLI declaration

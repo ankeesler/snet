@@ -11,8 +11,6 @@ noinst_LIBRARIES=libsnetclient.a
 
 libsnetclient_a_CXXFLAGS=$(FLAGS)
 libsnetclient_a_SOURCES=src/snet_client.cpp \
-                        src/snet_node.cpp \
-                        src/snet_admin.cpp \
                         protobuf/snet.grpc.pb.cc \
                         protobuf/snet.pb.cc
 

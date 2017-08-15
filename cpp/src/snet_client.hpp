@@ -55,6 +55,16 @@ private:
   void init_stub(void);
 };
 
+class node : public client {
+public:
+  status init(void) { return client::init(NODE); }
+};
+
+class admin : public client {
+public:
+  status init(void) { return client::init(ADMIN); }
+};
+
 }; // namespace snet
 
 #endif // __SNET_CLIENT_HPP__

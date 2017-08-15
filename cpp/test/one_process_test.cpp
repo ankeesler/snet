@@ -8,8 +8,6 @@
 #include <vector>
 
 #include "src/snet_client.hpp"
-#include "src/snet_node.hpp"
-#include "src/snet_admin.hpp"
 
 #include "../../../Unity/src/unity.h"
 
