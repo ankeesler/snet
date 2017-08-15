@@ -39,11 +39,11 @@ void tearDown(void)
 static void test(void)
 {
   // Reset the network to start from a known state.
-  snet_client client(1);
-  TEST_ASSERT_EQUAL_INT(client.reset(), snet_client::OK);
+  snet::client client(1);
+  TEST_ASSERT_EQUAL_INT(client.reset(), snet::OK);
 
   // Initialize successfully.
-  TEST_ASSERT_EQUAL_INT(client.init(snet_client::NODE), snet_client::OK);
+  TEST_ASSERT_EQUAL_INT(client.init(snet::client::NODE), snet::OK);
 
   // Wait for the child app to boot.
   sleep(2);
@@ -52,10 +52,10 @@ static void test(void)
   int addr;
   std::string payload;
   const int echo_addr = 123;
-  TEST_ASSERT_EQUAL_INT(client.tx(snet_client::DATA, echo_addr, "hey"),
-                        snet_client::OK);
+  TEST_ASSERT_EQUAL_INT(client.tx(snet::DATA, echo_addr, "hey"),
+                        snet::OK);
   sleep(4);
-  TEST_ASSERT_EQUAL_INT(client.rx(&addr, &payload), snet_client::OK);
+  TEST_ASSERT_EQUAL_INT(client.rx(&addr, &payload), snet::OK);
   TEST_ASSERT_EQUAL_INT(addr, echo_addr);
   TEST_ASSERT_EQUAL_STRING(payload.c_str(), "hey");
 }
