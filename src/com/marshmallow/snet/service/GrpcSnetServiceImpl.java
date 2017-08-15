@@ -75,13 +75,10 @@ public class GrpcSnetServiceImpl extends SnetServiceGrpc.SnetServiceImplBase {
   public void info(InfoRequest request, StreamObserver<InfoResponse> responseObserver) {
     Integer source = request.getSource();
     Status status = validateClient(source, false); // node?
-    int nodeCount = 0;
-    if (status == Status.SUCCESS) {
-      nodeCount = packetQueues.size();
-      status = Status.SUCCESS;
-    }
-    InfoResponse response
-      = InfoResponse.newBuilder().setStatus(status).setNodeCount(nodeCount).build();
+    InfoResponse response = InfoResponse.newBuilder()
+                                        .setStatus(status)
+                                        .addAllAddresses(packetQueues.keySet())
+                                        .build();
     log.info("info(" + source + ") -> " + response);
     responseObserver.onNext(response);
     responseObserver.onCompleted();

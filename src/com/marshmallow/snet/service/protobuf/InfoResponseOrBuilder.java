@@ -17,7 +17,15 @@ public interface InfoResponseOrBuilder extends
   com.marshmallow.snet.service.protobuf.Status getStatus();
 
   /**
-   * <code>int32 nodeCount = 2;</code>
+   * <code>repeated int32 addresses = 3;</code>
    */
-  int getNodeCount();
+  java.util.List<java.lang.Integer> getAddressesList();
+  /**
+   * <code>repeated int32 addresses = 3;</code>
+   */
+  int getAddressesCount();
+  /**
+   * <code>repeated int32 addresses = 3;</code>
+   */
+  int getAddresses(int index);
 }

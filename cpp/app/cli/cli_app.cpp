@@ -184,12 +184,18 @@ public:
       std::cout << snet::status_to_str(status);
       std::cout << std::endl;
     } else if (args[1].compare("info") == 0) {
-      int node_cnt;
-      status = m_admin.info(&node_cnt);
+      std::vector<int> addresses;
+      status = m_admin.info(&addresses);
       std::cout << "info: ";
       std::cout << snet::status_to_str(status);
       if (status == snet::OK) {
-        std::cout << ", node_cnt: " << node_cnt;
+        std::cout << ", nodes: [";
+        for (std::vector<int>::const_iterator it = addresses.cbegin();
+             it != addresses.cend();
+             it++) {
+          std::cout << " " << *it;
+        }
+        std::cout << " ]" << std::endl;
       }
       std::cout << std::endl;
     } else if (args[1].compare("reset") == 0) {

@@ -16,7 +16,7 @@ public  final class InfoResponse extends
   }
   private InfoResponse() {
     status_ = 0;
-    nodeCount_ = 0;
+    addresses_ = java.util.Collections.emptyList();
   }
 
   @java.lang.Override
@@ -50,9 +50,25 @@ public  final class InfoResponse extends
             status_ = rawValue;
             break;
           }
-          case 16: {
-
-            nodeCount_ = input.readInt32();
+          case 24: {
+            if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+              addresses_ = new java.util.ArrayList<java.lang.Integer>();
+              mutable_bitField0_ |= 0x00000002;
+            }
+            addresses_.add(input.readInt32());
+            break;
+          }
+          case 26: {
+            int length = input.readRawVarint32();
+            int limit = input.pushLimit(length);
+            if (!((mutable_bitField0_ & 0x00000002) == 0x00000002) && input.getBytesUntilLimit() > 0) {
+              addresses_ = new java.util.ArrayList<java.lang.Integer>();
+              mutable_bitField0_ |= 0x00000002;
+            }
+            while (input.getBytesUntilLimit() > 0) {
+              addresses_.add(input.readInt32());
+            }
+            input.popLimit(limit);
             break;
           }
         }
@@ -63,6 +79,9 @@ public  final class InfoResponse extends
       throw new com.google.protobuf.InvalidProtocolBufferException(
           e).setUnfinishedMessage(this);
     } finally {
+      if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+        addresses_ = java.util.Collections.unmodifiableList(addresses_);
+      }
       makeExtensionsImmutable();
     }
   }
@@ -78,6 +97,7 @@ public  final class InfoResponse extends
             com.marshmallow.snet.service.protobuf.InfoResponse.class, com.marshmallow.snet.service.protobuf.InfoResponse.Builder.class);
   }
 
+  private int bitField0_;
   public static final int STATUS_FIELD_NUMBER = 1;
   private int status_;
   /**
@@ -94,14 +114,28 @@ public  final class InfoResponse extends
     return result == null ? com.marshmallow.snet.service.protobuf.Status.UNRECOGNIZED : result;
   }
 
-  public static final int NODECOUNT_FIELD_NUMBER = 2;
-  private int nodeCount_;
+  public static final int ADDRESSES_FIELD_NUMBER = 3;
+  private java.util.List<java.lang.Integer> addresses_;
   /**
-   * <code>int32 nodeCount = 2;</code>
+   * <code>repeated int32 addresses = 3;</code>
    */
-  public int getNodeCount() {
-    return nodeCount_;
+  public java.util.List<java.lang.Integer>
+      getAddressesList() {
+    return addresses_;
   }
+  /**
+   * <code>repeated int32 addresses = 3;</code>
+   */
+  public int getAddressesCount() {
+    return addresses_.size();
+  }
+  /**
+   * <code>repeated int32 addresses = 3;</code>
+   */
+  public int getAddresses(int index) {
+    return addresses_.get(index);
+  }
+  private int addressesMemoizedSerializedSize = -1;
 
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
@@ -115,11 +149,16 @@ public  final class InfoResponse extends
 
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
+    getSerializedSize();
     if (status_ != com.marshmallow.snet.service.protobuf.Status.SUCCESS.getNumber()) {
       output.writeEnum(1, status_);
     }
-    if (nodeCount_ != 0) {
-      output.writeInt32(2, nodeCount_);
+    if (getAddressesList().size() > 0) {
+      output.writeUInt32NoTag(26);
+      output.writeUInt32NoTag(addressesMemoizedSerializedSize);
+    }
+    for (int i = 0; i < addresses_.size(); i++) {
+      output.writeInt32NoTag(addresses_.get(i));
     }
   }
 
@@ -132,9 +171,19 @@ public  final class InfoResponse extends
       size += com.google.protobuf.CodedOutputStream
         .computeEnumSize(1, status_);
     }
-    if (nodeCount_ != 0) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(2, nodeCount_);
+    {
+      int dataSize = 0;
+      for (int i = 0; i < addresses_.size(); i++) {
+        dataSize += com.google.protobuf.CodedOutputStream
+          .computeInt32SizeNoTag(addresses_.get(i));
+      }
+      size += dataSize;
+      if (!getAddressesList().isEmpty()) {
+        size += 1;
+        size += com.google.protobuf.CodedOutputStream
+            .computeInt32SizeNoTag(dataSize);
+      }
+      addressesMemoizedSerializedSize = dataSize;
     }
     memoizedSize = size;
     return size;
@@ -153,8 +202,8 @@ public  final class InfoResponse extends
 
     boolean result = true;
     result = result && status_ == other.status_;
-    result = result && (getNodeCount()
-        == other.getNodeCount());
+    result = result && getAddressesList()
+        .equals(other.getAddressesList());
     return result;
   }
 
@@ -167,8 +216,10 @@ public  final class InfoResponse extends
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + STATUS_FIELD_NUMBER;
     hash = (53 * hash) + status_;
-    hash = (37 * hash) + NODECOUNT_FIELD_NUMBER;
-    hash = (53 * hash) + getNodeCount();
+    if (getAddressesCount() > 0) {
+      hash = (37 * hash) + ADDRESSES_FIELD_NUMBER;
+      hash = (53 * hash) + getAddressesList().hashCode();
+    }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -300,8 +351,8 @@ public  final class InfoResponse extends
       super.clear();
       status_ = 0;
 
-      nodeCount_ = 0;
-
+      addresses_ = java.util.Collections.emptyList();
+      bitField0_ = (bitField0_ & ~0x00000002);
       return this;
     }
 
@@ -324,8 +375,15 @@ public  final class InfoResponse extends
 
     public com.marshmallow.snet.service.protobuf.InfoResponse buildPartial() {
       com.marshmallow.snet.service.protobuf.InfoResponse result = new com.marshmallow.snet.service.protobuf.InfoResponse(this);
+      int from_bitField0_ = bitField0_;
+      int to_bitField0_ = 0;
       result.status_ = status_;
-      result.nodeCount_ = nodeCount_;
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        addresses_ = java.util.Collections.unmodifiableList(addresses_);
+        bitField0_ = (bitField0_ & ~0x00000002);
+      }
+      result.addresses_ = addresses_;
+      result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
     }
@@ -370,8 +428,15 @@ public  final class InfoResponse extends
       if (other.status_ != 0) {
         setStatusValue(other.getStatusValue());
       }
-      if (other.getNodeCount() != 0) {
-        setNodeCount(other.getNodeCount());
+      if (!other.addresses_.isEmpty()) {
+        if (addresses_.isEmpty()) {
+          addresses_ = other.addresses_;
+          bitField0_ = (bitField0_ & ~0x00000002);
+        } else {
+          ensureAddressesIsMutable();
+          addresses_.addAll(other.addresses_);
+        }
+        onChanged();
       }
       onChanged();
       return this;
@@ -398,6 +463,7 @@ public  final class InfoResponse extends
       }
       return this;
     }
+    private int bitField0_;
 
     private int status_ = 0;
     /**
@@ -443,28 +509,68 @@ public  final class InfoResponse extends
       return this;
     }
 
-    private int nodeCount_ ;
-    /**
-     * <code>int32 nodeCount = 2;</code>
-     */
-    public int getNodeCount() {
-      return nodeCount_;
+    private java.util.List<java.lang.Integer> addresses_ = java.util.Collections.emptyList();
+    private void ensureAddressesIsMutable() {
+      if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+        addresses_ = new java.util.ArrayList<java.lang.Integer>(addresses_);
+        bitField0_ |= 0x00000002;
+       }
     }
     /**
-     * <code>int32 nodeCount = 2;</code>
+     * <code>repeated int32 addresses = 3;</code>
      */
-    public Builder setNodeCount(int value) {
-      
-      nodeCount_ = value;
+    public java.util.List<java.lang.Integer>
+        getAddressesList() {
+      return java.util.Collections.unmodifiableList(addresses_);
+    }
+    /**
+     * <code>repeated int32 addresses = 3;</code>
+     */
+    public int getAddressesCount() {
+      return addresses_.size();
+    }
+    /**
+     * <code>repeated int32 addresses = 3;</code>
+     */
+    public int getAddresses(int index) {
+      return addresses_.get(index);
+    }
+    /**
+     * <code>repeated int32 addresses = 3;</code>
+     */
+    public Builder setAddresses(
+        int index, int value) {
+      ensureAddressesIsMutable();
+      addresses_.set(index, value);
       onChanged();
       return this;
     }
     /**
-     * <code>int32 nodeCount = 2;</code>
+     * <code>repeated int32 addresses = 3;</code>
      */
-    public Builder clearNodeCount() {
-      
-      nodeCount_ = 0;
+    public Builder addAddresses(int value) {
+      ensureAddressesIsMutable();
+      addresses_.add(value);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated int32 addresses = 3;</code>
+     */
+    public Builder addAllAddresses(
+        java.lang.Iterable<? extends java.lang.Integer> values) {
+      ensureAddressesIsMutable();
+      com.google.protobuf.AbstractMessageLite.Builder.addAll(
+          values, addresses_);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated int32 addresses = 3;</code>
+     */
+    public Builder clearAddresses() {
+      addresses_ = java.util.Collections.emptyList();
+      bitField0_ = (bitField0_ & ~0x00000002);
       onChanged();
       return this;
     }

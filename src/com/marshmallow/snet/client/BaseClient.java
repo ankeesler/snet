@@ -50,6 +50,11 @@ public class BaseClient implements IClient {
   }
 
   @Override
+  public int getAddress() {
+    return this.address;
+  }
+
+  @Override
   public boolean tx(final Packet packet) {
     return (this.stub.tx(TxRequest
                          .newBuilder()

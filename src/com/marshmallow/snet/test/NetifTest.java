@@ -1,5 +1,7 @@
 package com.marshmallow.snet.test;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import com.marshmallow.snet.client.BaseClient;
@@ -48,28 +50,35 @@ public class NetifTest extends TestCase {
     // We should be able to call the INFO API and get a response back.
     InfoResponse infoResponse = admin.info();
     assertNotNull(infoResponse);
-    assertEquals(0, infoResponse.getNodeCount());
+    List<Integer> addresses = infoResponse.getAddressesList();
+    assertEquals(0, addresses.size());
 
     // After we add another client, we get an increased node count.
     IClient client0 = new BaseClient(1, service);
     assertTrue(client0.init(ClientType.NODE));
     infoResponse = admin.info();
     assertNotNull(infoResponse);
-    assertEquals(1, infoResponse.getNodeCount());
+    addresses = infoResponse.getAddressesList();
+    assertEquals(1, addresses.size());
+    assertEquals(addresses.get(0), new Integer(client0.getAddress()));
 
     // After we add another client, we get an increased node count.
     IClient client1 = new BaseClient(2, service);
     assertTrue(client1.init(ClientType.NODE));
     infoResponse = admin.info();
     assertNotNull(infoResponse);
-    assertEquals(2, infoResponse.getNodeCount());
+    addresses = infoResponse.getAddressesList();
+    assertEquals(2, addresses.size());
+    assertEquals(addresses.get(0), new Integer(client0.getAddress()));
+    assertEquals(addresses.get(1), new Integer(client1.getAddress()));
 
     // After we reset the network, the node count goes back to 0.
     assertTrue(client0.reset());
     assertTrue(admin.init(ClientType.ADMIN));
     infoResponse = admin.info();
     assertNotNull(infoResponse);
-    assertEquals(0, infoResponse.getNodeCount());    
+    addresses = infoResponse.getAddressesList();
+    assertEquals(0, addresses.size());    
   }
 
   @Test

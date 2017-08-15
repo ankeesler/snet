@@ -116,7 +116,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(InfoResponse, status_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(InfoResponse, nodecount_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(InfoResponse, addresses_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(InitRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -287,8 +287,8 @@ void AddDescriptorsImpl() {
       "\030\001 \001(\t\"\037\n\014ResetRequest\022\017\n\007address\030\001 \001(\005\""
       "(\n\rResetResponse\022\027\n\006status\030\001 \001(\0162\007.Statu"
       "s\"\035\n\013InfoRequest\022\016\n\006source\030\001 \001(\005\":\n\014Info"
-      "Response\022\027\n\006status\030\001 \001(\0162\007.Status\022\021\n\tnod"
-      "eCount\030\002 \001(\005\"9\n\013InitRequest\022\031\n\004type\030\001 \001("
+      "Response\022\027\n\006status\030\001 \001(\0162\007.Status\022\021\n\tadd"
+      "resses\030\003 \003(\005\"9\n\013InitRequest\022\031\n\004type\030\001 \001("
       "\0162\013.ClientType\022\017\n\007address\030\002 \001(\005\"\'\n\014InitR"
       "esponse\022\027\n\006status\030\001 \001(\0162\007.Status\"\233\001\n\006Pac"
       "ket\022\016\n\006length\030\001 \001(\005\022\020\n\010sequence\030\002 \001(\005\022\032\n"
@@ -1675,7 +1675,7 @@ void InfoRequest::set_source(::google::protobuf::int32 value) {
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int InfoResponse::kStatusFieldNumber;
-const int InfoResponse::kNodeCountFieldNumber;
+const int InfoResponse::kAddressesFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 InfoResponse::InfoResponse()
@@ -1689,17 +1689,15 @@ InfoResponse::InfoResponse()
 InfoResponse::InfoResponse(const InfoResponse& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
+      addresses_(from.addresses_),
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::memcpy(&status_, &from.status_,
-    reinterpret_cast<char*>(&nodecount_) -
-    reinterpret_cast<char*>(&status_) + sizeof(nodecount_));
+  status_ = from.status_;
   // @@protoc_insertion_point(copy_constructor:InfoResponse)
 }
 
 void InfoResponse::SharedCtor() {
-  ::memset(&status_, 0, reinterpret_cast<char*>(&nodecount_) -
-    reinterpret_cast<char*>(&status_) + sizeof(nodecount_));
+  status_ = 0;
   _cached_size_ = 0;
 }
 
@@ -1736,8 +1734,8 @@ InfoResponse* InfoResponse::New(::google::protobuf::Arena* arena) const {
 
 void InfoResponse::Clear() {
 // @@protoc_insertion_point(message_clear_start:InfoResponse)
-  ::memset(&status_, 0, reinterpret_cast<char*>(&nodecount_) -
-    reinterpret_cast<char*>(&status_) + sizeof(nodecount_));
+  addresses_.Clear();
+  status_ = 0;
 }
 
 bool InfoResponse::MergePartialFromCodedStream(
@@ -1765,14 +1763,18 @@ bool InfoResponse::MergePartialFromCodedStream(
         break;
       }
 
-      // int32 nodeCount = 2;
-      case 2: {
+      // repeated int32 addresses = 3;
+      case 3: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(16u)) {
-
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+            static_cast< ::google::protobuf::uint8>(26u)) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &nodecount_)));
+                 input, this->mutable_addresses())));
+        } else if (static_cast< ::google::protobuf::uint8>(tag) ==
+                   static_cast< ::google::protobuf::uint8>(24u)) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 1, 26u, input, this->mutable_addresses())));
         } else {
           goto handle_unusual;
         }
@@ -1812,9 +1814,14 @@ void InfoResponse::SerializeWithCachedSizes(
       1, this->status(), output);
   }
 
-  // int32 nodeCount = 2;
-  if (this->nodecount() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->nodecount(), output);
+  // repeated int32 addresses = 3;
+  if (this->addresses_size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteTag(3, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
+    output->WriteVarint32(_addresses_cached_byte_size_);
+  }
+  for (int i = 0, n = this->addresses_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32NoTag(
+      this->addresses(i), output);
   }
 
   // @@protoc_insertion_point(serialize_end:InfoResponse)
@@ -1832,9 +1839,16 @@ void InfoResponse::SerializeWithCachedSizes(
       1, this->status(), target);
   }
 
-  // int32 nodeCount = 2;
-  if (this->nodecount() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->nodecount(), target);
+  // repeated int32 addresses = 3;
+  if (this->addresses_size() > 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
+      3,
+      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+      target);
+    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
+      _addresses_cached_byte_size_, target);
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteInt32NoTagToArray(this->addresses_, target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:InfoResponse)
@@ -1845,17 +1859,25 @@ size_t InfoResponse::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:InfoResponse)
   size_t total_size = 0;
 
+  // repeated int32 addresses = 3;
+  {
+    size_t data_size = ::google::protobuf::internal::WireFormatLite::
+      Int32Size(this->addresses_);
+    if (data_size > 0) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
+    }
+    int cached_size = ::google::protobuf::internal::ToCachedSize(data_size);
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _addresses_cached_byte_size_ = cached_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    total_size += data_size;
+  }
+
   // .Status status = 1;
   if (this->status() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->status());
-  }
-
-  // int32 nodeCount = 2;
-  if (this->nodecount() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->nodecount());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -1887,11 +1909,9 @@ void InfoResponse::MergeFrom(const InfoResponse& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  addresses_.MergeFrom(from.addresses_);
   if (from.status() != 0) {
     set_status(from.status());
-  }
-  if (from.nodecount() != 0) {
-    set_nodecount(from.nodecount());
   }
 }
 
@@ -1918,8 +1938,8 @@ void InfoResponse::Swap(InfoResponse* other) {
   InternalSwap(other);
 }
 void InfoResponse::InternalSwap(InfoResponse* other) {
+  addresses_.InternalSwap(&other->addresses_);
   std::swap(status_, other->status_);
-  std::swap(nodecount_, other->nodecount_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
@@ -1945,18 +1965,34 @@ void InfoResponse::set_status(::Status value) {
   // @@protoc_insertion_point(field_set:InfoResponse.status)
 }
 
-// int32 nodeCount = 2;
-void InfoResponse::clear_nodecount() {
-  nodecount_ = 0;
+// repeated int32 addresses = 3;
+int InfoResponse::addresses_size() const {
+  return addresses_.size();
 }
-::google::protobuf::int32 InfoResponse::nodecount() const {
-  // @@protoc_insertion_point(field_get:InfoResponse.nodeCount)
-  return nodecount_;
+void InfoResponse::clear_addresses() {
+  addresses_.Clear();
 }
-void InfoResponse::set_nodecount(::google::protobuf::int32 value) {
-  
-  nodecount_ = value;
-  // @@protoc_insertion_point(field_set:InfoResponse.nodeCount)
+::google::protobuf::int32 InfoResponse::addresses(int index) const {
+  // @@protoc_insertion_point(field_get:InfoResponse.addresses)
+  return addresses_.Get(index);
+}
+void InfoResponse::set_addresses(int index, ::google::protobuf::int32 value) {
+  addresses_.Set(index, value);
+  // @@protoc_insertion_point(field_set:InfoResponse.addresses)
+}
+void InfoResponse::add_addresses(::google::protobuf::int32 value) {
+  addresses_.Add(value);
+  // @@protoc_insertion_point(field_add:InfoResponse.addresses)
+}
+const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+InfoResponse::addresses() const {
+  // @@protoc_insertion_point(field_list:InfoResponse.addresses)
+  return addresses_;
+}
+::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+InfoResponse::mutable_addresses() {
+  // @@protoc_insertion_point(field_mutable_list:InfoResponse.addresses)
+  return &addresses_;
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

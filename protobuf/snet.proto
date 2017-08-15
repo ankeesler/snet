@@ -39,7 +39,7 @@ message InfoRequest {
 
 message InfoResponse {
   Status status = 1;
-  int32 nodeCount = 2;
+  repeated int32 addresses = 3;
 }
 
 message InitRequest {

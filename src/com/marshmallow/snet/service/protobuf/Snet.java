@@ -93,8 +93,8 @@ public final class Snet {
       "\030\001 \001(\t\"\037\n\014ResetRequest\022\017\n\007address\030\001 \001(\005\"" +
       "(\n\rResetResponse\022\027\n\006status\030\001 \001(\0162\007.Statu" +
       "s\"\035\n\013InfoRequest\022\016\n\006source\030\001 \001(\005\":\n\014Info" +
-      "Response\022\027\n\006status\030\001 \001(\0162\007.Status\022\021\n\tnod" +
-      "eCount\030\002 \001(\005\"9\n\013InitRequest\022\031\n\004type\030\001 \001(" +
+      "Response\022\027\n\006status\030\001 \001(\0162\007.Status\022\021\n\tadd" +
+      "resses\030\003 \003(\005\"9\n\013InitRequest\022\031\n\004type\030\001 \001(" +
       "\0162\013.ClientType\022\017\n\007address\030\002 \001(\005\"\'\n\014InitR" +
       "esponse\022\027\n\006status\030\001 \001(\0162\007.Status\"\233\001\n\006Pac" +
       "ket\022\016\n\006length\030\001 \001(\005\022\020\n\010sequence\030\002 \001(\005\022\032\n",
@@ -164,7 +164,7 @@ public final class Snet {
     internal_static_InfoResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_InfoResponse_descriptor,
-        new java.lang.String[] { "Status", "NodeCount", });
+        new java.lang.String[] { "Status", "Addresses", });
     internal_static_InitRequest_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_InitRequest_fieldAccessorTable = new

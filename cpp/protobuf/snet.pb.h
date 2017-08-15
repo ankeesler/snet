@@ -634,24 +634,31 @@ class InfoResponse : public ::google::protobuf::Message /* @@protoc_insertion_po
 
   // accessors -------------------------------------------------------
 
+  // repeated int32 addresses = 3;
+  int addresses_size() const;
+  void clear_addresses();
+  static const int kAddressesFieldNumber = 3;
+  ::google::protobuf::int32 addresses(int index) const;
+  void set_addresses(int index, ::google::protobuf::int32 value);
+  void add_addresses(::google::protobuf::int32 value);
+  const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+      addresses() const;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+      mutable_addresses();
+
   // .Status status = 1;
   void clear_status();
   static const int kStatusFieldNumber = 1;
   ::Status status() const;
   void set_status(::Status value);
 
-  // int32 nodeCount = 2;
-  void clear_nodecount();
-  static const int kNodeCountFieldNumber = 2;
-  ::google::protobuf::int32 nodecount() const;
-  void set_nodecount(::google::protobuf::int32 value);
-
   // @@protoc_insertion_point(class_scope:InfoResponse)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int32 > addresses_;
+  mutable int _addresses_cached_byte_size_;
   int status_;
-  ::google::protobuf::int32 nodecount_;
   mutable int _cached_size_;
   friend struct protobuf_protobuf_2fsnet_2eproto::TableStruct;
 };
@@ -1494,18 +1501,34 @@ inline void InfoResponse::set_status(::Status value) {
   // @@protoc_insertion_point(field_set:InfoResponse.status)
 }
 
-// int32 nodeCount = 2;
-inline void InfoResponse::clear_nodecount() {
-  nodecount_ = 0;
+// repeated int32 addresses = 3;
+inline int InfoResponse::addresses_size() const {
+  return addresses_.size();
 }
-inline ::google::protobuf::int32 InfoResponse::nodecount() const {
-  // @@protoc_insertion_point(field_get:InfoResponse.nodeCount)
-  return nodecount_;
+inline void InfoResponse::clear_addresses() {
+  addresses_.Clear();
 }
-inline void InfoResponse::set_nodecount(::google::protobuf::int32 value) {
-  
-  nodecount_ = value;
-  // @@protoc_insertion_point(field_set:InfoResponse.nodeCount)
+inline ::google::protobuf::int32 InfoResponse::addresses(int index) const {
+  // @@protoc_insertion_point(field_get:InfoResponse.addresses)
+  return addresses_.Get(index);
+}
+inline void InfoResponse::set_addresses(int index, ::google::protobuf::int32 value) {
+  addresses_.Set(index, value);
+  // @@protoc_insertion_point(field_set:InfoResponse.addresses)
+}
+inline void InfoResponse::add_addresses(::google::protobuf::int32 value) {
+  addresses_.Add(value);
+  // @@protoc_insertion_point(field_add:InfoResponse.addresses)
+}
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+InfoResponse::addresses() const {
+  // @@protoc_insertion_point(field_list:InfoResponse.addresses)
+  return addresses_;
+}
+inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+InfoResponse::mutable_addresses() {
+  // @@protoc_insertion_point(field_mutable_list:InfoResponse.addresses)
+  return &addresses_;
 }
 
 // -------------------------------------------------------------------

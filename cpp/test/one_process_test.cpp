@@ -5,6 +5,7 @@
 //
 
 #include <iostream>
+#include <vector>
 
 #include "src/snet_client.hpp"
 #include "src/snet_node.hpp"
@@ -67,9 +68,9 @@ static void test_client(void)
   TEST_ASSERT_EQUAL_INT(client1.rx(&src_addr, &rx_payload), snet::NONE);
 
   // Nodes cannot call the info RPC API.
-  int node_cnt;
-  TEST_ASSERT_EQUAL_INT(client0.info(&node_cnt), snet::BAD);
-  TEST_ASSERT_EQUAL_INT(client1.info(&node_cnt), snet::BAD);
+  std::vector<int> addresses;
+  TEST_ASSERT_EQUAL_INT(client0.info(&addresses), snet::BAD);
+  TEST_ASSERT_EQUAL_INT(client1.info(&addresses), snet::BAD);
 }
 
 static void test_node(void)
@@ -130,9 +131,9 @@ static void test_node(void)
   TEST_ASSERT_EQUAL_INT(node3.rx(&src_addr, &rx_payload), snet::NONE);
 
   // Nodes cannot call the info RPC API.
-  int node_cnt;
-  TEST_ASSERT_EQUAL_INT(node2.info(&node_cnt), snet::BAD);
-  TEST_ASSERT_EQUAL_INT(node3.info(&node_cnt), snet::BAD);
+  std::vector<int> addresses;
+  TEST_ASSERT_EQUAL_INT(node2.info(&addresses), snet::BAD);
+  TEST_ASSERT_EQUAL_INT(node3.info(&addresses), snet::BAD);
 }
 
 static void test_admin(void)
@@ -178,19 +179,25 @@ static void test_admin(void)
   TEST_ASSERT_EQUAL_INT(admin6.rx(&src_addr, &rx_payload), snet::BAD);
 
   // The admin should successfully get info from the network.
-  int node_cnt;
-  TEST_ASSERT_EQUAL_INT(admin6.info(&node_cnt), snet::OK);
-  TEST_ASSERT_EQUAL_INT(node_cnt, 0);
+  std::vector<int> addresses;
+  addresses.clear();
+  TEST_ASSERT_EQUAL_INT(admin6.info(&addresses), snet::OK);
+  TEST_ASSERT_EQUAL_INT(addresses.size(), 0);
 
   // After a node joins the network, the node count should increase to 1.
+  addresses.clear();
   TEST_ASSERT_EQUAL_INT(node4.init(), snet::OK);
-  TEST_ASSERT_EQUAL_INT(admin6.info(&node_cnt), snet::OK);
-  TEST_ASSERT_EQUAL_INT(node_cnt, 1);
+  TEST_ASSERT_EQUAL_INT(admin6.info(&addresses), snet::OK);
+  TEST_ASSERT_EQUAL_INT(addresses.size(), 1);
+  TEST_ASSERT_EQUAL_INT(addresses[0], 4);
 
   // After another node joins the network, the node count should increase to 1.
+  addresses.clear();
   TEST_ASSERT_EQUAL_INT(node5.init(), snet::OK);
-  TEST_ASSERT_EQUAL_INT(admin6.info(&node_cnt), snet::OK);
-  TEST_ASSERT_EQUAL_INT(node_cnt, 2);
+  TEST_ASSERT_EQUAL_INT(admin6.info(&addresses), snet::OK);
+  TEST_ASSERT_EQUAL_INT(addresses.size(), 2);
+  TEST_ASSERT_EQUAL_INT(addresses[0], 4);
+  TEST_ASSERT_EQUAL_INT(addresses[1], 5);
 }
 
 int main(int argc, char *argv[])

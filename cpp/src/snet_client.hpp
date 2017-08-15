@@ -7,6 +7,8 @@
 #ifndef __SNET_CLIENT_HPP__
 #define __SNET_CLIENT_HPP__
 
+#include <vector>
+
 #include "protobuf/snet.grpc.pb.h"
 
 namespace snet {
@@ -38,7 +40,7 @@ public:
   status init(type);
   status tx(packet_type, int, const std::string &);
   status rx(int *src_addr, std::string *payload);
-  status info(int *node_cnt);
+  status info(std::vector<int> *addresses);
 
 private:
   static const int SM_RPC_TIMEOUT_S = 1;

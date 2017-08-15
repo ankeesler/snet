@@ -5,6 +5,7 @@
 //
 
 #include <string>
+#include <vector>
 #include <grpc++/create_channel.h>
 
 #include "protobuf/snet.grpc.pb.h"
@@ -124,7 +125,7 @@ status client::rx(int *src_addr, std::string *payload)
   }
 }
 
-status client::info(int *node_cnt)
+status client::info(std::vector<int> *addresses)
 {
   grpc::ClientContext ctx;
   make_ctx(&ctx);
@@ -136,9 +137,12 @@ status client::info(int *node_cnt)
     return status::RPCERR;
   }
   switch (rsp.status()) {
-    case Status::SUCCESS:
-      *node_cnt = rsp.nodecount();
+    case Status::SUCCESS: {
+      for (int index = 0; index < rsp.addresses_size(); index++) {
+        addresses->push_back(rsp.addresses(index));
+      }
       return status::OK;
+    }
     default:
       return status::BAD;
   }

@@ -7,6 +7,8 @@ import com.marshmallow.snet.service.protobuf.Packet;
 public interface IClient {
   public String getName();
 
+  public int getAddress();
+
   public boolean init(ClientType clientType);
 
   public boolean tx(final Packet packet);
