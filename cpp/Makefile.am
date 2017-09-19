@@ -5,6 +5,7 @@ LIBS=/usr/local/lib/libgrpc++_unsecure.a \
      /usr/local/lib/libcares.a \
      /usr/lib/libz.dylib \
      libsnetclient.a
+# TODO: get rid of automake leftovers in Unity.
 UNITY_SOURCE=test/Unity/src/unity.c
 
 noinst_LIBRARIES=libsnetclient.a

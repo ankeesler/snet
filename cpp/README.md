@@ -14,6 +14,8 @@ Here is the directory structure.
 
 Building
 -------
+TODO: add homebrew dependencies.
+
 In order to run the tests, issue the following command.
 ```make
 make test
