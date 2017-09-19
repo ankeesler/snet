@@ -10,7 +10,7 @@
 #include <signal.h>
 
 #include "src/snet_client.hpp"
-#include "../../../Unity/src/unity.h"
+#include "Unity/src/unity.h"
 
 #define ECHO_APP "echo_app"
 

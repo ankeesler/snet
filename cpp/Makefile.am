@@ -5,7 +5,7 @@ LIBS=/usr/local/lib/libgrpc++_unsecure.a \
      /usr/local/lib/libcares.a \
      /usr/lib/libz.dylib \
      libsnetclient.a
-UNITY_SOURCE=../../Unity/src/unity.c
+UNITY_SOURCE=test/Unity/src/unity.c
 
 noinst_LIBRARIES=libsnetclient.a
 
