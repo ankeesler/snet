@@ -19,10 +19,16 @@ apply plugin: 'application'
 
 apply plugin: 'checkstyle'
 
-def protobufJavaDir = '/Users/agkeesle/Developer/me/protobuf/java'
-def grpcJavaDir = '/Users/agkeesle/Developer/me/grpc-java'
-def javaGenDir = 'src/com/marshmallow/snet/service/protobuf'
-def cppGenDir = 'cpp/protobuf'
+apply plugin: 'com.google.protobuf'
+
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.3'
+  }
+}
 
 repositories {
   mavenLocal()
@@ -30,43 +36,19 @@ repositories {
 }
 
 dependencies {
-  compile group: 'com.google.guava', name: 'guava',         version: '22.0'
-  compile group: 'io.grpc',          name: 'grpc-netty',    version: '1.5.0-SNAPSHOT'
-  compile group: 'io.grpc',          name: 'grpc-protobuf', version: '1.5.0-SNAPSHOT'
-  compile group: 'io.grpc',          name: 'grpc-stub',     version: '1.5.0-SNAPSHOT'
+  compile group: 'com.google.guava',    name: 'guava',         version: '22.0'
+  compile group: 'com.google.protobuf', name: 'protobuf-java', version: '3.4.0'
+  compile group: 'io.grpc',             name: 'grpc-netty',    version: '1.5.0-SNAPSHOT'
+  compile group: 'io.grpc',             name: 'grpc-protobuf', version: '1.5.0-SNAPSHOT'
+  compile group: 'io.grpc',             name: 'grpc-stub',     version: '1.5.0-SNAPSHOT'
 
-  testCompile group: 'junit', name: 'junit', version: '4.12'
+  compile group: 'junit', name: 'junit', version: '4.12'
 
   runtime group: 'io.netty', name: 'netty-all', version: '4.1.11.Final'
 }
 
 // Define the main class for the application
 mainClassName = 'com.marshmallow.snet.app.SnetApp'
-
-task cleanGenJava(type: Delete) {
-  delete javaGenDir
-}
-
-task cleanGenCpp(type: Delete) {
-  delete fileTree(dir: 'cpp/protobuf', includes: ['*.cc', '*.h'])
-}
-
-task genJava(type: Exec, dependsOn: cleanGenJava) {
-  description 'Generates protobuf and grpc Java code using protobuf compiler.'
-  commandLine "/Users/agkeesle/Developer/me/protobuf/src/protoc",
-              "--plugin=protoc-gen-grpc-java=/Users/agkeesle/Developer/me/grpc-java/compiler/build/exe/java_plugin/protoc-gen-grpc-java",
-              "--java_out=src",
-              "--grpc-java_out=src",
-              "protobuf/snet.proto"
-}
-
-task genCpp(type: Exec, dependsOn: cleanGenCpp) {
-  commandLine "/usr/local/bin/protoc",
-              "--plugin=protoc-gen-grpc=/usr/local/bin/grpc_cpp_plugin",
-              "--cpp_out=cpp",
-              "--grpc_out=cpp",
-              "protobuf/snet.proto"
-}
 
 task testCpp(type: Exec) {
   description 'Run the C++ SNET Client unit test.'
@@ -81,23 +63,78 @@ task cleanCpp(type: Exec) {
 
 clean.dependsOn(cleanCpp)
 
-task gen(dependsOn: [genJava, genCpp])
+def protobufDirectory = 'protobuf'
 
 sourceSets {
   main {
     java {
-      srcDirs = ['src']
-      exclude 'com/marshmallow/snet/test/**'
+      exclude 'src/main/java/com/marshmallow/snet/test/**'
+    }
+    proto {
+      srcDirs = [protobufDirectory]
     }
   }
   test {
-    java {
-      srcDirs = ['src']
-    }
     resources {
       srcDirs = ['cfg']
     }
   }
+}
+
+// Protobuf plugin configuration
+protobuf {
+
+  generatedFilesBaseDir = "src"
+
+  // Pull in the Protocol Buffers compiler
+  protoc {
+    artifact = 'com.google.protobuf:protoc:3.0.0'
+  }
+
+  // Pull in the Java gRPC Protocol Buffers plugin
+  plugins {
+    grpc {
+      artifact = 'io.grpc:protoc-gen-grpc-java:1.0.0-pre2'
+    }
+  }
+
+  // Configure what actually runs when we generate from our .proto files
+  generateProtoTasks {
+    all().each { task ->
+      task.builtins {
+        // Run Java source code generation
+        java { }
+      }
+      task.plugins {
+        // Run gRPC source code generation
+        grpc {
+          // Use the same subdirectory as the protobuf code for legacy reasons
+          outputSubDir = "java"
+        }
+      }
+
+      // Have this task depend on our custom task for generating C++ code
+      // There is currently no C++ gRPC plugin that can be downloaded with gradle
+      task.dependsOn(generateCppProtobuf)
+    }
+  }
+}
+
+// C++ Protocol Buffer generation tasks
+
+task cleanGenCpp(type: Delete) {
+  description 'Delete C++ Google Protocol Buffer and gRPC generated code'
+  delete fileTree(dir: 'cpp/protobuf', includes: ['*.cc', '*.h'])
+}
+
+task generateCppProtobuf(type: Exec, dependsOn: cleanGenCpp) {
+  description 'Generate C++ Google Protocol Buffer and gRPC code'
+  // TODO: stop using this hardcoded path!
+  commandLine "/usr/local/bin/protoc",
+              "--plugin=protoc-gen-grpc=/usr/local/bin/grpc_cpp_plugin",
+              "--cpp_out=cpp",
+              "--grpc_out=cpp",
+              protobufDirectory + "/snet.proto"
 }
 
 checkstyle {
