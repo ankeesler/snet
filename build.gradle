@@ -117,7 +117,9 @@ protobuf {
 
       // Have this task depend on our custom task for generating C++ code
       // There is currently no C++ gRPC plugin that can be downloaded with gradle
-      task.dependsOn(generateCppProtobuf)
+      if (project.hasProperty("doGenerateCppProtobuf")) {
+        task.dependsOn(generateCppProtobuf)
+      }
     }
   }
 }
@@ -131,8 +133,8 @@ task cleanGenCpp(type: Delete) {
 
 task generateCppProtobuf(type: Exec, dependsOn: cleanGenCpp) {
   description 'Generate C++ Google Protocol Buffer and gRPC code'
-  // TODO: stop using this hardcoded path!
-  commandLine "/usr/local/bin/protoc",
+  // TODO: we should use the artifact that we downloaded!
+  commandLine "protoc",
               "--plugin=protoc-gen-grpc=/usr/local/bin/grpc_cpp_plugin",
               "--cpp_out=cpp",
               "--grpc_out=cpp",
