@@ -78,6 +78,7 @@ sourceSets {
   }
   test {
     java {
+      //  Use the same source directory as the main source set; this is the way it has been
       srcDirs = ['src/main/java']
     }
     resources {
